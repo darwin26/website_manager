@@ -4,6 +4,8 @@
 //Website: http://designwithpc.com
 //Twitter: http://twitter.com/chaudharyp
 
+var firstRun = true;
+
 (function ($) {
 
     $.fn.ddslick = function (method) {
@@ -234,17 +236,22 @@
         pluginData.selectedItem = selectedLiItem;
         pluginData.selectedData = selectedData;
 
-        //If set to display to full html, add html
-        if (settings.showSelectedHTML) {
-            ddSelected.html(
-                    (selectedData.imageSrc ? '<img class="dd-selected-image' + (settings.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + selectedData.imageSrc + '" />' : '') +
-                    (selectedData.text ? '<label class="dd-selected-text">' + selectedData.text + '</label>' : '') +
-                    (selectedData.description ? '<small class="dd-selected-description dd-desc' + (settings.truncateDescription ? ' dd-selected-description-truncated' : '') + '" >' + selectedData.description + '</small>' : '')
-                );
+		if (firstRun) {
+		    //If set to display to full html, add html
+		    if (settings.showSelectedHTML) {
+		        ddSelected.html(
+		                (selectedData.imageSrc ? '<img class="dd-selected-image' + (settings.imagePosition == "right" ? ' dd-image-right' : '') + '" src="' + selectedData.imageSrc + '" />' : '') +
+		                (selectedData.text ? '<label class="dd-selected-text">' + selectedData.text + '</label>' : '') +
+		                (selectedData.description ? '<small class="dd-selected-description dd-desc' + (settings.truncateDescription ? ' dd-selected-description-truncated' : '') + '" >' + selectedData.description + '</small>' : '')
+		            );
 
-        }
-            //Else only display text as selection
-        else ddSelected.html(selectedData.text);
+		    } else {
+				//Else only display text as selection
+				ddSelected.html(selectedData.text);
+			}
+
+			firstRun = false;
+		}
 
         //Updating selected option value
         ddSelectedValue.val(selectedData.value);
