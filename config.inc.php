@@ -18,12 +18,23 @@ if ($REX['REDAXO']) {
 	// add lang file
 	$I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/website_manager/lang/');
 
+	// add subpages
+	$REX['ADDON']['website_manager']['SUBPAGES'] = array(
+		array('', $I18N->msg('website_manager_websites')),
+		array('styles', $I18N->msg('website_manager_styles')),
+		array('tools', $I18N->msg('website_manager_tools')),
+		array('setup', $I18N->msg('website_manager_setup')),
+		array('help', $I18N->msg('website_manager_help'))
+	);
+
 	if (rex_request('page') != '') { // login
 		// add css/js to page header
 		rex_register_extension('PAGE_HEADER', 'rex_website_manager_utils::appendToPageHeader');
 
-		// add website select and other stuff
-		rex_register_extension('OUTPUT_FILTER', 'rex_website_manager_utils::addToOutputFilter');
+		if (rex_request('install') != '1') { // this shoudn't go off when addon gets installed
+			// add website select and other stuff
+			rex_register_extension('OUTPUT_FILTER', 'rex_website_manager_utils::addToOutputFilter');
+		}
 
 		// frontend link in meta menu 
 		if ($REX['ADDON']['rexseo42']['settings']['show_metamenu_frontend_link']) {

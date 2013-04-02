@@ -1,3 +1,8 @@
 website_manager_help_file_msg = Ein Multidomain AddOn für REDAXO 4.5+
 website_manager_frontend_link = zur Website
+website_manager_websites = Websites
+website_manager_styles = Styles
+website_manager_tools = Tools
+website_manager_setup = Setup
+website_manager_help = Hilfe
 

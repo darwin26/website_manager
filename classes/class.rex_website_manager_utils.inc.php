@@ -161,4 +161,28 @@ class rex_website_manager_utils {
 
 		fclose($fileHandle);
 	}
+
+	public static function sanitizeUrl($url) {
+		return preg_replace('@^https?://|/.*|[^\w.-]@', '', $url);
+	}
+
+	public static function getFormValues($form, $fields) {
+		$values = array();
+
+		$elements = $form->getFieldsetElements();
+
+		foreach($elements as $fieldsetName => $fieldsetElements) {
+			foreach($fieldsetElements as $field) {
+				if (in_array($field->getFieldName(), $fields)) {
+					$values[$field->getFieldName()] = $field->getValue();
+				}
+			}
+		}
+
+		return $values;
+	}
+
+	public static function getLastInsertedId($sql) {
+		return $sql->last_insert_id;
+	}
 }
