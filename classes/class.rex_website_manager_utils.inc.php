@@ -125,4 +125,40 @@ class rex_website_manager_utils {
 	
 		return $params['subject'] . PHP_EOL . $insert;
 	}
+
+	public static function clangFix($params) {
+		global $REX;
+
+		// get clangs from db
+		$sql = new rex_sql();
+		//$sql->debugsql = true;
+		$sql->setQuery('SELECT * FROM `' . $REX['TABLE_PREFIX'] . 'clang`');
+
+		unset($REX['CLANG']);
+
+		for ($i = 0; $i < $sql->getRows(); $i++) {
+			$REX['CLANG'][$sql->getValue('id')] = $sql->getValue('name');
+
+			$sql->next();
+		}
+
+		// write clangs to website specific clang file
+		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getClangFile();
+
+		if (!file_exists($clangFile)) {
+			self::createDynFile($clangFile);
+		}
+
+	  	rex_replace_dynamic_contents($clangFile, "\$REX['CLANG'] = ". var_export($REX['CLANG'], TRUE) .";\n");
+	}
+
+	protected static function createDynFile($file) {
+		$fileHandle = fopen($file, 'w');
+
+		fwrite($fileHandle, "<?php\r\n");
+		fwrite($fileHandle, "// --- DYN\r\n");
+		fwrite($fileHandle, "// --- /DYN\r\n");
+
+		fclose($fileHandle);
+	}
 }

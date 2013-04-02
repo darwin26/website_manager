@@ -15,6 +15,7 @@ class rex_website {
 	const mediaDir = 'files';
 	const generatedDir = 'generated';
 	const settingsFile = 'settings.inc.php';
+	const clangFile = 'settings.clang.inc.php';
 
 	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $dbName, $style, $tablePrefix = 'rex_', $protocol = 'http') {
 		$this->id = $id;
@@ -76,6 +77,14 @@ class rex_website {
 			return self::settingsFile;
 		} else {
 			return str_replace('.inc.php', '' . $this->id . '.inc.php', self::settingsFile);
+		}
+	}
+
+	public function getClangFile() {
+		if ($this->id == self::firstId) {
+			return self::clangFile;
+		} else {
+			return str_replace('clang', 'clang' . $this->id, self::clangFile);
 		}
 	}
 

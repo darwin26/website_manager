@@ -29,4 +29,4 @@ siehe [LICENSE.md](LICENSE.md)
 Credits
 -------
 
-* [gharlan](https://github.com/gharlan), [polarpixel](https://github.com/polarpixel)
+* [polarpixel](https://github.com/polarpixel), [gharlan](https://github.com/gharlan)

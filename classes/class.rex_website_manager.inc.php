@@ -53,7 +53,14 @@ class rex_website_manager {
 		}
 
 		$this->setCurrentWebsiteId($websiteId);
+		$this->fixClang();
 		$this->setRexVars();
+	}
+
+	protected function fixClang() {
+		global $REX;
+
+		require($REX['INCLUDE_PATH'] . '/addons/website_manager/' . $this->getCurrentWebsite()->getClangFile());
 	}
 
 	protected function getWebsiteIdForFrontend() {
