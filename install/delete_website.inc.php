@@ -1,7 +1,13 @@
 <?php
 
 $tablePrefix = 'rex' . $website_uninstall['id'] . '_';
+$generatedDir = 'generated' . $website_uninstall['id'];
+$filesDir = 'files' . $website_uninstall['id'];
 $dbName = $website_uninstall['db_name'];
+
+// ***************************************************************************************************
+// database tables
+// ***************************************************************************************************
 
 $sql = rex_sql::factory();
 
@@ -17,5 +23,25 @@ $sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'module_action');
 $sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'template');
 $sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'action');
 
-echo $sql->getError();
+// ***************************************************************************************************
+// direcories
+// ***************************************************************************************************
+
+$includePath = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/') . '/';
+
+rex_website_manager_utils::rrmdir($includePath . $generatedDir);
+
+$includePath = realpath($REX['HTDOCS_PATH']) . '/';
+
+rex_website_manager_utils::rrmdir($includePath . $filesDir);
+
+// ***************************************************************************************************
+// addons
+// ***************************************************************************************************
+
+$tables = $sql->showTables(1, $tablePrefix);
+
+for ($i = 0; $i < count($tables); $i++) {
+	$sql->setQuery('DROP TABLE ' . $dbName . '.' . $tables[$i]);
+}
 

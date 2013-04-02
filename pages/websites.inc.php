@@ -34,7 +34,7 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 	$website_uninstall['db_name'] = $params['form']->params['db_name'];
 
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/delete_website.inc.php');
-	exit;
+
 	return true;
 });
 

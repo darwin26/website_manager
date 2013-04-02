@@ -1,7 +1,13 @@
 <?php
 
 $tablePrefix = 'rex' . $website_install['id'] . '_';
+$generatedDir = 'generated' . $website_install['id'];
+$filesDir = 'files' . $website_install['id'];
 $dbName = $website_install['db_name'];
+
+// ***************************************************************************************************
+// database tables
+// ***************************************************************************************************
 
 $sql = rex_sql::factory();
 
@@ -24,4 +30,49 @@ $sql->setQuery('CREATE VIEW ' . $tablePrefix . 'module_action AS SELECT * FROM '
 $sql->setQuery('CREATE VIEW ' . $tablePrefix . 'template AS SELECT * FROM ' . $dbName . '.rex_template');
 $sql->setQuery('CREATE VIEW ' . $tablePrefix . 'action AS SELECT * FROM ' . $dbName . '.rex_action');
 
-echo $sql->getError();
+// ***************************************************************************************************
+// direcories
+// ***************************************************************************************************
+
+$includePath = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/') . '/';
+
+mkdir($includePath . $generatedDir, $REX['DIRPERM']);
+mkdir($includePath . $generatedDir . '/articles', $REX['DIRPERM']);
+mkdir($includePath . $generatedDir . '/files', $REX['DIRPERM']);
+mkdir($includePath . $generatedDir . '/templates', $REX['DIRPERM']);
+
+$includePath = realpath($REX['HTDOCS_PATH']) . '/';
+
+mkdir($includePath . $filesDir, $REX['DIRPERM']);
+
+// ***************************************************************************************************
+// addons
+// ***************************************************************************************************
+
+$reinstallAddons = $REX['ADDON']['rexseo42']['settings']['reinstall_addons'];
+
+$REX['DB']['1']['NAME'] = $dbName;
+$REX['TABLE_PREFIX'] = $tablePrefix;
+$REX['GENERATED_PATH'] = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $generatedDir);
+
+print_r($reinstallAddons);
+
+global $curAddonCount, $I18N, $REX;
+
+for ($curAddonCount = 0; $curAddonCount < count($reinstallAddons); $curAddonCount++) {
+	if (OOAddon::isInstalled($reinstallAddons[$curAddonCount])) {
+		require_once($REX['INCLUDE_PATH'] . '/addons/' . $reinstallAddons[$curAddonCount] . '/install.inc.php');
+
+		$sqlFile = $REX['INCLUDE_PATH'] . '/addons/' . $reinstallAddons[$curAddonCount] . '/install.sql';
+	
+		if (file_exists($sqlFile)) {
+			rex_install_dump($sqlFile);
+		}
+	}
+}
+
+$REX['DB']['1']['NAME'] = $REX['WEBSITE_MANAGER']->getWebsite(1)->getDatabaseName();
+$REX['TABLE_PREFIX'] = $REX['WEBSITE_MANAGER']->getWebsite(1)->getTablePrefix();
+$REX['GENERATED_PATH'] = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $REX['WEBSITE_MANAGER']->getWebsite(1)->getGeneratedDir());
+
+

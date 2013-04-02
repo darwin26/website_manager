@@ -185,4 +185,16 @@ class rex_website_manager_utils {
 	public static function getLastInsertedId($sql) {
 		return $sql->last_insert_id;
 	}
+
+	public static function rrmdir($dir) {
+		foreach(glob($dir . '/*') as $file) {
+		    if (is_dir($file)) {
+		        self::rrmdir($file);
+			} else {
+		        unlink($file);
+			}
+		}
+
+		rmdir($dir);
+	}
 }
