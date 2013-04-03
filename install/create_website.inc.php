@@ -49,12 +49,10 @@ mkdir($includePath . $filesDir, $REX['DIRPERM']);
 // addons
 // ***************************************************************************************************
 
-$reinstallAddons = $REX['ADDON']['rexseo42']['settings']['reinstall_addons'];
+$reinstallAddons = $REX['ADDON']['website_manager']['settings']['reinstall_addons'];
 
 $REX['TABLE_PREFIX'] = $tablePrefix;
 $REX['GENERATED_PATH'] = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $generatedDir);
-
-print_r($reinstallAddons);
 
 global $curAddonCount, $I18N, $REX;
 

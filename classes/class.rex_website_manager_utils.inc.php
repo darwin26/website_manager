@@ -18,7 +18,7 @@ class rex_website_manager_utils {
 		}
 
 		// website name frontend link
-		if ($REX['ADDON']['rexseo42']['settings']['show_website_name_frontend_link']) {
+		if ($REX['ADDON']['website_manager']['settings']['show_website_name_frontend_link']) {
 			$params['subject']  = str_replace('<div id="rex-extra">', '<div id="rex-extra">' . self::getWebsiteNameFrontendLink(), $params['subject']);
 		}
 
@@ -111,7 +111,7 @@ class rex_website_manager_utils {
 
 		$insert = '<!-- BEGIN website_manager -->' . PHP_EOL;
 
-		if ($REX['ADDON']['rexseo42']['settings']['show_color_bar']) { 
+		if ($REX['ADDON']['website_manager']['settings']['show_color_bar']) { 
 			$insert .= '<style>#rex-navi-logout { border-bottom: 10px solid ' . $curWbesiteStyle->getColor() . '; }</style>' . PHP_EOL;
 		}
 
