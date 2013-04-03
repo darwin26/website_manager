@@ -6,7 +6,6 @@ class rex_website {
 	protected $startArticleId;
 	protected $notFoundArticleId;
 	protected $defaultTemplateId;
-	protected $dbName;
 	protected $style;
 	protected $tablePrefix;
 	protected $protocol;
@@ -17,14 +16,13 @@ class rex_website {
 	const settingsFile = 'settings.inc.php';
 	const clangFile = 'init.clang.inc.php';
 
-	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $dbName, $style, $tablePrefix = 'rex_', $protocol = 'http') {
+	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $style, $tablePrefix = 'rex_', $protocol = 'http') {
 		$this->id = $id;
 		$this->domain = $domain;
 		$this->title = $title;
 		$this->startArticleId = $startArticleId;
 		$this->notFoundArticleId = $notFoundArticleId;
 		$this->defaultTemplateId = $defaultTemplateId;
-		$this->dbName = $dbName;
 		$this->style = $style;
 		$this->tablePrefix = $tablePrefix;
 		$this->protocol = $protocol;
@@ -94,10 +92,6 @@ class rex_website {
 		} else {
 			return str_replace('clang', 'clang' . $websiteId, self::clangFile);
 		}
-	}
-
-	public function getDatabaseName() {
-		return $this->dbName;
 	}
 
 	public function getStyle() {

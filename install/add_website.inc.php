@@ -19,11 +19,11 @@ $sql->setQuery('ALTER TABLE ' . $tablePrefix . 'article_slice ADD INDEX `id` (`i
 $sql->setQuery('ALTER TABLE ' . $tablePrefix . 'file ADD INDEX `re_file_id` (`re_file_id`), ADD INDEX `category_id` (`category_id`);');
 $sql->setQuery('ALTER TABLE ' . $tablePrefix . 'file_category DROP PRIMARY KEY, ADD PRIMARY KEY (`id`), ADD INDEX `re_id` (`re_id`);');
 
-$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'user AS SELECT * FROM ' . $dbName . '.rex_user');
-$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'module AS SELECT * FROM ' . $dbName . '.rex_module');
-$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'module_action AS SELECT * FROM ' . $dbName . '.rex_module_action');
-$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'template AS SELECT * FROM ' . $dbName . '.rex_template');
-$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'action AS SELECT * FROM ' . $dbName . '.rex_action');
+$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'user AS SELECT * FROM rex_user');
+$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'module AS SELECT * FROM rex_module');
+$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'module_action AS SELECT * FROM rex_module_action');
+$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'template AS SELECT * FROM rex_template');
+$sql->setQuery('CREATE VIEW ' . $tablePrefix . 'action AS SELECT * FROM rex_action');
 
 // ***************************************************************************************************
 // directories
@@ -46,7 +46,6 @@ mkdir($includePath . $filesDir, $REX['DIRPERM']);
 
 $reinstallAddons = $REX['ADDON']['rexseo42']['settings']['reinstall_addons'];
 
-$REX['DB']['1']['NAME'] = $dbName;
 $REX['TABLE_PREFIX'] = $tablePrefix;
 $REX['GENERATED_PATH'] = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $generatedDir);
 
@@ -66,7 +65,6 @@ for ($curAddonCount = 0; $curAddonCount < count($reinstallAddons); $curAddonCoun
 	}
 }
 
-$REX['DB']['1']['NAME'] = $REX['WEBSITE_MANAGER']->getWebsite(1)->getDatabaseName();
 $REX['TABLE_PREFIX'] = $REX['WEBSITE_MANAGER']->getWebsite(1)->getTablePrefix();
 $REX['GENERATED_PATH'] = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $REX['WEBSITE_MANAGER']->getWebsite(1)->getGeneratedDir());
 

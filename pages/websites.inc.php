@@ -14,15 +14,10 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 
 	if ($status == 'website_added') {
 		// first time added
-		$formValues = rex_website_manager_utils::getFormValues($params['form'], array('db_name'));
-		$website_install['db_name'] = $formValues['db_name'];
-		$website_install['id'] = rex_website_manager_utils::getLastInsertedId($params['sql']);
-
-		$websiteId = $website_install['id'];
-		$tablePrefix = 'rex' . $website_install['id'] . '_';
-		$generatedDir = 'generated' . $website_install['id'];
-		$filesDir = 'files' . $website_install['id'];
-		$dbName = $website_install['db_name'];
+		$websiteId = rex_website_manager_utils::getLastInsertedId($params['sql']);
+		$tablePrefix = 'rex' . $websiteId . '_';
+		$generatedDir = 'generated' . $websiteId;
+		$filesDir = 'files' . $websiteId;
 
 		// update table prefix in db
 		$sql = new rex_sql();
@@ -47,13 +42,10 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 rex_register_extension('REX_FORM_DELETED', function ($params) {
 	global $REX;
 
-	$website_uninstall['id'] = $params['form']->params['website_id'];
-	$website_uninstall['db_name'] = $params['form']->params['db_name'];
-
-	$tablePrefix = 'rex' . $website_uninstall['id'] . '_';
-	$generatedDir = 'generated' . $website_uninstall['id'];
-	$filesDir = 'files' . $website_uninstall['id'];
-	$dbName = $website_uninstall['db_name'];
+	$websiteId = rex_website_manager_utils::getLastInsertedId($params['form']->params['website_id']);
+	$tablePrefix = 'rex' . $websiteId . '_';
+	$generatedDir = 'generated' . $websiteId;
+	$filesDir = 'files' . $websiteId;
 
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/delete_website.inc.php');
 
@@ -86,7 +78,6 @@ if ($func == '') {
 	$list->removeColumn('start_article_id');
 	$list->removeColumn('notfound_article_id');
 	$list->removeColumn('default_template_id');
-	$list->removeColumn('db_name');
 	$list->removeColumn('table_prefix');
 	$list->removeColumn('protocol');
 	$list->removeColumn('style_id');
@@ -175,22 +166,7 @@ if ($func == '') {
 	$select->addSqlOptions($query);
 
 	if ($func == 'edit') {
-		$field =& $form->addTextField('db_name');
-	} else {
-		$field =& $form->addTextField('db_name', $REX['WEBSITE_MANAGER']->getWebsite(1)->getDatabaseName());
-	}
-	$field->setLabel('Datenbank-Name');
-	$field->setAttribute('id', 'db_name');
-
-	if ($func == 'edit') {
 		$form->addParam('website_id', $website_id);
-
-		$query = 'SELECT name as label, id FROM rex_website_style';
-		$sql = rex_sql::factory();
-		//$sql->debugsql = true;
-		$sql->setQuery('SELECT db_name from rex_website WHERE id = ' . $website_id);
-
-		$form->addParam('db_name', $sql->getValue('db_name'));
 	} elseif ($func == 'add') {
 		$form->addParam('status', 'website_added');
 	}

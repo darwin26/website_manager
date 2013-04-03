@@ -109,8 +109,7 @@ class rex_website_manager {
 		$REX['DEFAULT_TEMPLATE_ID'] = $curWebsite->getDefaultTemplateId();
 		$REX['MEDIA_DIR'] = $curWebsite->getMediaDir();
 		$REX['GENERATED_PATH'] = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $curWebsite->getGeneratedDir()); // path needs to exist, otherwise realpath won't return correct path
-		$REX['MEDIAFOLDER'] = realpath($REX['HTDOCS_PATH'] . $curWebsite->getMediaDir()); 
-		$REX['DB']['1']['NAME'] = $curWebsite->getDatabaseName();
+		$REX['MEDIAFOLDER'] = realpath($REX['HTDOCS_PATH'] . $curWebsite->getMediaDir());
 		$REX['TABLE_PREFIX'] = $curWebsite->getTablePrefix();
 	}
 
@@ -129,7 +128,7 @@ class rex_website_manager {
 		$sql->setQuery('SELECT * from rex_website');
 
 		for ($i = 0; $i < $sql->getRows(); $i++) {
-			$initContent .= '$REX[\'WEBSITE_MANAGER\']->addWebsite(new rex_website(' . $sql->getValue('id') . ', \'' . $sql->getValue('domain') . '\', \'' . $sql->getValue('title') . '\', ' . $sql->getValue('start_article_id') . ', ' . $sql->getValue('notfound_article_id') . ', ' . $sql->getValue('default_template_id') . ', \'' . $sql->getValue('db_name') . '\', $websiteStyles[0], \'' . $sql->getValue('table_prefix') . '\', \'' . $sql->getValue('protocol') . '\'));' . PHP_EOL;
+			$initContent .= '$REX[\'WEBSITE_MANAGER\']->addWebsite(new rex_website(' . $sql->getValue('id') . ', \'' . $sql->getValue('domain') . '\', \'' . $sql->getValue('title') . '\', ' . $sql->getValue('start_article_id') . ', ' . $sql->getValue('notfound_article_id') . ', ' . $sql->getValue('default_template_id') . ', $websiteStyles[' . $i . '], \'' . $sql->getValue('table_prefix') . '\', \'' . $sql->getValue('protocol') . '\'));' . PHP_EOL;
 			$sql->next();	
 		}
 

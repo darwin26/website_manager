@@ -15,14 +15,11 @@ $sql->setQuery('CREATE TABLE IF NOT EXISTS `rex_website` (
 	`start_article_id` int(11) NOT NULL,
 	`notfound_article_id` int(11) NOT NULL,
 	`default_template_id` int(11) NOT NULL,
-	`db_name` varchar(255) NOT NULL,
 	`table_prefix` varchar(255) NOT NULL,
 	`protocol` varchar(255) NOT NULL,
 	`style_id` int(11) NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;');
-
-$sql->setQuery('INSERT INTO `rex_website` VALUES (1, "' . rex_website_manager_utils::sanitizeUrl($REX['SERVER']) . '", "' . $REX['SERVERNAME'] . '", ' . $REX['START_ARTICLE_ID'] . ', ' . $REX['NOTFOUND_ARTICLE_ID'] . ', ' . $REX['DEFAULT_TEMPLATE_ID'] . ', "' . $REX['DB']['1']['NAME'] . '", "' . $REX['TABLE_PREFIX'] . '", "' . $defaultProtocol  . '", ' . $defaultStyleId . ')');                                                                                
 
 $sql->setQuery('CREATE TABLE IF NOT EXISTS `rex_website_style` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,

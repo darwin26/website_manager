@@ -6,17 +6,17 @@
 
 $sql = rex_sql::factory();
 
-$sql->setQuery('DROP TABLE ' . $dbName . '.' . $tablePrefix . 'article');
-$sql->setQuery('DROP TABLE ' . $dbName . '.' . $tablePrefix . 'article_slice');
-$sql->setQuery('DROP TABLE ' . $dbName . '.' . $tablePrefix . 'clang');
-$sql->setQuery('DROP TABLE ' . $dbName . '.' . $tablePrefix . 'file');
-$sql->setQuery('DROP TABLE ' . $dbName . '.' . $tablePrefix . 'file_category');
+$sql->setQuery('DROP TABLE ' $tablePrefix . 'article');
+$sql->setQuery('DROP TABLE ' $tablePrefix . 'article_slice');
+$sql->setQuery('DROP TABLE ' $tablePrefix . 'clang');
+$sql->setQuery('DROP TABLE ' $tablePrefix . 'file');
+$sql->setQuery('DROP TABLE ' $tablePrefix . 'file_category');
 
-$sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'user');
-$sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'module');
-$sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'module_action');
-$sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'template');
-$sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'action');
+$sql->setQuery('DROP VIEW ' $tablePrefix . 'user');
+$sql->setQuery('DROP VIEW ' $tablePrefix . 'module');
+$sql->setQuery('DROP VIEW ' $tablePrefix . 'module_action');
+$sql->setQuery('DROP VIEW ' $tablePrefix . 'template');
+$sql->setQuery('DROP VIEW ' $tablePrefix . 'action');
 
 // ***************************************************************************************************
 // directories
@@ -37,6 +37,6 @@ rex_website_manager_utils::rrmdir($includePath . $filesDir);
 $tables = $sql->showTables(1, $tablePrefix);
 
 for ($i = 0; $i < count($tables); $i++) {
-	$sql->setQuery('DROP TABLE ' . $dbName . '.' . $tables[$i]);
+	$sql->setQuery('DROP TABLE ' . $tables[$i]);
 }
 
