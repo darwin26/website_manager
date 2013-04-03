@@ -9,12 +9,14 @@ class rex_website {
 	protected $style;
 	protected $tablePrefix;
 	protected $protocol;
+	protected $permission;
 
 	const firstId = 1;
 	const mediaDir = 'files';
 	const generatedDir = 'generated';
 	const tablePrefix = 'rex_';
 	const clangFile = 'init.clang.inc.php';
+	const permissionPrefix = 'website';
 
 	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $style, $tablePrefix = 'rex_', $protocol = 'http') {
 		$this->id = $id;
@@ -26,6 +28,8 @@ class rex_website {
 		$this->style = $style;
 		$this->tablePrefix = $tablePrefix;
 		$this->protocol = $protocol;
+
+		$this->permission = self::permissionPrefix . '[' . $domain . ']';
 	}
 
 	public function getId() {
@@ -78,6 +82,10 @@ class rex_website {
 
 	public function getUrl() {
 		return $this->getProtocol() . '://' . $this->getDomain() . '/';
+	}
+
+	public function getPermission() {
+		return $this->permission;
 	}
 
 	public function generateAll() {

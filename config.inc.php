@@ -29,6 +29,9 @@ if ($REX['REDAXO']) {
 	);
 
 	if (rex_request('page') != '') { // login
+		// check permissions
+		$REX['WEBSITE_MANAGER']->checkPermissions();
+
 		// add css/js to page header
 		rex_register_extension('PAGE_HEADER', 'rex_website_manager_utils::appendToPageHeader');
 

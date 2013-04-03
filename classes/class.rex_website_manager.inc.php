@@ -36,25 +36,37 @@ class rex_website_manager {
 		return $this->websites[$this->currentWebsiteId];
 	}
 
-	public function init() {
+	public function init($websiteId = 0) {
 		global $REX;
 
-		if (rex_request('rex_img_file') != '') {
-			// at the moment: all image manager files will be in first dir if backend
-			$websiteId = $this->getWebsiteIdForFrontend();
-		} else {
-			if ($REX['REDAXO']) {
-				// backend
-				$websiteId = $this->getWebsiteIdForBackend();
-			} else {
-				// frontend
+		if ($websiteId == 0) {
+			// detect website id
+			if (rex_request('rex_img_file') != '') {
+				// at the moment: all image manager files will be in first dir if backend
 				$websiteId = $this->getWebsiteIdForFrontend();
+			} else {
+				if ($REX['REDAXO']) {
+					// backend
+					$websiteId = $this->getWebsiteIdForBackend();
+				} else {
+					// frontend
+					$websiteId = $this->getWebsiteIdForFrontend();
+				}
 			}
 		}
 
 		$this->setCurrentWebsiteId($websiteId);
 		$this->setRexVars();
 		$this->includeClangFile();
+		$this->setWebsitePermissions();
+	}
+
+	protected function setWebsitePermissions() {
+		global $REX;
+
+		foreach ($this->websites as $website) {
+			$REX['EXTRAPERM'][] = $website->getPermission();
+		}
 	}
 
 	protected function includeClangFile() {
@@ -116,6 +128,32 @@ class rex_website_manager {
 	public function generateAll() {
 		foreach ($this->websites as $website) {
 			$website->generateAll();
+		}
+	}
+
+	public function checkPermissions() {
+		global $REX;
+
+		if (isset($REX['USER']) && $REX['USER']->isAdmin() || isset($REX['USER']) && $REX['USER']->hasPerm($this->getCurrentWebsite()->getPermission())) {
+			// do nothing, everything is already set properly
+		} else {
+			$websiteId = 0;
+
+			foreach ($this->websites as $website) {
+				if (isset($REX['USER']) && $REX['USER']->hasPerm($website->getPermission())) {
+					// permission for user found
+					$websiteId = $website->getId();
+					break;
+				}
+			}
+
+			if ($websiteId > 0) {
+				// start up with correct website for user
+				$this->init($websiteId);
+			} else {
+				// user has no rights
+				header('Location:index.php?rex_logout=1'); // how to display msg to user at this point?
+			}
 		}
 	}
 
