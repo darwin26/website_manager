@@ -28,7 +28,7 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 		rex_website_manager::createClangFile($websiteId);
 
 		// add tables, folders and addon stuff
-		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/add_website.inc.php');
+		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/create_website.inc.php');
 	} else {
 		// form updated
 	}
@@ -47,7 +47,7 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 	$generatedDir = rex_website::constructGeneratedDir($websiteId);
 	$filesDir = rex_website::constructMediaDir($websiteId);
 
-	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/delete_website.inc.php');
+	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/destroy_website.inc.php');
 
 	$REX['WEBSITE_MANAGER']->updateInitFile();
 
