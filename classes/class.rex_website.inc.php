@@ -80,6 +80,22 @@ class rex_website {
 		return $this->getProtocol() . '://' . $this->getDomain() . '/';
 	}
 
+	public function generateAll() {
+		global $REX;
+
+		// backup rex var
+		$tempGeneratedPath = $REX['GENERATED_PATH'];
+
+		// set path for current website
+		$REX['GENERATED_PATH'] = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $this->getGeneratedDir());
+
+		// generate all
+		rex_generateAll();
+
+		// restore rex var
+		$REX['GENERATED_PATH'] = $tempGeneratedPath;
+	}
+
 	public static function constructGeneratedDir($websiteId) {
 		if ($websiteId == self::firstId) {
 			return self::generatedDir;

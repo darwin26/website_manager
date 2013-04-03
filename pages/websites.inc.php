@@ -81,7 +81,7 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$list->setColumnParams('domain', array('func' => 'edit', 'website_id' => '###id###'));
 
 	// icon column
-	$thIcon = '<a class="rex-i-element rex-i-generic-add" href="'. $list->getUrl(array('func' => 'add')) .'"><span class="rex-i-element-text">Issuu PDF erstellen</span></a>';
+	$thIcon = '<a class="rex-i-element rex-i-generic-add" href="'. $list->getUrl(array('func' => 'add')) .'"><span class="rex-i-element-text">Website erstellen</span></a>';
 	$tdIcon = '<span class="rex-i-element rex-i-generic"><span class="rex-i-element-text">###name###</span></span>';
 	$list->addColumn($thIcon, $tdIcon, 0, array('<th class="rex-icon">###VALUE###</th>','<td class="rex-icon">###VALUE###</td>'));
 	$list->setColumnParams($thIcon, array('func' => 'edit', 'website_id' => '###id###'));
@@ -121,10 +121,8 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 } elseif ($func == 'add' || $func == 'edit' && $website_id > 0) {
 	if ($func == 'edit') {
 		$formLabel = 'Website bearbeiten';
-		$form->addParam('website_id', $website_id);
 	} elseif ($func == 'add') {
 		$formLabel = 'Website anlegen';
-		$form->addParam('status', 'website_added');
 	}
 
 	$form = rex_form::factory('rex_website', $formLabel, 'id=' . $website_id);
@@ -159,6 +157,12 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$select->setSize(1);
 	$query = 'SELECT name as label, id FROM rex_website_style';
 	$select->addSqlOptions($query);
+
+	if ($func == 'edit') {
+		$form->addParam('website_id', $website_id);
+	} elseif ($func == 'add') {
+		$form->addParam('status', 'website_added');
+	}
 
 	$form->show();
 }
