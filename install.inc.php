@@ -2,8 +2,10 @@
 
 require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_website_manager_utils.inc.php');
 
-$defaultProtocol = 'http';
-$defaultStyleId = 1;
+$firstWebsiteId = 1;
+$firstWebsiteProtocol = 'http';
+$firstWebsiteStyleId = 1;
+$firstTablePrefix = 'rex_';
 
 $sql = new rex_sql();
 //$sql->debugsql = true;
@@ -20,6 +22,8 @@ $sql->setQuery('CREATE TABLE IF NOT EXISTS `rex_website` (
 	`style_id` int(11) NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;');
+
+$sql->setQuery('INSERT INTO `rex_website` VALUES (1, "' . rex_website_manager_utils::sanitizeUrl($REX['SERVER']) . '", "' . $REX['SERVERNAME'] . '", ' . $REX['START_ARTICLE_ID'] . ', ' . $REX['NOTFOUND_ARTICLE_ID'] . ', ' . $REX['DEFAULT_TEMPLATE_ID'] . ', "' . $firstTablePrefix . '", "' . $firstWebsiteProtocol  . '", ' . $firstWebsiteStyleId . ')');                                                                                
 
 $sql->setQuery('CREATE TABLE IF NOT EXISTS `rex_website_style` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -38,6 +42,9 @@ $sql->setQuery('INSERT INTO `rex_website_style` VALUES (5, "orange", "website5.i
 $error = $sql->getError();
 
 if ($error == '') {
+	rex_website_manager::updateInitFile();
+	rex_website_manager::fixClang(null);
+
 	$REX['ADDON']['install']['website_manager'] = 1;
 } else {
 	$REX['ADDON']['installmsg']['website_manager'] = $error;

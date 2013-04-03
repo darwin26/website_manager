@@ -1,22 +1,27 @@
 <?php
 
+if ($websiteId == 1) {
+	echo rex_warning('Website mit ID = 1 darf nicht gelöscht werden!'); // just for security reasons
+	exit;
+}
+
 // ***************************************************************************************************
 // database tables
 // ***************************************************************************************************
 
 $sql = rex_sql::factory();
 
-$sql->setQuery('DROP TABLE ' $tablePrefix . 'article');
-$sql->setQuery('DROP TABLE ' $tablePrefix . 'article_slice');
-$sql->setQuery('DROP TABLE ' $tablePrefix . 'clang');
-$sql->setQuery('DROP TABLE ' $tablePrefix . 'file');
-$sql->setQuery('DROP TABLE ' $tablePrefix . 'file_category');
+$sql->setQuery('DROP TABLE ' . $tablePrefix . 'article');
+$sql->setQuery('DROP TABLE ' . $tablePrefix . 'article_slice');
+$sql->setQuery('DROP TABLE ' . $tablePrefix . 'clang');
+$sql->setQuery('DROP TABLE ' . $tablePrefix . 'file');
+$sql->setQuery('DROP TABLE ' . $tablePrefix . 'file_category');
 
-$sql->setQuery('DROP VIEW ' $tablePrefix . 'user');
-$sql->setQuery('DROP VIEW ' $tablePrefix . 'module');
-$sql->setQuery('DROP VIEW ' $tablePrefix . 'module_action');
-$sql->setQuery('DROP VIEW ' $tablePrefix . 'template');
-$sql->setQuery('DROP VIEW ' $tablePrefix . 'action');
+$sql->setQuery('DROP VIEW ' . $tablePrefix . 'user');
+$sql->setQuery('DROP VIEW ' . $tablePrefix . 'module');
+$sql->setQuery('DROP VIEW ' . $tablePrefix . 'module_action');
+$sql->setQuery('DROP VIEW ' . $tablePrefix . 'template');
+$sql->setQuery('DROP VIEW ' . $tablePrefix . 'action');
 
 // ***************************************************************************************************
 // directories

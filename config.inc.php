@@ -45,7 +45,7 @@ if ($REX['REDAXO']) {
 		rex_register_extension('PAGE_CONTENT_MENU', 'rex_website_manager_utils::fixArticlePreviewLink');
 
 		// fix clang
-		rex_register_extension('CLANG_ADDED', 'rex_website_manager_utils::clangFix');
-		rex_register_extension('CLANG_DELETED', 'rex_website_manager_utils::clangFix');
+		rex_register_extension('CLANG_ADDED', 'rex_website_manager::fixClang');
+		rex_register_extension('CLANG_DELETED', 'rex_website_manager::fixClang');
 	}
 }

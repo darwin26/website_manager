@@ -53,11 +53,11 @@ class rex_website_manager {
 		}
 
 		$this->setCurrentWebsiteId($websiteId);
-		$this->fixClang();
 		$this->setRexVars();
+		$this->includeClangFile();
 	}
 
-	protected function fixClang() {
+	protected function includeClangFile() {
 		global $REX;
 
 		require($REX['INCLUDE_PATH'] . '/addons/website_manager/' . $this->getCurrentWebsite()->getClangFile());
@@ -113,7 +113,7 @@ class rex_website_manager {
 		$REX['TABLE_PREFIX'] = $curWebsite->getTablePrefix();
 	}
 
-	public function updateInitFile() {
+	public static function updateInitFile() {
 		global $REX;
 
 		$initFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/init.inc.php';
@@ -133,6 +133,44 @@ class rex_website_manager {
 		}
 
 	  	rex_replace_dynamic_contents($initFile, $initContent);
+	}
+
+	public static function fixClang($params) {
+		global $REX;
+
+		// get clangs from db
+		$sql = new rex_sql();
+		//$sql->debugsql = true;
+		$sql->setQuery('SELECT * FROM `' . $REX['TABLE_PREFIX'] . 'clang`');
+
+		unset($REX['CLANG']);
+
+		for ($i = 0; $i < $sql->getRows(); $i++) {
+			$REX['CLANG'][$sql->getValue('id')] = $sql->getValue('name');
+
+			$sql->next();
+		}
+
+		// write clangs to website specific clang file
+		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getClangFile();
+
+		if (!file_exists($clangFile)) {
+			rex_website_manager_utils::createDynFile($clangFile);
+		}
+
+	  	rex_replace_dynamic_contents($clangFile, "\$REX['CLANG'] = ". var_export($REX['CLANG'], TRUE) .";\n");
+	}
+
+	public static function createClangFile($websiteId) {
+		global $REX;
+
+		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . rex_website::constructClangFile($websiteId);
+
+		if (!file_exists($clangFile)) {
+			rex_website_manager_utils::createDynFile($clangFile);
+		}
+
+	  	rex_replace_dynamic_contents($clangFile, "\$REX['CLANG'] = array (0 => 'deutsch');");
 	}
 }
 

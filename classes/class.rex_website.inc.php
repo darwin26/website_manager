@@ -13,7 +13,7 @@ class rex_website {
 	const firstId = 1;
 	const mediaDir = 'files';
 	const generatedDir = 'generated';
-	const settingsFile = 'settings.inc.php';
+	const tablePrefix = 'rex_';
 	const clangFile = 'init.clang.inc.php';
 
 	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $style, $tablePrefix = 'rex_', $protocol = 'http') {
@@ -53,45 +53,15 @@ class rex_website {
 	}
 
 	public function getGeneratedDir() {
-		if ($this->id == self::firstId) {
-			// first website has normal generated dir
-			return self::generatedDir;
-		} else {
-			// all other have generated2, generated3, etc.
-			return self::generatedDir . $this->id;
-		}
+		return self::constructGeneratedDir($this->id);
 	}
 
 	public function getMediaDir() {
-		if ($this->id == self::firstId) {
-			return self::mediaDir;
-		} else {
-			return self::mediaDir . $this->id;
-		}
-	}
-
-	public function getSettingsFile() {
-		if ($this->id == self::firstId) {
-			return self::settingsFile;
-		} else {
-			return str_replace('.inc.php', '' . $this->id . '.inc.php', self::settingsFile);
-		}
+		return self::constructMediaDir($this->id);
 	}
 
 	public function getClangFile() {
-		if ($this->id == self::firstId) {
-			return self::clangFile;
-		} else {
-			return str_replace('clang', 'clang' . $this->id, self::clangFile);
-		}
-	}
-
-	public static function _getClangFile($websiteId) {
-		if ($websiteId == self::firstId) {
-			return self::clangFile;
-		} else {
-			return str_replace('clang', 'clang' . $websiteId, self::clangFile);
-		}
+		return self::constructClangFile($this->id);
 	}
 
 	public function getStyle() {
@@ -108,5 +78,37 @@ class rex_website {
 
 	public function getUrl() {
 		return $this->getProtocol() . '://' . $this->getDomain() . '/';
+	}
+
+	public static function constructGeneratedDir($websiteId) {
+		if ($websiteId == self::firstId) {
+			return self::generatedDir;
+		} else {
+			return self::generatedDir . $websiteId;
+		}
+	}
+
+	public static function constructMediaDir($websiteId) {
+		if ($websiteId == self::firstId) {
+			return self::mediaDir;
+		} else {
+			return self::mediaDir . $websiteId;
+		}
+	}
+
+	public static function constructClangFile($websiteId) {
+		if ($websiteId == self::firstId) {
+			return self::clangFile;
+		} else {
+			return str_replace('clang', 'clang' . $websiteId, self::clangFile);
+		}
+	}
+
+	public static function constructTablePrefix($websiteId) {
+		if ($websiteId == self::firstId) {
+			return self::tablePrefix;
+		} else {
+			return str_replace('_', $websiteId . '_', self::tablePrefix);
+		}
 	}
 }

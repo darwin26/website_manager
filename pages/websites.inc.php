@@ -15,9 +15,9 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 	if ($status == 'website_added') {
 		// first time added
 		$websiteId = rex_website_manager_utils::getLastInsertedId($params['sql']);
-		$tablePrefix = 'rex' . $websiteId . '_';
-		$generatedDir = 'generated' . $websiteId;
-		$filesDir = 'files' . $websiteId;
+		$tablePrefix = rex_website::constructTablePrefix($websiteId);
+		$generatedDir = rex_website::constructGeneratedDir($websiteId);
+		$filesDir = rex_website::constructMediaDir($websiteId);
 
 		// update table prefix in db
 		$sql = new rex_sql();
@@ -25,7 +25,7 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 		$sql->setQuery("UPDATE rex_website SET table_prefix = '" . $tablePrefix . "' WHERE id = " . $websiteId);
 
 		// create clang file for clang fix
-		rex_website_manager_utils::createClangFile($websiteId);
+		rex_website_manager::createClangFile($websiteId);
 
 		// add tables, folders and addon stuff
 		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/add_website.inc.php');
@@ -42,10 +42,10 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 rex_register_extension('REX_FORM_DELETED', function ($params) {
 	global $REX;
 
-	$websiteId = rex_website_manager_utils::getLastInsertedId($params['form']->params['website_id']);
-	$tablePrefix = 'rex' . $websiteId . '_';
-	$generatedDir = 'generated' . $websiteId;
-	$filesDir = 'files' . $websiteId;
+	$websiteId = $params['form']->params['website_id'];
+	$tablePrefix = rex_website::constructTablePrefix($websiteId);
+	$generatedDir = rex_website::constructGeneratedDir($websiteId);
+	$filesDir = rex_website::constructMediaDir($websiteId);
 
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/delete_website.inc.php');
 
