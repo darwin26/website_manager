@@ -3,17 +3,14 @@
 $func = rex_request('func', 'string');
 $website_id = rex_request('website_id', 'int');
 
-$info = '';
-$warning = '';
-
-// add
+// add or edit website
 rex_register_extension('REX_FORM_SAVED', function ($params) {
 	global $REX;
 
 	$status = rex_request('status', 'string');
 
 	if ($status == 'website_added') {
-		// first time added
+		// add website
 		$websiteId = rex_website_manager_utils::getLastInsertedId($params['sql']);
 		$tablePrefix = rex_website::constructTablePrefix($websiteId);
 		$generatedDir = rex_website::constructGeneratedDir($websiteId);
@@ -30,15 +27,16 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 		// add tables, folders and addon stuff
 		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/create_website.inc.php');
 	} else {
-		// form updated
+		// edit website
 	}
 
+	// update init file to reflect changes
 	$REX['WEBSITE_MANAGER']->updateInitFile();
 
 	return true;
 });
 
-// delete
+// delete website
 rex_register_extension('REX_FORM_DELETED', function ($params) {
 	global $REX;
 
@@ -47,21 +45,14 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 	$generatedDir = rex_website::constructGeneratedDir($websiteId);
 	$filesDir = rex_website::constructMediaDir($websiteId);
 
+	// delete tables, folders and addon stuff
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/destroy_website.inc.php');
 
+	// update init file to reflect changes
 	$REX['WEBSITE_MANAGER']->updateInitFile();
 
 	return true;
 });
-
-// output messages
-if ($info != '') {
-	echo rex_info($info);
-}
-
-if ($warning != '') {
-	echo rex_warning($warning);
-}
 
 // output
 echo '<div class="rex-addon-output-v2">';
@@ -130,8 +121,10 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 } elseif ($func == 'add' || $func == 'edit' && $website_id > 0) {
 	if ($func == 'edit') {
 		$formLabel = 'Website bearbeiten';
-	} else if ($func == 'add') {
+		$form->addParam('website_id', $website_id);
+	} elseif ($func == 'add') {
 		$formLabel = 'Website anlegen';
+		$form->addParam('status', 'website_added');
 	}
 
 	$form = rex_form::factory('rex_website', $formLabel, 'id=' . $website_id);
@@ -166,12 +159,6 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$select->setSize(1);
 	$query = 'SELECT name as label, id FROM rex_website_style';
 	$select->addSqlOptions($query);
-
-	if ($func == 'edit') {
-		$form->addParam('website_id', $website_id);
-	} elseif ($func == 'add') {
-		$form->addParam('status', 'website_added');
-	}
 
 	$form->show();
 }
