@@ -58,7 +58,7 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 echo '<div class="rex-addon-output-v2">';
 
 if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
-	echo rex_info('Bitte wechseln Sie auf die Master-Website (ID = 1) um Ihre Websites verwalten zu können.');
+	echo rex_info('Bitte wechseln Sie auf die Master-Website (ID = 1) um Ihre Websites zu verwalten.');
 } elseif ($func == '') {
 	$query = 'SELECT * FROM rex_website';
 

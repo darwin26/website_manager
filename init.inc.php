@@ -7,7 +7,7 @@ require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_w
 	exit;
 }*/
 
-// init website manager
+// create website manager
 $REX['WEBSITE_MANAGER'] = new rex_website_manager();
 
 // --- DYN

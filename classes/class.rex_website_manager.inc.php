@@ -58,10 +58,10 @@ class rex_website_manager {
 		$this->setCurrentWebsiteId($websiteId);
 		$this->setRexVars();
 		$this->includeClangFile();
-		$this->setWebsitePermissions();
+		$this->addPermissions();
 	}
 
-	protected function setWebsitePermissions() {
+	protected function addPermissions() {
 		global $REX;
 
 		foreach ($this->websites as $website) {

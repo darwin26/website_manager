@@ -29,7 +29,7 @@ if ($REX['REDAXO']) {
 	);
 
 	if (rex_request('page') != '') { // login
-		// check permissions
+		// check permissions (has to be done here because $REX['USER'] is not availabe in master.inc.php)
 		$REX['WEBSITE_MANAGER']->checkPermissions();
 
 		// add css/js to page header
