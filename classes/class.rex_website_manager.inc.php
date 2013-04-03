@@ -113,4 +113,29 @@ class rex_website_manager {
 		$REX['DB']['1']['NAME'] = $curWebsite->getDatabaseName();
 		$REX['TABLE_PREFIX'] = $curWebsite->getTablePrefix();
 	}
+
+	public function updateInitFile() {
+		global $REX;
+
+		$initFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/init.inc.php';
+		$initContent = '';
+
+		if (!file_exists($initFile)) {
+			rex_website_manager_utils::createDynFile($initFile);
+		}
+
+		$sql = rex_sql::factory();
+		//$sql->debugsql = true;
+		$sql->setQuery('SELECT * from rex_website');
+
+		for ($i = 0; $i < $sql->getRows(); $i++) {
+			$initContent .= '$REX[\'WEBSITE_MANAGER\']->addWebsite(new rex_website(' . $sql->getValue('id') . ', \'' . $sql->getValue('domain') . '\', \'' . $sql->getValue('title') . '\', ' . $sql->getValue('start_article_id') . ', ' . $sql->getValue('notfound_article_id') . ', ' . $sql->getValue('default_template_id') . ', \'' . $sql->getValue('db_name') . '\', $websiteStyles[0], \'' . $sql->getValue('table_prefix') . '\', \'' . $sql->getValue('protocol') . '\'));' . PHP_EOL;
+			$sql->next();	
+		}
+
+	  	rex_replace_dynamic_contents($initFile, $initContent);
+	}
 }
+
+
+

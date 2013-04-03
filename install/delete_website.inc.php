@@ -1,10 +1,5 @@
 <?php
 
-$tablePrefix = 'rex' . $website_uninstall['id'] . '_';
-$generatedDir = 'generated' . $website_uninstall['id'];
-$filesDir = 'files' . $website_uninstall['id'];
-$dbName = $website_uninstall['db_name'];
-
 // ***************************************************************************************************
 // database tables
 // ***************************************************************************************************
@@ -24,7 +19,7 @@ $sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'template');
 $sql->setQuery('DROP VIEW ' . $dbName . '.' . $tablePrefix . 'action');
 
 // ***************************************************************************************************
-// direcories
+// directories
 // ***************************************************************************************************
 
 $includePath = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/') . '/';

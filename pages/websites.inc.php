@@ -18,10 +18,27 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 		$website_install['db_name'] = $formValues['db_name'];
 		$website_install['id'] = rex_website_manager_utils::getLastInsertedId($params['sql']);
 
+		$websiteId = $website_install['id'];
+		$tablePrefix = 'rex' . $website_install['id'] . '_';
+		$generatedDir = 'generated' . $website_install['id'];
+		$filesDir = 'files' . $website_install['id'];
+		$dbName = $website_install['db_name'];
+
+		// update table prefix in db
+		$sql = new rex_sql();
+		$sql->debugsql = true;
+		$sql->setQuery("UPDATE rex_website SET table_prefix = '" . $tablePrefix . "' WHERE id = " . $websiteId);
+
+		// create clang file for clang fix
+		rex_website_manager_utils::createClangFile($websiteId);
+
+		// add tables, folders and addon stuff
 		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/add_website.inc.php');
 	} else {
 		// form updated
 	}
+
+	$REX['WEBSITE_MANAGER']->updateInitFile();
 
 	return true;
 });
@@ -33,7 +50,14 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 	$website_uninstall['id'] = $params['form']->params['website_id'];
 	$website_uninstall['db_name'] = $params['form']->params['db_name'];
 
+	$tablePrefix = 'rex' . $website_uninstall['id'] . '_';
+	$generatedDir = 'generated' . $website_uninstall['id'];
+	$filesDir = 'files' . $website_uninstall['id'];
+	$dbName = $website_uninstall['db_name'];
+
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/delete_website.inc.php');
+
+	$REX['WEBSITE_MANAGER']->updateInitFile();
 
 	return true;
 });

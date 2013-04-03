@@ -1,10 +1,5 @@
 <?php
 
-$tablePrefix = 'rex' . $website_install['id'] . '_';
-$generatedDir = 'generated' . $website_install['id'];
-$filesDir = 'files' . $website_install['id'];
-$dbName = $website_install['db_name'];
-
 // ***************************************************************************************************
 // database tables
 // ***************************************************************************************************
@@ -31,7 +26,7 @@ $sql->setQuery('CREATE VIEW ' . $tablePrefix . 'template AS SELECT * FROM ' . $d
 $sql->setQuery('CREATE VIEW ' . $tablePrefix . 'action AS SELECT * FROM ' . $dbName . '.rex_action');
 
 // ***************************************************************************************************
-// direcories
+// directories
 // ***************************************************************************************************
 
 $includePath = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/') . '/';

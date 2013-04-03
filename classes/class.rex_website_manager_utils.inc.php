@@ -152,6 +152,18 @@ class rex_website_manager_utils {
 	  	rex_replace_dynamic_contents($clangFile, "\$REX['CLANG'] = ". var_export($REX['CLANG'], TRUE) .";\n");
 	}
 
+	public static function createClangFile($websiteId) {
+		global $REX;
+
+		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . rex_website::_getClangFile($websiteId);
+
+		if (!file_exists($clangFile)) {
+			self::createDynFile($clangFile);
+		}
+
+	  	rex_replace_dynamic_contents($clangFile, "\$REX['CLANG'] = array (0 => 'deutsch');");
+	}
+
 	protected static function createDynFile($file) {
 		$fileHandle = fopen($file, 'w');
 
