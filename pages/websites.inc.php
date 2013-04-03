@@ -115,14 +115,16 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$delete = 'deleteCol';
 	$list->addColumn($delete, 'l&ouml;schen', -1, array('','<td>###VALUE###</td>'));
 	$list->setColumnParams($delete, array('website_id' => '###id###', 'func' => 'delete'));
-	//$list->addLinkAttribute($delete, 'onclick', 'alert(\'Bitte löschen Sie das Issuu PDF über die Bearbeitungsansicht.\r\n\r\nKlicken Sie dazu auf den Bearbeiten-Link und dann auf den Löschen-Button unten.\'); return false;');
+	$list->addLinkAttribute($delete, 'onclick', 'alert(\'Bitte löschen Sie die Website über die Bearbeitungsansicht.\r\n\r\nKlicken Sie dazu auf den Bearbeiten-Link und dann auf den Löschen-Button.\'); return false;');
 
 	$list->show();
 } elseif ($func == 'add' || $func == 'edit' && $website_id > 0) {
 	if ($func == 'edit') {
 		$formLabel = 'Website bearbeiten';
+		$defaultId = null;
 	} elseif ($func == 'add') {
 		$formLabel = 'Website anlegen';
+		$defaultId = '1';
 	}
 
 	$form = rex_form::factory('rex_website', $formLabel, 'id=' . $website_id);
@@ -135,15 +137,27 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$field =& $form->addTextField('title'); 
 	$field->setLabel('Titel');
 
-	$field =& $form->addTextField('start_article_id'); 
-	$field->setLabel('Startartikel');
+	$field =& $form->addTextField('start_article_id', $defaultId); // addLinkmapField
+	$field->setLabel('Startartikel ID');
 
-	$field =& $form->addTextField('notfound_article_id'); 
-	$field->setLabel('Fehlerartikel');
+	$field =& $form->addTextField('notfound_article_id', $defaultId);
+	$field->setLabel('Fehlerartikel ID');
 
-	$field =& $form->addTextField('default_template_id'); 
+	// templates
+	$field =& $form->addSelectField('default_template_id'); 
 	$field->setLabel('Standardtemplate');
+	$select =& $field->getSelect();
+	$select->setSize(1);
 
+	$sql = rex_sql::factory();
+	$sql->setQuery('select id, name from ' . $REX['TABLE_PREFIX'] . 'template where active = 1 order by name');
+	$templates = $sql->getArray();
+
+	foreach ($templates as $template) {
+		$select->addOption($template['name'], $template['id']);
+	}
+
+	// protocol
 	$field =& $form->addSelectField('protocol'); 
 	$field->setLabel('Protokoll');
 	$select =& $field->getSelect();
@@ -159,6 +173,14 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$select->addSqlOptions($query);
 
 	if ($func == 'edit') {
+		$key = 'Website bearbeiten';
+
+		if ($website_id == 1) {
+			$form->elements[$key][0]->deleteElement->setAttribute('onclick', "alert('Sie können die Master-Website (ID = 1) nicht löschen!'); return false;");
+		} else {
+			$form->elements[$key][0]->deleteElement->setAttribute('onclick', "return confirm('Wollen Sie diese Website inkl. aller Artikel und Medienpool-Dateien wirklich unwiderruflich löschen?');");
+		}
+
 		$form->addParam('website_id', $website_id);
 	} elseif ($func == 'add') {
 		$form->addParam('status', 'website_added');

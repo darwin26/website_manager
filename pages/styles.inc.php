@@ -3,6 +3,25 @@
 $func = rex_request('func', 'string');
 $style_id = rex_request('style_id', 'int');
 
+// delete issuu pdf
+if($func == 'delete' && $style_id > 0) {
+	$sql = rex_sql::factory();
+	//  $sql->debugsql = true;
+	$sql->setTable('rex_website_style');
+	$sql->setWhere('id='. $style_id . ' LIMIT 1');
+
+	if ($sql->delete()) {
+		// update init file to reflect changes
+		$REX['WEBSITE_MANAGER']->updateInitFile();
+
+		echo rex_info('Style wurde gelöscht.');
+	} else {
+		echo rex_warning($sql->getErrro());
+	}
+	
+	$func = '';
+}
+
 // add or edit style
 rex_register_extension('REX_FORM_SAVED', function ($params) {
 	global $REX;
@@ -56,7 +75,7 @@ if ($func == '') {
 	$delete = 'deleteCol';
 	$list->addColumn($delete, 'l&ouml;schen', -1, array('','<td>###VALUE###</td>'));
 	$list->setColumnParams($delete, array('style_id' => '###id###', 'func' => 'delete'));
-	//$list->addLinkAttribute($delete, 'onclick', 'alert(\'Bitte löschen Sie das Issuu PDF über die Bearbeitungsansicht.\r\n\r\nKlicken Sie dazu auf den Bearbeiten-Link und dann auf den Löschen-Button unten.\'); return false;');
+	$list->addLinkAttribute($delete, 'onclick', 'return confirm(\'Löschen?\');');
 
 	$list->show();
 } elseif ($func == 'add' || $func == 'edit' && $style_id > 0) {
