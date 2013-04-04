@@ -113,16 +113,31 @@ class rex_website_manager_utils {
 
 		$insert = '<!-- BEGIN website_manager -->' . PHP_EOL;
 
+		// color bar
 		if ($REX['ADDON']['website_manager']['settings']['show_color_bar']) { 
 			$insert .= '<style>#rex-navi-logout { border-bottom: 10px solid ' . $curWbesiteStyle->getColor() . '; }</style>' . PHP_EOL;
 		}
 
+		// color of links in website select box
 		$insert .= '<style>.dd-selected-text { color: ' . $curWbesiteStyle->getColor() . '; }</style>' . PHP_EOL;
+
+		// jquery_ui for sortable rex list with on/off switch
+		if (!OOPlugin::isActivated('be_utilities', 'jquery_ui') && !OOPlugin::isActivated('be_style', 'jquery_ui')) {
+			$insert .= '<script type="text/javascript" src="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/jquery-ui.sortable.min.js"></script>' . PHP_EOL;
+		}
+
+		// website specific favicon
 		$insert .= '<link rel="shortcut icon" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getStyle()->getIcon() . '" />' . PHP_EOL;
+
+		// general css file
 		$insert .= '<link rel="stylesheet" type="text/css" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/website_manager.css" />' . PHP_EOL;
+
+		// ddslick js plugin for website select box
 		$insert .= '<script type="text/javascript" src="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/jquery.ddslick.js"></script>' . PHP_EOL;
-		//$insert .= '<script type="text/javascript" src="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/website_manager.js"></script>' . PHP_EOL;
+
+		// js inits and stuff
 		$insert .= self::addJS();
+
 		$insert .= '<!-- END website_manager -->';
 	
 		return $params['subject'] . PHP_EOL . $insert;
@@ -172,5 +187,20 @@ class rex_website_manager_utils {
 		}
 
 		rmdir($dir);
+	}
+
+	public static function initPrioSwitch() {
+		global $REX;
+
+		// include main class
+		if (!class_exists('rex_prio_switch')) {
+			include($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_prio_switch.inc.php');
+		}
+
+		// include extended class for use in this addon
+		include($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_website_manager_prio_switch.inc.php');
+
+		// for ajax call: update prio in db if necessary
+		rex_website_manager_prio_switch::handleAjaxCall('update_websites_prio', 'rex_website', 'id', false);
 	}
 }

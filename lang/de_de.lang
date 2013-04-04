@@ -6,4 +6,8 @@ website_manager_tools = Tools
 website_manager_options = Einstellungen
 website_manager_setup = Setup
 website_manager_help = Hilfe
+website_manager_prio_mode = Sortiermodus:
+website_manager_prio_mode_on = An
+website_manager_prio_mode_off = Aus
+website_manager_prior = Reihenfolge
 

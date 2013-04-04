@@ -60,7 +60,7 @@ echo '<div class="rex-addon-output-v2">';
 if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	echo rex_info('Bitte wechseln Sie auf die Master-Website (ID = 1) um Ihre Websites zu verwalten.');
 } elseif ($func == '') {
-	$query = 'SELECT * FROM rex_website';
+	$query = 'SELECT * FROM rex_website ORDER BY prior';
 
 	$list = rex_list::factory($query);
 	$list->setNoRowsMessage('Keine Websites vorhanden');
@@ -74,6 +74,8 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$list->removeColumn('table_prefix');
 	$list->removeColumn('protocol');
 	$list->removeColumn('style_id');
+	$list->removeColumn('prior');
+	$list->removeColumn('updatedate');
 
 	$list->setColumnLabel('id','ID');
 	$list->setColumnLabel('domain', 'Domain');
@@ -118,6 +120,9 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$list->addLinkAttribute($delete, 'onclick', 'alert(\'Bitte löschen Sie die Website über die Bearbeitungsansicht.\r\n\r\nKlicken Sie dazu auf den Bearbeiten-Link und dann auf den Löschen-Button.\'); return false;');
 
 	$list->show();
+
+	// prio switch
+	rex_website_manager_prio_switch::printSwitch(array($I18N->msg('website_manager_prio_mode'), $I18N->msg('website_manager_prio_mode_on'), $I18N->msg('website_manager_prio_mode_off')));
 } elseif ($func == 'add' || $func == 'edit' && $website_id > 0) {
 	if ($func == 'edit') {
 		$formLabel = 'Website bearbeiten';
@@ -190,3 +195,4 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 }
 
 echo '</div>';
+?>

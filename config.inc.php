@@ -10,11 +10,13 @@ $REX['ADDON']['perm']['website_manager'] = 'website_manager[]';
 // permissions
 $REX['PERM'][] = 'website_manager[]';
 
-// includes
+// front and backend includes
 require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_website_manager_utils.inc.php');
-require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/settings.inc.php');
 
 if ($REX['REDAXO']) {
+	// backend includes
+	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/settings.inc.php');
+	
 	// add lang file
 	$I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/website_manager/lang/');
 
@@ -52,4 +54,7 @@ if ($REX['REDAXO']) {
 		rex_register_extension('CLANG_ADDED', 'rex_website_manager::fixClang');
 		rex_register_extension('CLANG_DELETED', 'rex_website_manager::fixClang');
 	}
+
+	// init sortable rex list with prio switch
+	rex_website_manager_utils::initPrioSwitch();
 }

@@ -20,10 +20,12 @@ $sql->setQuery('CREATE TABLE IF NOT EXISTS `rex_website` (
 	`table_prefix` varchar(255) NOT NULL,
 	`protocol` varchar(255) NOT NULL,
 	`style_id` int(11) NOT NULL,
+	`prior` INT(11) NOT NULL,
+	`updatedate` int(11) NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;');
 
-$sql->setQuery('INSERT INTO `rex_website` VALUES (1, "' . rex_website_manager_utils::sanitizeUrl($REX['SERVER']) . '", "' . $REX['SERVERNAME'] . '", ' . $REX['START_ARTICLE_ID'] . ', ' . $REX['NOTFOUND_ARTICLE_ID'] . ', ' . $REX['DEFAULT_TEMPLATE_ID'] . ', "' . $firstTablePrefix . '", "' . $firstWebsiteProtocol  . '", ' . $firstWebsiteStyleId . ')');                                                                                
+$sql->setQuery('INSERT INTO `rex_website` VALUES (1, "' . rex_website_manager_utils::sanitizeUrl($REX['SERVER']) . '", "' . $REX['SERVERNAME'] . '", ' . $REX['START_ARTICLE_ID'] . ', ' . $REX['NOTFOUND_ARTICLE_ID'] . ', ' . $REX['DEFAULT_TEMPLATE_ID'] . ', "' . $firstTablePrefix . '", "' . $firstWebsiteProtocol  . '", ' . $firstWebsiteStyleId . ', 1, ' . time() . ')');                                                                                
 
 $sql->setQuery('CREATE TABLE IF NOT EXISTS `rex_website_style` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
