@@ -121,11 +121,6 @@ class rex_website_manager_utils {
 		// color of links in website select box
 		$insert .= '<style>.dd-selected-text { color: ' . $curWbesiteStyle->getColor() . '; }</style>' . PHP_EOL;
 
-		// jquery_ui for sortable rex list with on/off switch
-		if (!OOPlugin::isActivated('be_utilities', 'jquery_ui') && !OOPlugin::isActivated('be_style', 'jquery_ui')) {
-			$insert .= '<script type="text/javascript" src="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/jquery-ui.sortable.min.js"></script>' . PHP_EOL;
-		}
-
 		// website specific favicon
 		$insert .= '<link rel="shortcut icon" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getStyle()->getIcon() . '" />' . PHP_EOL;
 

@@ -64,14 +64,14 @@ class rex_prio_switch {
 
 				.onoffswitch-outer span { 
 					margin-right: 7px; 
-					margin-top: 14px;
+					margin-top: 17px;
 					float: left;
 				}
 
 				.onoffswitch {
 					position: relative; width: 61px;
 					-webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
-					margin-top: 10px;float: left;
+					margin-top: 13px;float: left;
 				}
 
 				.onoffswitch-checkbox {
@@ -136,7 +136,12 @@ class rex_prio_switch {
 				</style>
 
 				<script type="text/javascript">
+
 				jQuery(document).ready( function($) {
+					if (!jQuery.ui) {
+						$("head").append("<script type=\'text/javascript\' src=\'../' . $REX['MEDIA_ADDON_DIR'] . '/' . rex_request('page') . '/jquery-ui.min.js\' />");
+					}
+
 					if (jQuery.ui) {
 						$(".rex-table tbody").sortable({
 							helper: function(e, tr) {
