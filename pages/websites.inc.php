@@ -183,10 +183,14 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	if ($func == 'edit') {
 		$key = 'Website bearbeiten';
 
-		if ($website_id == 1) {
-			$form->elements[$key][0]->deleteElement->setAttribute('onclick', "alert('Sie können die Master-Website (ID = 1) nicht löschen!'); return false;");
+		if ($REX['ADDON']['website_manager']['settings']['allow_website_delete']) {
+			if ($website_id == 1) {
+				$form->elements[$key][0]->deleteElement->setAttribute('onclick', "alert('Sie können die Master-Website (ID = 1) nicht löschen!'); return false;");
+			} else {
+				$form->elements[$key][0]->deleteElement->setAttribute('onclick', "return confirm('Wollen Sie diese Website inkl. aller Artikel und Medienpool-Dateien wirklich unwiderruflich löschen?');");
+			}
 		} else {
-			$form->elements[$key][0]->deleteElement->setAttribute('onclick', "return confirm('Wollen Sie diese Website inkl. aller Artikel und Medienpool-Dateien wirklich unwiderruflich löschen?');");
+			$form->elements[$key][0]->deleteElement->setAttribute('onclick', "alert('Das Löschen von Websites wurde aus Sicherheitsgründen abgeschaltet.'); return false;");
 		}
 
 		$form->addParam('website_id', $website_id);
