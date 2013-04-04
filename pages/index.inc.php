@@ -5,7 +5,11 @@ $subpage = rex_request('subpage', 'string');
 
 // if no subpage specified, use this one
 if ($subpage == '') {
-	$subpage = 'websites';
+	if (count($REX['ADDON']['website_manager']['SUBPAGES']) > 1) {
+		$subpage = 'websites';
+	} else {
+		$subpage = 'setup';
+	}
 }
 
 // layout top

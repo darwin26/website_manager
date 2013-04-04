@@ -1,7 +1,7 @@
 <?php
 
 // this addons will be reinstalled if new website is added
-$REX['ADDON']['website_manager']['settings']['reinstall_addons'] = array('image_manager', 'metainfo', 'xform', 'rexseo42', 'slice_status', 'string_table');
+$REX['ADDON']['website_manager']['settings']['reinstall_addons'] = array('image_manager', 'metainfo');
 
 // if false if admins won't be allowed to delete websites
 $REX['ADDON']['website_manager']['settings']['allow_website_delete'] = true;

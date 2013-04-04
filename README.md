@@ -3,18 +3,23 @@ Website Manager AddOn für REDAXO 4.5+
 
 Ein Multidomain AddOn für REDAXO 4.5+
 
-Achtung! AddOn befindet sich noch in der Entwicklung...!
-
-Video-Preview: https://vimeo.com/63047197
-
 Features
 --------
+
+* Verwaltung mehrere Websites mit einer REDAXO-Installation
+* Website-Umschalter auf oberster Ebene
+* Der Style des Backend wird je nach ausgewählter Website angepasst
+* Jede Website greift auf die gleichen Templates, Module und Aktionen zu
+* Jede Website hat Ihren eigenen Medienpool und Ihren eigenen Generated-Ordner
+* Ein zusätzlicher URL-Rewriter kann frei gewählt und eingesetzt werden
 
 Hinweise
 --------
 
 * Läuft nur mit REDAXO 4.5+
 * AddOn-Ordner lautet: `website_manager`
+* Import/Export AddOn läuft aktuell nur für die Master-Website. Evtl. sollte man es deshalb vorerst deinstallieren.
+* Addons können fit gemacht werden für den Website Manager durch Nutzung der neuen REX-Vars aus REDAXO 4.5. Beschreibung folgt...
 
 Changelog
 ---------
@@ -29,4 +34,4 @@ siehe [LICENSE.md](LICENSE.md)
 Credits
 -------
 
-* [polarpixel](https://github.com/polarpixel), [gharlan](https://github.com/gharlan)
+* Supported by [Peter Bickel](https://github.com/polarpixel) und [Gregor Harlan](https://github.com/gharlan)

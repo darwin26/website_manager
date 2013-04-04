@@ -3,10 +3,6 @@ require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_w
 require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_website_style.inc.php');
 require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_website_manager.inc.php');
 
-/*if (!OOAddon::isInstalled('website_manager')) {
-	exit;
-}*/
-
 // create website manager
 $REX['WEBSITE_MANAGER'] = new rex_website_manager();
 

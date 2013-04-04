@@ -13,6 +13,7 @@ website_manager_prior = Reihenfolge
 website_manager_create_website_security_msg = Website mit ID = 1 darf nicht hinzugefügt werden!
 website_manager_destroy_website_security_msg = Website mit ID = 1 darf nicht gelöscht werden!
 website_manager_settings_msg = Einstellungen lassen sich momentan über diese Datei vornehmen:
+website_manager_install_rex_version = Dieses AddOn benötigt REDAXO Version 4.5.0 oder höher.
 
 website_manager_style_deleted = Style wurde gelöscht.
 website_manager_style_no_sytles_available = Keine Styles vorhanden
@@ -46,7 +47,7 @@ website_manager_website_style_not_available = Style nicht vorhanden!
 website_manager_website_functions = Funktionen
 website_manager_website_edit = bearbeiten
 website_manager_website_delete = löschen
-website_manager_website_delete_editmode = Bitte löschen Sie die Website über die Bearbeitungsansicht.<br />Klicken Sie dazu auf den Bearbeiten-Link und dann auf den Löschen-Button.
+website_manager_website_delete_editmode = Bitte löschen Sie die Website über die Bearbeitungsansicht.\r\nKlicken Sie dazu auf den Bearbeiten-Link und dann auf den Löschen-Button.
 website_manager_website_website_edit = Website bearbeiten
 website_manager_website_website_add = Website anlegen
 website_manager_website_id_exists = Eine Website mit dieser ID existiert bereits!
@@ -60,4 +61,14 @@ website_manager_edit_button_key = Website bearbeiten
 website_manager_website_master_website_disallow_delete = Sie können die Master-Website (ID = 1) nicht löschen!
 website_manager_website_delete_confirm = Wollen Sie diese Website inkl. aller Artikel und Medienpool-Dateien wirklich unwiderruflich löschen?
 website_manager_website_delete_trunedoff = Das Löschen von Websites wurde aus Sicherheitsgründen unterbunden.
+
+website_manager_setup_step1 = Schritt 1: master.inc.php patchen
+website_manager_setup_step1_msg1 = Damit der Website Manager korrekt funktionieren kann, muss dieser initialisiert werden noch bevor die ersten AddOns geladen werden. Fügen Sie deshalb diese Zeilen am Ende der master.inc.php von REDAXO hinzu:
+website_manager_setup_step1_msg2 = Sobald Sie diese Code-Zeile eingefügt haben, erhalten Sie vollen Zugriff auf das Website Manager AddOn...
+website_manager_setup_step2 = Schritt 2: AddOns installieren und settings.inc.php anpassen
+website_manager_setup_step2_msg1 = Stellen Sie sicher, dass alle AddOns installiert sind, die Sie für die einzelnen Websites einsetzen wollen. Tragen Sie in der <code>settings.inc.php</code> des Website Mangers die AddOns ein, die bei jedem hinzufügen einer Website reinstalliert werden sollen. Dies betrifft hauptsächlich AddOns die Datenbank-Änderungen vornehmen oder Cache-Dateien in den Generated-Ordner von REDAXO speichern.
+website_manager_setup_step2_msg2 = Müssen Sie irgendwann mal nachträglich ein AddOn installieren, so muss dieses momentan noch von Hand für jede Website reinstalliert werden.
+website_manager_setup_step3 = Schritt 3: Websites hinzufügen
+website_manager_setup_step3_msg1 = Das war's schon. Sie können nun neue <a href="index.php?page=website_manager">Websites hinzufügen</a> und haben hoffentlich Spaß mit dem AddOn... ;)
+
 

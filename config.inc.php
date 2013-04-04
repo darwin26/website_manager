@@ -2,7 +2,7 @@
 // init addon
 $REX['ADDON']['name']['website_manager'] = 'Website Manager';
 $REX['ADDON']['page']['website_manager'] = 'website_manager';
-$REX['ADDON']['version']['website_manager'] = '1.0.0 ALPHA';
+$REX['ADDON']['version']['website_manager'] = '1.0.0 BETA';
 $REX['ADDON']['author']['website_manager'] = "RexDude";
 $REX['ADDON']['supportpage']['website_manager'] = 'forum.redaxo.de';
 $REX['ADDON']['perm']['website_manager'] = 'website_manager[]';
@@ -20,15 +20,26 @@ if ($REX['REDAXO']) {
 	// add lang file
 	$I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/website_manager/lang/');
 
-	// add subpages
-	$REX['ADDON']['website_manager']['SUBPAGES'] = array(
-		array('', $I18N->msg('website_manager_websites')),
-		array('styles', $I18N->msg('website_manager_styles')),
-		array('tools', $I18N->msg('website_manager_tools')),
-		array('options', $I18N->msg('website_manager_options')),
-		array('setup', $I18N->msg('website_manager_setup')),
-		array('help', $I18N->msg('website_manager_help'))
-	);
+	// check for existence of website manager object
+	if (isset($REX['WEBSITE_MANAGER'])) {
+		// add subpages
+		$REX['ADDON']['website_manager']['SUBPAGES'] = array(
+			array('', $I18N->msg('website_manager_websites')),
+			array('styles', $I18N->msg('website_manager_styles')),
+			array('tools', $I18N->msg('website_manager_tools')),
+			array('options', $I18N->msg('website_manager_options')),
+			array('setup', $I18N->msg('website_manager_setup'))
+			//array('help', $I18N->msg('website_manager_help'))
+		);
+	} else {
+		// this is only neccesary until user has put this code line in master.inc.php
+		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/init.inc.php');
+	
+		// add only setup subpage
+		$REX['ADDON']['website_manager']['SUBPAGES'] = array(
+			array('', $I18N->msg('website_manager_setup'))
+		);
+	}
 
 	if (rex_request('page') != '') { // login
 		// check permissions (has to be done here because $REX['USER'] is not availabe in master.inc.php)

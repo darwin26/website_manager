@@ -207,7 +207,12 @@ class rex_website_manager {
 		}
 
 		// write clangs to website specific clang file
-		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getClangFile();
+		if (isset($REX['WEBSITE_MANAGER'])) {
+			$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getClangFile();
+		} else {
+			// this is when addon is getting installed
+			$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . rex_website::constructClangFile(1);
+		}
 
 		if (!file_exists($clangFile)) {
 			rex_website_manager_utils::createDynFile($clangFile);
