@@ -19,7 +19,7 @@ class rex_prio_switch {
 		$sql = rex_sql::factory();
 
 		foreach ($order as $prio => $keyname) {
-			$sql->setQuery('UPDATE ' . $table . ' SET prior = ' . ($prio + 1) . ', updatedate = ' . time() . ' ' . self::getWhere($useLike, $idField, $keyname));
+			$sql->setQuery('UPDATE ' . $table . ' SET priority = ' . ($prio + 1) . ' ' . self::getWhere($useLike, $idField, $keyname));
 		}
 	}
 

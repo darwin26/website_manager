@@ -180,7 +180,7 @@ class rex_website_manager {
 		$initContent .= PHP_EOL;
 
 		// websites
-		$sql->setQuery('SELECT * FROM rex_website ORDER BY prior');
+		$sql->setQuery('SELECT * FROM rex_website ORDER BY priority');
 
 		for ($i = 0; $i < $sql->getRows(); $i++) {
 			$initContent .= '$REX[\'WEBSITE_MANAGER\']->addWebsite(new rex_website(' . $sql->getValue('id') . ', \'' . $sql->getValue('domain') . '\', \'' . $sql->getValue('title') . '\', ' . $sql->getValue('start_article_id') . ', ' . $sql->getValue('notfound_article_id') . ', ' . $sql->getValue('default_template_id') . ', $websiteStyles[' . $sql->getValue('style_id') . '], \'' . $sql->getValue('table_prefix') . '\', \'' . $sql->getValue('protocol') . '\'));' . PHP_EOL;

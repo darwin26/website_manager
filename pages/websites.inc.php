@@ -65,7 +65,7 @@ echo '<div class="rex-addon-output-v2">';
 if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	echo rex_info($I18N->msg('website_manager_website_master_msg'));
 } elseif ($func == '') {
-	$query = 'SELECT * FROM rex_website ORDER BY prior';
+	$query = 'SELECT * FROM rex_website ORDER BY priority';
 
 	$list = rex_list::factory($query);
 	$list->setNoRowsMessage($I18N->msg('website_manager_website_no_websites_available'));
@@ -79,8 +79,7 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$list->removeColumn('table_prefix');
 	$list->removeColumn('protocol');
 	$list->removeColumn('style_id');
-	$list->removeColumn('prior');
-	$list->removeColumn('updatedate');
+	$list->removeColumn('priority');
 
 	$list->setColumnLabel('id', $I18N->msg('website_manager_website_id'));
 	$list->setColumnLabel('domain', $I18N->msg('website_manager_website_domain'));
@@ -199,8 +198,7 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	} elseif ($func == 'add') {
 		$form->addParam('status', 'website_added');
 		
-		$form->addHiddenField('prior', $REX['WEBSITE_MANAGER']->getWebsiteCount() + 1);
-		$form->addHiddenField('updatedate', time());
+		$form->addHiddenField('priority', $REX['WEBSITE_MANAGER']->getWebsiteCount() + 1);
 	}
 
 	$form->show();
