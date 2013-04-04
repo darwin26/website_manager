@@ -48,6 +48,9 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 	// delete tables, folders and addon stuff
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/destroy_website.inc.php');
 
+	// delete clang file for clang fix
+	rex_website_manager::deleteClangFile($websiteId);
+
 	// update init file to reflect changes
 	$REX['WEBSITE_MANAGER']->updateInitFile();
 
@@ -189,6 +192,9 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 		$form->addParam('website_id', $website_id);
 	} elseif ($func == 'add') {
 		$form->addParam('status', 'website_added');
+		
+		$form->addHiddenField('prior', $REX['WEBSITE_MANAGER']->getWebsiteCount() + 1);
+		$form->addHiddenField('updatedate', time());
 	}
 
 	$form->show();

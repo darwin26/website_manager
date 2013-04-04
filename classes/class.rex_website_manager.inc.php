@@ -227,6 +227,16 @@ class rex_website_manager {
 
 	  	rex_replace_dynamic_contents($clangFile, "\$REX['CLANG'] = array (0 => 'deutsch');");
 	}
+
+	public static function deleteClangFile($websiteId) {
+		global $REX;
+
+		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . rex_website::constructClangFile($websiteId);
+
+		if (file_exists($clangFile)) {
+			unlink($clangFile);
+		}
+	}
 }
 
 
