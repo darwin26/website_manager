@@ -58,6 +58,11 @@ class rex_prio_switch {
 					cursor: move;
 				}
 
+				div#rex-website tr.move a {
+					text-decoration: none;
+					cursor: move;
+				}
+
 				.onoffswitch-outer {
 					float: right;	
 				}
