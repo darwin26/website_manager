@@ -50,7 +50,7 @@ class rex_website_manager_utils {
 					<input type="hidden" name="chapter" value="' . rex_request('chapter') . '" />
 					<input type="hidden" name="new_website_id" id="new_website_id" value="" />
 					<fieldset>
-						<select onchange="this.form.submit();" id="website-selector" size="1" name="website-selector">' . $websiteSelectOptions . '</select>			
+						<select id="website-selector" size="1" name="website-selector">' . $websiteSelectOptions . '</select>			
 					</fieldset>
 				</form>
 			</div>';

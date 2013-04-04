@@ -1,7 +1,7 @@
 <?php
 
 if ($websiteId == 1) {
-	echo rex_warning('Website mit ID = 1 darf nicht gelöscht werden!'); // just for security reasons
+	echo rex_warning($I18N->msg('website_manager_destroy_website_security_msg')); // just for security reasons
 	exit;
 }
 

@@ -14,7 +14,7 @@ if($func == 'delete' && $style_id > 0) {
 		// update init file to reflect changes
 		$REX['WEBSITE_MANAGER']->updateInitFile();
 
-		echo rex_info('Style wurde gelöscht.');
+		echo rex_info($I18N->msg('website_manager_style_deleted'));
 	} else {
 		echo rex_warning($sql->getErrro());
 	}
@@ -46,57 +46,57 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 echo '<div class="rex-addon-output-v2">';
 
 if ($func == '') {
-	$query = 'SELECT * FROM rex_website_style';
+	$query = 'SELECT * FROM rex_website_style ORDER BY id';
 
 	$list = rex_list::factory($query);
-	$list->setNoRowsMessage('Keine Styles vorhanden');
-	$list->setCaption('Liste der angelegten Styles');
-	$list->addTableAttribute('summary','Auflistung aller angelegten Styles');
+	$list->setNoRowsMessage($I18N->msg('website_manager_style_no_sytles_available'));
+	$list->setCaption($I18N->msg('website_manager_style_list_of_styles'));
+	$list->addTableAttribute('summary', $I18N->msg('website_manager_style_list_of_styles'));
 	$list->addTableColumnGroup(array(40, '*', 80, 80));
 
 	$list->removeColumn('id');
 	$list->removeColumn('icon');
 	$list->removeColumn('color');
 
-	$list->setColumnLabel('name', 'Name');
+	$list->setColumnLabel('name', $I18N->msg('website_manager_style_name'));
 	$list->setColumnParams('name', array('func' => 'edit', 'style_id' => '###id###'));
 
 	// icon column
-	$thIcon = '<a class="rex-i-element rex-i-generic-add" href="'. $list->getUrl(array('func' => 'add')) .'"><span class="rex-i-element-text">Style erstellen</span></a>';
+	$thIcon = '<a class="rex-i-element rex-i-generic-add" href="'. $list->getUrl(array('func' => 'add')) .'"><span class="rex-i-element-text">' . $I18N->msg('website_manager_style_create') . '</span></a>';
 	$tdIcon = '<span class="rex-i-element rex-i-generic"><span class="rex-i-element-text">###name###</span></span>';
 	$list->addColumn($thIcon, $tdIcon, 0, array('<th class="rex-icon">###VALUE###</th>','<td class="rex-icon">###VALUE###</td>'));
 	$list->setColumnParams($thIcon, array('func' => 'edit', 'style_id' => '###id###'));
 
 	// functions column spans 2 data-columns
-	$funcs = 'Funktionen';
-	$list->addColumn($funcs, 'bearbeiten', -1, array('<th colspan="2">###VALUE###</th>','<td>###VALUE###</td>'));
+	$funcs = $I18N->msg('website_manager_style_functions');
+	$list->addColumn($funcs, $I18N->msg('website_manager_style_edit'), -1, array('<th colspan="2">###VALUE###</th>','<td>###VALUE###</td>'));
 	$list->setColumnParams($funcs, array('func' => 'edit', 'style_id' => $style_id, 'style_id' => '###id###'));
 
 	$delete = 'deleteCol';
-	$list->addColumn($delete, 'l&ouml;schen', -1, array('','<td>###VALUE###</td>'));
+	$list->addColumn($delete, $I18N->msg('website_manager_style_delete'), -1, array('','<td>###VALUE###</td>'));
 	$list->setColumnParams($delete, array('style_id' => '###id###', 'func' => 'delete'));
-	$list->addLinkAttribute($delete, 'onclick', 'return confirm(\'Löschen?\');');
+	$list->addLinkAttribute($delete, 'onclick', 'return confirm(\'' . $I18N->msg('website_manager_style_delete_confirm') . '\');');
 
 	$list->show();
 } elseif ($func == 'add' || $func == 'edit' && $style_id > 0) {
 	if ($func == 'edit') {
-		$formLabel = 'Style bearbeiten';
+		$formLabel = $I18N->msg('website_manager_style_style_edit');
 	} elseif ($func == 'add') {
-		$formLabel = 'Style anlegen';
+		$formLabel = $I18N->msg('website_manager_style_style_add');
 	}
 
 	$form = rex_form::factory('rex_website_style', $formLabel, 'id=' . $style_id);
 
-	$form->addErrorMessage(REX_FORM_ERROR_VIOLATE_UNIQUE_KEY, 'Eine Style mit dieser ID existiert bereits!');
+	$form->addErrorMessage(REX_FORM_ERROR_VIOLATE_UNIQUE_KEY, $I18N->msg('website_manager_style_style_exists'));
 
 	$field =& $form->addTextField('name'); 
-	$field->setLabel('Name');
+	$field->setLabel($I18N->msg('website_manager_style_name'));
 
 	$field =& $form->addTextField('icon'); 
-	$field->setLabel('Icon');
+	$field->setLabel($I18N->msg('website_manager_style_icon'));
 
 	$field =& $form->addTextField('color'); 
-	$field->setLabel('Color');
+	$field->setLabel($I18N->msg('website_manager_style_color'));
 
 	if ($func == 'edit') {
 		$form->addParam('style_id', $style_id);

@@ -3,7 +3,7 @@
 $func = rex_request('func', 'string');
 $website_id = rex_request('website_id', 'int');
 
-// add or edit website
+// add or edit website (after form submit)
 rex_register_extension('REX_FORM_SAVED', function ($params) {
 	global $REX;
 
@@ -12,6 +12,7 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 	if ($status == 'website_added') {
 		// add website
 		$websiteId = rex_website_manager_utils::getLastInsertedId($params['sql']);
+
 		$tablePrefix = rex_website::constructTablePrefix($websiteId);
 		$generatedDir = rex_website::constructGeneratedDir($websiteId);
 		$filesDir = rex_website::constructMediaDir($websiteId);
@@ -36,11 +37,12 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 	return true;
 });
 
-// delete website
+// delete website (after form submit)
 rex_register_extension('REX_FORM_DELETED', function ($params) {
 	global $REX;
 
 	$websiteId = $params['form']->params['website_id'];
+
 	$tablePrefix = rex_website::constructTablePrefix($websiteId);
 	$generatedDir = rex_website::constructGeneratedDir($websiteId);
 	$filesDir = rex_website::constructMediaDir($websiteId);
@@ -61,14 +63,14 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 echo '<div class="rex-addon-output-v2">';
 
 if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
-	echo rex_info('Bitte wechseln Sie auf die Master-Website (ID = 1) um Ihre Websites zu verwalten.');
+	echo rex_info($I18N->msg('website_manager_website_master_msg'));
 } elseif ($func == '') {
 	$query = 'SELECT * FROM rex_website ORDER BY prior';
 
 	$list = rex_list::factory($query);
-	$list->setNoRowsMessage('Keine Websites vorhanden');
-	$list->setCaption('Liste der angelegten Websites');
-	$list->addTableAttribute('summary','Auflistung aller angelegten Websites');
+	$list->setNoRowsMessage($I18N->msg('website_manager_website_no_websites_available'));
+	$list->setCaption($I18N->msg('website_manager_website_list'));
+	$list->addTableAttribute('summary', $I18N->msg('website_manager_website_list'));
 	$list->addTableColumnGroup(array(40, 40, '*', 240, 80, 80, 80));
 
 	$list->removeColumn('start_article_id');
@@ -80,19 +82,19 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$list->removeColumn('prior');
 	$list->removeColumn('updatedate');
 
-	$list->setColumnLabel('id','ID');
-	$list->setColumnLabel('domain', 'Domain');
-	$list->setColumnLabel('title', 'Titel');
+	$list->setColumnLabel('id', $I18N->msg('website_manager_website_id'));
+	$list->setColumnLabel('domain', $I18N->msg('website_manager_website_domain'));
+	$list->setColumnLabel('title', $I18N->msg('website_manager_website_title'));
 	$list->setColumnParams('domain', array('func' => 'edit', 'website_id' => '###id###'));
 
 	// icon column
-	$thIcon = '<a class="rex-i-element rex-i-generic-add" href="'. $list->getUrl(array('func' => 'add')) .'"><span class="rex-i-element-text">Website erstellen</span></a>';
+	$thIcon = '<a class="rex-i-element rex-i-generic-add" href="'. $list->getUrl(array('func' => 'add')) .'"><span class="rex-i-element-text">' . $I18N->msg('website_manager_website_add_website') . '</span></a>';
 	$tdIcon = '<span class="rex-i-element rex-i-generic"><span class="rex-i-element-text">###name###</span></span>';
 	$list->addColumn($thIcon, $tdIcon, 0, array('<th class="rex-icon">###VALUE###</th>','<td class="rex-icon">###VALUE###</td>'));
 	$list->setColumnParams($thIcon, array('func' => 'edit', 'website_id' => '###id###'));
 
 	// style column
-	$viewerType = 'Style';
+	$viewerType = $I18N->msg('website_manager_website_style');
 	$list->addColumn($viewerType, '', -1, array('<th>###VALUE###</th>','<td>###VALUE###</td>'));
 	$list->setColumnFormat($viewerType, 'custom',
 		create_function(
@@ -105,7 +107,7 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 			$sql->setQuery($query);
 		
 			if ($sql->getRows() == 0) {
-				return "Style nicht vorhanden!";
+				return "' . $I18N->msg('website_manager_website_style_not_available') . '";
 			} else {
 				return $sql->getValue(\'name\');
 			}'
@@ -113,14 +115,14 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	  );
 
 	// functions column spans 2 data-columns
-	$funcs = 'Funktionen';
-	$list->addColumn($funcs, 'bearbeiten', -1, array('<th colspan="2">###VALUE###</th>','<td>###VALUE###</td>'));
+	$funcs = $I18N->msg('website_manager_website_functions');
+	$list->addColumn($funcs, $I18N->msg('website_manager_website_edit'), -1, array('<th colspan="2">###VALUE###</th>','<td>###VALUE###</td>'));
 	$list->setColumnParams($funcs, array('func' => 'edit', 'website_id' => $website_id, 'website_id' => '###id###'));
 
 	$delete = 'deleteCol';
-	$list->addColumn($delete, 'l&ouml;schen', -1, array('','<td>###VALUE###</td>'));
+	$list->addColumn($delete, $I18N->msg('website_manager_website_delete'), -1, array('','<td>###VALUE###</td>'));
 	$list->setColumnParams($delete, array('website_id' => '###id###', 'func' => 'delete'));
-	$list->addLinkAttribute($delete, 'onclick', 'alert(\'Bitte löschen Sie die Website über die Bearbeitungsansicht.\r\n\r\nKlicken Sie dazu auf den Bearbeiten-Link und dann auf den Löschen-Button.\'); return false;');
+	$list->addLinkAttribute($delete, 'onclick', 'alert(\'' . $I18N->msg('website_manager_website_delete_editmode') . '\'); return false;');
 
 	$list->show();
 
@@ -128,32 +130,32 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	rex_website_manager_prio_switch::printSwitch(array($I18N->msg('website_manager_prio_mode'), $I18N->msg('website_manager_prio_mode_on'), $I18N->msg('website_manager_prio_mode_off')));
 } elseif ($func == 'add' || $func == 'edit' && $website_id > 0) {
 	if ($func == 'edit') {
-		$formLabel = 'Website bearbeiten';
+		$formLabel = $I18N->msg('website_manager_website_website_edit');
 		$defaultId = null;
 	} elseif ($func == 'add') {
-		$formLabel = 'Website anlegen';
+		$formLabel = $I18N->msg('website_manager_website_website_add');
 		$defaultId = '1';
 	}
 
 	$form = rex_form::factory('rex_website', $formLabel, 'id=' . $website_id);
 
-	$form->addErrorMessage(REX_FORM_ERROR_VIOLATE_UNIQUE_KEY, 'Eine Website mit dieser ID existiert bereits!');
+	$form->addErrorMessage(REX_FORM_ERROR_VIOLATE_UNIQUE_KEY, $I18N->msg('website_manager_website_id_exists'));
 
 	$field =& $form->addTextField('domain'); 
-	$field->setLabel('Domain');
+	$field->setLabel($I18N->msg('website_manager_website_domain'));
 
 	$field =& $form->addTextField('title'); 
-	$field->setLabel('Titel');
+	$field->setLabel($I18N->msg('website_manager_website_title'));
 
 	$field =& $form->addTextField('start_article_id', $defaultId); // addLinkmapField
-	$field->setLabel('Startartikel ID');
+	$field->setLabel($I18N->msg('website_manager_website_start_article_id'));
 
 	$field =& $form->addTextField('notfound_article_id', $defaultId);
-	$field->setLabel('Fehlerartikel ID');
+	$field->setLabel($I18N->msg('website_manager_website_notfound_article_id'));
 
 	// templates
 	$field =& $form->addSelectField('default_template_id'); 
-	$field->setLabel('Standardtemplate');
+	$field->setLabel($I18N->msg('website_manager_website_default_template'));
 	$select =& $field->getSelect();
 	$select->setSize(1);
 
@@ -167,30 +169,30 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 
 	// protocol
 	$field =& $form->addSelectField('protocol'); 
-	$field->setLabel('Protokoll');
+	$field->setLabel($I18N->msg('website_manager_website_protocol'));
 	$select =& $field->getSelect();
 	$select->setSize(1);
-	$select->addOption('http', 'http');
-	$select->addOption('https', 'https');
+	$select->addOption($I18N->msg('website_manager_website_http'), 'http');
+	$select->addOption($I18N->msg('website_manager_website_https'), 'https');
 
 	$field =& $form->addSelectField('style_id'); 
-	$field->setLabel('Style');
+	$field->setLabel($I18N->msg('website_manager_website_style'));
 	$select =& $field->getSelect();
 	$select->setSize(1);
 	$query = 'SELECT name as label, id FROM rex_website_style';
 	$select->addSqlOptions($query);
 
 	if ($func == 'edit') {
-		$key = 'Website bearbeiten';
+		$key = $I18N->msg('website_manager_edit_button_key');
 
 		if ($REX['ADDON']['website_manager']['settings']['allow_website_delete']) {
 			if ($website_id == 1) {
-				$form->elements[$key][0]->deleteElement->setAttribute('onclick', "alert('Sie können die Master-Website (ID = 1) nicht löschen!'); return false;");
+				$form->elements[$key][0]->deleteElement->setAttribute('onclick', "alert('" . $I18N->msg('website_manager_website_master_website_disallow_delete') . "'); return false;");
 			} else {
-				$form->elements[$key][0]->deleteElement->setAttribute('onclick', "return confirm('Wollen Sie diese Website inkl. aller Artikel und Medienpool-Dateien wirklich unwiderruflich löschen?');");
+				$form->elements[$key][0]->deleteElement->setAttribute('onclick', "return confirm('" . $I18N->msg('website_manager_website_delete_confirm') . "');");
 			}
 		} else {
-			$form->elements[$key][0]->deleteElement->setAttribute('onclick', "alert('Das Löschen von Websites wurde aus Sicherheitsgründen abgeschaltet.'); return false;");
+			$form->elements[$key][0]->deleteElement->setAttribute('onclick', "alert('" . $I18N->msg('website_manager_website_delete_trunedoff') . "'); return false;");
 		}
 
 		$form->addParam('website_id', $website_id);
