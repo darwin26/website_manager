@@ -17,7 +17,7 @@ $websiteStyles[3] = new rex_website_style('red', 'website3.ico', '#d1513c');
 $websiteStyles[4] = new rex_website_style('violet', 'website4.ico', '#cb41d2');
 $websiteStyles[5] = new rex_website_style('orange', 'website5.ico', '#dfaa3c');
 
-$REX['WEBSITE_MANAGER']->addWebsite(new rex_website(1, 'addonfactory.local', 'AddonFactory', 1, 1, 1, $websiteStyles[1], 'rex_', 'http'));
+$REX['WEBSITE_MANAGER']->addWebsite(new rex_website(1, 'addonfactory.local', 'AddonFactory dflökfdl fdlkfdlkfd lkfdlkfdlk', 1, 1, 1, $websiteStyles[1], 'rex_', 'http'));
 // --- /DYN
 
 // init current website

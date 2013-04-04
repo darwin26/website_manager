@@ -128,7 +128,7 @@ class rex_website_manager_utils {
 		$insert .= '<link rel="stylesheet" type="text/css" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/website_manager.css" />' . PHP_EOL;
 
 		// ddslick js plugin for website select box
-		$insert .= '<script type="text/javascript" src="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/jquery.ddslick.js"></script>' . PHP_EOL;
+		$insert .= '<script type="text/javascript" src="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/jquery.ddslick.min.js"></script>' . PHP_EOL;
 
 		// js inits and stuff
 		$insert .= self::addJS();
