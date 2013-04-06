@@ -1,5 +1,4 @@
 <?php
-// for this to work jquery_ui plugin is needed!
 
 class rex_prio_switch {
 	protected static $ajaxFunctionName;
