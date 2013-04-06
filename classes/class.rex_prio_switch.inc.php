@@ -30,12 +30,12 @@ class rex_prio_switch {
 		}
 	}
 
-	public static function printSwitch($strings) {
+	public static function printSwitch($strings, $adminOnly = true) {
 		global $REX;
 
 		$out = '';
 
-		if (isset($REX['USER']) && $REX['USER']->isAdmin()) {
+		if (!$adminOnly || (isset($REX['USER']) && $REX['USER']->isAdmin())) {
 			$out = '
 				<div class="onoffswitch-outer">
 					<span>' . $strings[0] . '</span> 
