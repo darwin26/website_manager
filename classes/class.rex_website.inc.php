@@ -6,7 +6,7 @@ class rex_website {
 	protected $startArticleId;
 	protected $notFoundArticleId;
 	protected $defaultTemplateId;
-	protected $style;
+	protected $color;
 	protected $tablePrefix;
 	protected $protocol;
 	protected $permission;
@@ -15,17 +15,16 @@ class rex_website {
 	const mediaDir = 'files';
 	const generatedDir = 'generated';
 	const tablePrefix = 'rex_';
-	const clangFile = 'init.clang.inc.php';
 	const permissionPrefix = 'website';
 
-	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $style, $tablePrefix = 'rex_', $protocol = 'http') {
+	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $color, $tablePrefix = 'rex_', $protocol = 'http') {
 		$this->id = $id;
 		$this->domain = $domain;
 		$this->title = $title;
 		$this->startArticleId = $startArticleId;
 		$this->notFoundArticleId = $notFoundArticleId;
 		$this->defaultTemplateId = $defaultTemplateId;
-		$this->style = $style;
+		$this->color = $color;
 		$this->tablePrefix = $tablePrefix;
 		$this->protocol = $protocol;
 
@@ -68,10 +67,6 @@ class rex_website {
 		return self::constructClangFile($this->id);
 	}
 
-	public function getStyle() {
-		return $this->style;
-	}
-
 	public function getTablePrefix() {
 		return $this->tablePrefix;
 	}
@@ -82,6 +77,20 @@ class rex_website {
 
 	public function getUrl() {
 		return $this->getProtocol() . '://' . $this->getDomain() . '/';
+	}
+
+	public function getIcon() {
+		return self::constructIconFile($this->color);
+	}
+
+	public function getIconUrl() {
+		global $REX;
+
+		return '../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/' . $this->getIcon();
+	}
+
+	public function getColor() {
+		return $this->color;
 	}
 
 	public function getPermission() {
@@ -122,10 +131,14 @@ class rex_website {
 
 	public static function constructClangFile($websiteId) {
 		if ($websiteId == self::firstId) {
-			return self::clangFile;
+			return 'init.clang.inc.php';
 		} else {
-			return str_replace('clang', 'clang' . $websiteId, self::clangFile);
+			return 'init.clang' . $websiteId . '.inc.php';
 		}
+	}
+
+	public static function constructIconFile($color) {
+		return 'favicon-' . ltrim($color, '#') . '.png';
 	}
 
 	public static function constructTablePrefix($websiteId) {

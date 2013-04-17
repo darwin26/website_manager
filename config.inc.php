@@ -25,7 +25,6 @@ if ($REX['REDAXO']) {
 		// add subpages
 		$REX['ADDON']['website_manager']['SUBPAGES'] = array(
 			array('', $I18N->msg('website_manager_websites')),
-			array('styles', $I18N->msg('website_manager_styles')),
 			array('tools', $I18N->msg('website_manager_tools')),
 			array('options', $I18N->msg('website_manager_options')),
 			array('setup', $I18N->msg('website_manager_setup'))

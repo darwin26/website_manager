@@ -10,7 +10,7 @@ class rex_website_manager_utils {
 	}
 
 	public static function addToOutputFilter($params) {
-		global $REX;
+		global $REX, $I18N;
 
 		// website select
 		if (rex_request('page') != 'mediapool' && rex_request('page') != 'linkmap') {
@@ -22,6 +22,30 @@ class rex_website_manager_utils {
 			$params['subject']  = str_replace('<div id="rex-extra">', '<div id="rex-extra">' . self::getWebsiteNameFrontendLink(), $params['subject']);
 		}
 
+		// colorpicker
+		if (rex_request('page') == 'website_manager') {
+			if (rex_request('func') == 'add') {
+				$color = 'color: "#47a0ce", ';
+			} else {
+				$color = '';
+			}
+
+			$replace = PHP_EOL . '<!-- BEGIN website_manager -->' . PHP_EOL;
+			$replace .= '<link rel="stylesheet" type="text/css" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/spectrum.css" />' . PHP_EOL;
+			$replace .= '<script type="text/javascript" src="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/spectrum.js"></script>' . PHP_EOL;
+			$replace .= '<script type="text/javascript">jQuery("#color-picker").spectrum({ ' . $color . ' showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: true, palette: [ ["#47a0ce", "#8eb659", "#d1513c", "#cb41d2", "#dfaa3c"] ],  chooseText: "' . $I18N->msg('website_manager_website_colorpicker_choose') . '", cancelText: "' . $I18N->msg('website_manager_website_colorpicker_cancel') . '" });</script>' . PHP_EOL;
+			$replace .= '<!-- END website_manager -->';
+
+			$params['subject']  = str_replace('</body>', $replace . '</body>', $params['subject']);
+		}
+
+		// website specific favicon
+		if ($REX['ADDON']['website_manager']['settings']['colorize_favicon'] && $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getColor() != '') {
+			$replace = '<link rel="shortcut icon" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getIcon() . '" />' . PHP_EOL;
+
+			$params['subject']  = str_replace('<link rel="shortcut icon" href="media/favicon.ico" />', $replace, $params['subject']);
+		}
+		
 		return $params['subject'];
 	}
 
@@ -38,7 +62,7 @@ class rex_website_manager_utils {
 			}
 
 			if (isset($REX['USER']) && $REX['USER']->isAdmin() || isset($REX['USER']) && $REX['USER']->hasPerm($website->getPermission())) {
-				$websiteSelectOptions .= '<option value="' . $website->getId() . '" ' . $selected . ' data-imagesrc="' . $website->getStyle()->getIconUrl() . '" data-description="' . $website->getTitle() . '">' . $website->getDomain() . '</option>';
+				$websiteSelectOptions .= '<option value="' . $website->getId() . '" ' . $selected . ' data-imagesrc="' . $website->getIconUrl() . '" data-description="' . $website->getTitle() . '">' . $website->getDomain() . '</option>';
 			}
 		}
 
@@ -109,20 +133,15 @@ class rex_website_manager_utils {
 	public static function appendToPageHeader($params) {
 		global $REX;
 
-		$curWbesiteStyle = $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getStyle();
-
 		$insert = '<!-- BEGIN website_manager -->' . PHP_EOL;
 
 		// color bar
 		if ($REX['ADDON']['website_manager']['settings']['show_color_bar']) { 
-			$insert .= '<style>#rex-navi-logout { border-bottom: 10px solid ' . $curWbesiteStyle->getColor() . '; }</style>' . PHP_EOL;
+			$insert .= '<style>#rex-navi-logout { border-bottom: 10px solid ' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getColor() . '; }</style>' . PHP_EOL;
 		}
 
 		// color of links in website select box
-		$insert .= '<style>.dd-selected-text { color: ' . $curWbesiteStyle->getColor() . '; }</style>' . PHP_EOL;
-
-		// website specific favicon
-		$insert .= '<link rel="shortcut icon" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getStyle()->getIcon() . '" />' . PHP_EOL;
+		$insert .= '<style>.dd-selected-text { color: ' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getColor() . '; }</style>' . PHP_EOL;
 
 		// general css file
 		$insert .= '<link rel="stylesheet" type="text/css" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/website_manager.css" />' . PHP_EOL;
@@ -197,5 +216,50 @@ class rex_website_manager_utils {
 
 		// for ajax call: update prio in db if necessary
 		rex_website_manager_prio_switch::handleAjaxCall('update_websites_prio', 'rex_website', 'id', false);
+	}
+
+	public static function hex2rgb($hex) {
+	   $hex = str_replace("#", "", $hex);
+
+	   if(strlen($hex) == 3) {
+		  $r = hexdec(substr($hex,0,1).substr($hex,0,1));
+		  $g = hexdec(substr($hex,1,1).substr($hex,1,1));
+		  $b = hexdec(substr($hex,2,1).substr($hex,2,1));
+	   } else {
+		  $r = hexdec(substr($hex,0,2));
+		  $g = hexdec(substr($hex,2,2));
+		  $b = hexdec(substr($hex,4,2));
+	   }
+	   $rgb = array($r, $g, $b);
+	   //return implode(",", $rgb); // returns the rgb values separated by commas
+	   return $rgb; // returns an array with the rgb values
+	}
+
+	public static function rgb2hex($rgb) {
+	   $hex = "#";
+	   $hex .= str_pad(dechex($rgb[0]), 2, "0", STR_PAD_LEFT);
+	   $hex .= str_pad(dechex($rgb[1]), 2, "0", STR_PAD_LEFT);
+	   $hex .= str_pad(dechex($rgb[2]), 2, "0", STR_PAD_LEFT);
+
+	   return $hex; // returns the hex value including the number sign (#)
+	}
+
+	public static function createIcon($hexColor) {
+		global $REX;
+
+		$path =  realpath($REX['HTDOCS_PATH'] . $REX['MEDIA_ADDON_DIR']) . DIRECTORY_SEPARATOR . 'website_manager/';
+		$rgbColor = self::hex2rgb($hexColor);
+		$favIconOriginal = $path . 'favicon.png';
+		$favIconNew = $path . rex_website::constructIconFile($hexColor);
+
+		$im = imagecreatefrompng($favIconOriginal);
+		imagealphablending($im, false);
+
+		imagesavealpha($im, true);
+
+		if ($im && imagefilter($im, IMG_FILTER_COLORIZE, $rgbColor[0], $rgbColor[1], $rgbColor[2], 0)) {
+			imagepng($im, $favIconNew);
+			imagedestroy($im);
+		}
 	}
 }

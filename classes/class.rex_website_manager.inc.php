@@ -167,23 +167,13 @@ class rex_website_manager {
 			rex_website_manager_utils::createDynFile($initFile);
 		}
 
-		// styles
+		// websites
 		$sql = rex_sql::factory();
 		//$sql->debugsql = true;
-		$sql->setQuery('SELECT * FROM rex_website_style ORDER BY id');
-
-		for ($i = 0; $i < $sql->getRows(); $i++) {
-			$initContent .= '$websiteStyles[' . $sql->getValue('id') . '] = new rex_website_style(\'' . $sql->getValue('name') . '\', \'' . $sql->getValue('icon') . '\', \'' . $sql->getValue('color') . '\');' . PHP_EOL;
-			$sql->next();	
-		}
-
-		$initContent .= PHP_EOL;
-
-		// websites
 		$sql->setQuery('SELECT * FROM rex_website ORDER BY priority');
 
 		for ($i = 0; $i < $sql->getRows(); $i++) {
-			$initContent .= '$REX[\'WEBSITE_MANAGER\']->addWebsite(new rex_website(' . $sql->getValue('id') . ', \'' . $sql->getValue('domain') . '\', \'' . $sql->getValue('title') . '\', ' . $sql->getValue('start_article_id') . ', ' . $sql->getValue('notfound_article_id') . ', ' . $sql->getValue('default_template_id') . ', $websiteStyles[' . $sql->getValue('style_id') . '], \'' . $sql->getValue('table_prefix') . '\', \'' . $sql->getValue('protocol') . '\'));' . PHP_EOL;
+			$initContent .= '$REX[\'WEBSITE_MANAGER\']->addWebsite(new rex_website(' . $sql->getValue('id') . ', \'' . $sql->getValue('domain') . '\', \'' . $sql->getValue('title') . '\', ' . $sql->getValue('start_article_id') . ', ' . $sql->getValue('notfound_article_id') . ', ' . $sql->getValue('default_template_id') . ', \'' . $sql->getValue('color') . '\', \'' . $sql->getValue('table_prefix') . '\', \'' . $sql->getValue('protocol') . '\'));' . PHP_EOL;
 			$sql->next();	
 		}
 

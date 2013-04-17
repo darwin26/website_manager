@@ -15,7 +15,8 @@ if (version_compare($REX['VERSION'] . '.' . $REX['SUBVERSION'] . '.' . $REX['MIN
 
 	$firstWebsiteId = 1;
 	$firstWebsiteProtocol = 'http';
-	$firstWebsiteStyleId = 1;
+	$firstWebsiteColor = '#47a0ce';
+	$firstWebsitePriority = 1;
 	$firstTablePrefix = 'rex_';
 
 	$sql = new rex_sql();
@@ -30,26 +31,12 @@ if (version_compare($REX['VERSION'] . '.' . $REX['SUBVERSION'] . '.' . $REX['MIN
 		`default_template_id` int(11) NOT NULL,
 		`table_prefix` varchar(255) NOT NULL,
 		`protocol` varchar(255) NOT NULL,
-		`style_id` int(11) NOT NULL,
+		`color` varchar(255) NOT NULL,
 		`priority` INT(11) NOT NULL,
 		PRIMARY KEY (`id`)
 	) ENGINE=MyISAM;');
 
-	$sql->setQuery('INSERT INTO `rex_website` VALUES (1, "' . rex_website_manager_utils::sanitizeUrl($REX['SERVER']) . '", "' . $REX['SERVERNAME'] . '", ' . $REX['START_ARTICLE_ID'] . ', ' . $REX['NOTFOUND_ARTICLE_ID'] . ', ' . $REX['DEFAULT_TEMPLATE_ID'] . ', "' . $firstTablePrefix . '", "' . $firstWebsiteProtocol  . '", ' . $firstWebsiteStyleId . ', 1)');                                                                                
-
-	$sql->setQuery('CREATE TABLE IF NOT EXISTS `rex_website_style` (
-		`id` int(11) NOT NULL AUTO_INCREMENT,
-		`name` varchar(255) NOT NULL,
-		`icon` varchar(255) NOT NULL,
-		`color` varchar(255) NOT NULL,
-		PRIMARY KEY (`id`)
-	) ENGINE=MyISAM;');
-
-	$sql->setQuery('INSERT INTO `rex_website_style` VALUES (1, "blue", "website.ico", "#47a0ce")');
-	$sql->setQuery('INSERT INTO `rex_website_style` VALUES (2, "green", "website2.ico", "#8eb659")');
-	$sql->setQuery('INSERT INTO `rex_website_style` VALUES (3, "red", "website3.ico", "#d1513c")');
-	$sql->setQuery('INSERT INTO `rex_website_style` VALUES (4, "violet", "website4.ico", "#cb41d2")');
-	$sql->setQuery('INSERT INTO `rex_website_style` VALUES (5, "orange", "website5.ico", "#dfaa3c")');
+	$sql->setQuery('INSERT INTO `rex_website` VALUES (1, "' . rex_website_manager_utils::sanitizeUrl($REX['SERVER']) . '", "' . $REX['SERVERNAME'] . '", ' . $REX['START_ARTICLE_ID'] . ', ' . $REX['NOTFOUND_ARTICLE_ID'] . ', ' . $REX['DEFAULT_TEMPLATE_ID'] . ', "' . $firstTablePrefix . '", "' . $firstWebsiteProtocol  . '", "' . $firstWebsiteColor . '", ' . $firstWebsitePriority . ')');                                                                                
 
 	$error = $sql->getError();
 

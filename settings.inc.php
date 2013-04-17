@@ -15,3 +15,6 @@ $REX['ADDON']['website_manager']['settings']['show_website_name_frontend_link'] 
 // if true a color bar will be shown in redaxo header
 $REX['ADDON']['website_manager']['settings']['show_color_bar'] = true;
 
+// if true favicon will be colorized too
+$REX['ADDON']['website_manager']['settings']['colorize_favicon'] = true;
+
