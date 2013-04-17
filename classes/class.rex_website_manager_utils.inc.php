@@ -19,7 +19,7 @@ class rex_website_manager_utils {
 
 		// website name frontend link
 		if ($REX['ADDON']['website_manager']['settings']['show_website_name_frontend_link']) {
-			$params['subject']  = str_replace('<div id="rex-extra">', '<div id="rex-extra">' . self::getWebsiteNameFrontendLink(), $params['subject']);
+			$params['subject']  = str_replace('<div id="rex-website">', '<div id="rex-website">' . self::getWebsiteNameFrontendLink(), $params['subject']);
 		}
 
 		// colorpicker
