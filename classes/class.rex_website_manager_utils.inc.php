@@ -25,7 +25,7 @@ class rex_website_manager_utils {
 		// colorpicker
 		if (rex_request('page') == 'website_manager') {
 			if (rex_request('func') == 'add') {
-				$color = 'color: "#47a0ce", ';
+				$color = 'color: "' . rex_website::defaultColor . '", ';
 			} else {
 				$color = '';
 			}
@@ -33,7 +33,7 @@ class rex_website_manager_utils {
 			$replace = PHP_EOL . '<!-- BEGIN website_manager -->' . PHP_EOL;
 			$replace .= '<link rel="stylesheet" type="text/css" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/spectrum.css" />' . PHP_EOL;
 			$replace .= '<script type="text/javascript" src="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/spectrum.js"></script>' . PHP_EOL;
-			$replace .= '<script type="text/javascript">jQuery("#color-picker").spectrum({ ' . $color . ' showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: true, palette: [ ["#47a0ce", "#8eb659", "#d1513c", "#cb41d2", "#dfaa3c"] ],  chooseText: "' . $I18N->msg('website_manager_website_colorpicker_choose') . '", cancelText: "' . $I18N->msg('website_manager_website_colorpicker_cancel') . '" });</script>' . PHP_EOL;
+			$replace .= '<script type="text/javascript">jQuery("#color-picker").spectrum({ ' . $color . ' showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: true, palette: [ ["' . rex_website::defaultColor . '", "#8eb659", "#d1513c", "#cb41d2", "#dfaa3c"] ],  chooseText: "' . $I18N->msg('website_manager_website_colorpicker_choose') . '", cancelText: "' . $I18N->msg('website_manager_website_colorpicker_cancel') . '" });</script>' . PHP_EOL;
 			$replace .= '<!-- END website_manager -->';
 
 			$params['subject']  = str_replace('</body>', $replace . '</body>', $params['subject']);

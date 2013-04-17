@@ -16,8 +16,10 @@ class rex_website {
 	const generatedDir = 'generated';
 	const tablePrefix = 'rex_';
 	const permissionPrefix = 'website';
+	const defaultColor = '#47a0ce';
+	const defaultProtocol = 'http';
 
-	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $color, $tablePrefix = 'rex_', $protocol = 'http') {
+	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $color, $tablePrefix = self::tablePrefix, $protocol = self::defaultProtocol) {
 		$this->id = $id;
 		$this->domain = $domain;
 		$this->title = $title;
