@@ -1,7 +1,10 @@
 <?php
 
 // this addons will be reinstalled if new website is added
-$REX['ADDON']['website_manager']['settings']['reinstall_addons'] = array('image_manager', 'metainfo');
+$REX['ADDON']['website_manager']['settings']['reinstall_addons'] = array(); // e.g.: array('image_manager', 'metainfo');
+
+// this plugins will be reinstalled if new website is added
+$REX['ADDON']['website_manager']['settings']['reinstall_plugins'] = array(); // e.g.: array(array('be_utilities', 'hide_startarticle'), )
 
 // if false if admins won't be allowed to delete websites
 $REX['ADDON']['website_manager']['settings']['allow_website_delete'] = true;

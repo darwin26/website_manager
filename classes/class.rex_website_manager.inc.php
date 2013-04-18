@@ -273,7 +273,7 @@ class rex_website_manager {
 	}
 
 	public static function createWebsite($websiteId) {
-		global $REX, $I18N, $curAddonCount;
+		global $REX, $I18N, $curAddonCount, $curPluginCount;
 
 		$tablePrefix = rex_website::constructTablePrefix($websiteId);
 		$generatedDir = rex_website::constructGeneratedDir($websiteId);
@@ -325,10 +325,11 @@ class rex_website_manager {
 		mkdir($htdocsPath . $filesDir, $REX['DIRPERM']);
 
 		// ***************************************************************************************************
-		// addons
+		// addons/plugins
 		// ***************************************************************************************************
 
 		$reinstallAddons = $REX['ADDON']['website_manager']['settings']['reinstall_addons'];
+		$reinstallPlugins = $REX['ADDON']['website_manager']['settings']['reinstall_plugins'];
 
 		// set stuff for new website
 		$REX['TABLE_PREFIX'] = $tablePrefix;
@@ -340,6 +341,19 @@ class rex_website_manager {
 				require_once($REX['INCLUDE_PATH'] . '/addons/' . $reinstallAddons[$curAddonCount] . '/install.inc.php');
 
 				$sqlFile = $REX['INCLUDE_PATH'] . '/addons/' . $reinstallAddons[$curAddonCount] . '/install.sql';
+	
+				if (file_exists($sqlFile)) {
+					rex_install_dump($sqlFile);
+				}
+			}
+		}
+
+		// reinstall plugins
+		for ($curPluginCount = 0; $curPluginCount < count($reinstallPlugins); $curPluginCount++) {
+			if (OOPlugin::isInstalled($reinstallPlugins[$curPluginCount][0], $reinstallPlugins[$curPluginCount][1])) {
+				require_once($REX['INCLUDE_PATH'] . '/addons/' . $reinstallPlugins[$curPluginCount][0] . '/plugins/' . $reinstallPlugins[$curPluginCount][1] . '/install.inc.php');
+
+				$sqlFile = $REX['INCLUDE_PATH'] . '/addons/' . $reinstallPlugins[$curPluginCount][0] . '/plugins/' . $reinstallPlugins[$curPluginCount][1] . '/install.sql';
 	
 				if (file_exists($sqlFile)) {
 					rex_install_dump($sqlFile);
