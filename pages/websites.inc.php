@@ -117,12 +117,6 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 
 	$form->addErrorMessage(REX_FORM_ERROR_VIOLATE_UNIQUE_KEY, $I18N->msg('website_manager_website_id_exists'));
 
-	// color
-	$field =& $form->addTextField('color'); 
-	$field->setLabel($I18N->msg('website_manager_website_color'));
-	$field->setAttribute('id', 'color-picker');
-	$field->setAttribute('style', 'visibility: hidden; height: 20px;');
-
 	// domain
 	$field =& $form->addTextField('domain'); 
 	$field->setLabel($I18N->msg('website_manager_website_domain'));
@@ -160,6 +154,12 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$select->setSize(1);
 	$select->addOption($I18N->msg('website_manager_website_http'), 'http');
 	$select->addOption($I18N->msg('website_manager_website_https'), 'https');
+
+	// color
+	$field =& $form->addTextField('color'); 
+	$field->setLabel($I18N->msg('website_manager_website_color'));
+	$field->setAttribute('id', 'color-picker');
+	$field->setAttribute('style', 'visibility: hidden; height: 20px;');
 
 
 	if ($func == 'edit') {
