@@ -243,23 +243,4 @@ class rex_website_manager_utils {
 
 	   return $hex; // returns the hex value including the number sign (#)
 	}
-
-	public static function createIcon($hexColor) {
-		global $REX;
-
-		$path =  realpath($REX['HTDOCS_PATH'] . $REX['MEDIA_ADDON_DIR']) . DIRECTORY_SEPARATOR . 'website_manager/';
-		$rgbColor = self::hex2rgb($hexColor);
-		$favIconOriginal = $path . 'favicon.png';
-		$favIconNew = $path . rex_website::constructIconFile($hexColor);
-
-		$im = imagecreatefrompng($favIconOriginal);
-		imagealphablending($im, false);
-
-		imagesavealpha($im, true);
-
-		if ($im && imagefilter($im, IMG_FILTER_COLORIZE, $rgbColor[0], $rgbColor[1], $rgbColor[2], 0)) {
-			imagepng($im, $favIconNew);
-			imagedestroy($im);
-		}
-	}
 }

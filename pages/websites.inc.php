@@ -8,38 +8,30 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 	global $REX;
 
 	// get values from submitted form
-	$formValues = rex_website_manager_utils::getFormValues($params['form'], array('color'));
 	$status = rex_request('status', 'string');
+	$formValues = rex_website_manager_utils::getFormValues($params['form'], array('color'));
+	$websiteId = rex_website_manager_utils::getLastInsertedId($params['sql']);
 
 	if ($status == 'website_added') {
-		// add website
-		$websiteId = rex_website_manager_utils::getLastInsertedId($params['sql']);
-
-		$tablePrefix = rex_website::constructTablePrefix($websiteId);
-		$generatedDir = rex_website::constructGeneratedDir($websiteId);
-		$filesDir = rex_website::constructMediaDir($websiteId);
-
 		// update table prefix in db
-		$sql = new rex_sql();
-		$sql->debugsql = true;
-		$sql->setQuery("UPDATE rex_website SET table_prefix = '" . $tablePrefix . "' WHERE id = " . $websiteId);
+		rex_website_manager::updateTablePrefix($websiteId);
+
+		// create website
+		rex_website_manager::createWebsite($websiteId);
 
 		// create clang file for clang fix
 		rex_website_manager::createClangFile($websiteId);
-
-		// add tables, folders and addon stuff
-		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/create_website.inc.php');
 	} else {
-		// edit website
+		// do nothing
 	}
 
 	// favicon create/update
 	if ($REX['ADDON']['website_manager']['settings']['colorize_favicon'] && $formValues['color'] != '') {
-		rex_website_manager_utils::createIcon($formValues['color']);
+		rex_website_manager::createIcon($formValues['color']);
 	}
 
 	// update init file to reflect changes
-	$REX['WEBSITE_MANAGER']->updateInitFile();
+	rex_website_manager::updateInitFile();
 
 	return true;
 });
@@ -49,21 +41,16 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 	global $REX;
 
 	// get values from submitted form
-	$formValues = rex_website_manager_utils::getFormValues($params['form'], array('color'));
 	$websiteId = $params['form']->params['website_id'];
 
-	$tablePrefix = rex_website::constructTablePrefix($websiteId);
-	$generatedDir = rex_website::constructGeneratedDir($websiteId);
-	$filesDir = rex_website::constructMediaDir($websiteId);
-
-	// delete tables, folders and addon stuff
-	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/install/destroy_website.inc.php');
+	// destroy website
+	rex_website_manager::destroyWebsite($websiteId);
 
 	// delete clang file for clang fix
 	rex_website_manager::deleteClangFile($websiteId);
 
 	// update init file to reflect changes
-	$REX['WEBSITE_MANAGER']->updateInitFile();
+	rex_website_manager::updateInitFile();
 
 	return true;
 });

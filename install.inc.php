@@ -16,7 +16,7 @@ if (version_compare($REX['VERSION'] . '.' . $REX['SUBVERSION'] . '.' . $REX['MIN
 	$firstWebsiteId = rex_website::firstId;
 	$firstWebsiteColor = rex_website::defaultColor;
 	$firstTablePrefix = rex_website::tablePrefix;
-	$firstWebsiteProtocol = self::defaultProtocol;
+	$firstWebsiteProtocol = rex_website::defaultProtocol;
 
 	$sql = new rex_sql();
 	//$sql->debugsql = true;

@@ -12,7 +12,7 @@ class rex_website_manager_prio_switch extends rex_prio_switch {
 			self::updatePrio(rex_request('order'), $table, $idField, $useLike);
 
 			// update init file to reflect changes
-			$REX['WEBSITE_MANAGER']->updateInitFile();
+			rex_website_manager::updateInitFile();
 		}
 	}
 }
