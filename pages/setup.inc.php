@@ -1,6 +1,6 @@
 <?php
 $codeExample = '// init website manager
-require_once($REX["INCLUDE_PATH"] . "/addons/website_manager/init.inc.php");';
+require_once($REX["INCLUDE_PATH"] . "/addons/website_manager/generated/init.inc.php");';
 
 $codeExample2 = '// this addons will be reinstalled if new website is added
 $REX["ADDON"]["website_manager"]["settings"]["reinstall_addons"] = array("image_manager", "metainfo");';

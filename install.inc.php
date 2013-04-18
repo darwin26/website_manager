@@ -39,13 +39,13 @@ if (version_compare($REX['VERSION'] . '.' . $REX['SUBVERSION'] . '.' . $REX['MIN
 
 	$error = $sql->getError();
 
-	if ($error == '') {
+	//if ($error == '') {
 		rex_website_manager::updateInitFile();
 		rex_website_manager::fixClang(null);
 
 		$REX['ADDON']['install']['website_manager'] = 1;
-	} else {
-		$REX['ADDON']['installmsg']['website_manager'] = $error;
-	}
+	//} else {
+	//	$REX['ADDON']['installmsg']['website_manager'] = $error;
+	//}
 }
 ?>

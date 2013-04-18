@@ -32,7 +32,7 @@ if ($REX['REDAXO']) {
 		);
 	} else {
 		// this is only neccesary until user has put this code line in master.inc.php
-		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/init.inc.php');
+		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/generated/init.inc.php');
 	
 		// add only setup subpage
 		$REX['ADDON']['website_manager']['SUBPAGES'] = array(

@@ -72,7 +72,7 @@ class rex_website_manager {
 	protected function includeClangFile() {
 		global $REX;
 
-		require($REX['INCLUDE_PATH'] . '/addons/website_manager/' . $this->getCurrentWebsite()->getClangFile());
+		require($REX['INCLUDE_PATH'] . '/addons/website_manager/generated/' . $this->getCurrentWebsite()->getClangFile());
 	}
 
 	protected function getWebsiteIdForFrontend() {
@@ -160,12 +160,19 @@ class rex_website_manager {
 	public static function updateInitFile() {
 		global $REX;
 
-		$initFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/init.inc.php';
 		$initContent = '';
+		$initFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/generated/init.inc.php';
 
 		if (!file_exists($initFile)) {
 			rex_website_manager_utils::createDynFile($initFile);
 		}
+
+		// inludes
+		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/classes/class.rex_website.inc.php\');' . PHP_EOL;
+		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/classes/class.rex_website_manager.inc.php\');' . PHP_EOL . PHP_EOL;
+
+		// create website manager
+		$initContent .= '$REX[\'WEBSITE_MANAGER\'] = new rex_website_manager();' . PHP_EOL . PHP_EOL;
 
 		// websites
 		$sql = rex_sql::factory();
@@ -176,6 +183,11 @@ class rex_website_manager {
 			$initContent .= '$REX[\'WEBSITE_MANAGER\']->addWebsite(new rex_website(' . $sql->getValue('id') . ', \'' . $sql->getValue('domain') . '\', \'' . $sql->getValue('title') . '\', ' . $sql->getValue('start_article_id') . ', ' . $sql->getValue('notfound_article_id') . ', ' . $sql->getValue('default_template_id') . ', \'' . $sql->getValue('color') . '\', \'' . $sql->getValue('table_prefix') . '\', \'' . $sql->getValue('protocol') . '\'));' . PHP_EOL;
 			$sql->next();	
 		}
+		
+		$initContent .= PHP_EOL;
+
+		// init current website
+		$initContent .= '$REX[\'WEBSITE_MANAGER\']->init();';
 
 	  	rex_replace_dynamic_contents($initFile, $initContent);
 	}
@@ -198,10 +210,10 @@ class rex_website_manager {
 
 		// write clangs to website specific clang file
 		if (isset($REX['WEBSITE_MANAGER'])) {
-			$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getClangFile();
+			$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/generated/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getClangFile();
 		} else {
 			// this is when addon is getting installed
-			$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . rex_website::constructClangFile(1);
+			$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/generated/' . rex_website::constructClangFile(1);
 		}
 
 		if (!file_exists($clangFile)) {
@@ -214,7 +226,7 @@ class rex_website_manager {
 	public static function createClangFile($websiteId) {
 		global $REX;
 
-		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . rex_website::constructClangFile($websiteId);
+		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/generated/' . rex_website::constructClangFile($websiteId);
 
 		if (!file_exists($clangFile)) {
 			rex_website_manager_utils::createDynFile($clangFile);
@@ -226,7 +238,7 @@ class rex_website_manager {
 	public static function deleteClangFile($websiteId) {
 		global $REX;
 
-		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/' . rex_website::constructClangFile($websiteId);
+		$clangFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/generated/' . rex_website::constructClangFile($websiteId);
 
 		if (file_exists($clangFile)) {
 			unlink($clangFile);
