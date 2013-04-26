@@ -291,4 +291,24 @@ class rex_website_manager_utils {
 
 		return $output;
 	}
+
+	public static function logQuery(&$log, &$sql, $query) {
+		$sql->setQuery($query);
+
+		if ($sql->getError() == '') {
+			$log->logInfo('[EXECUTE QUERY] ' . $query);
+		} else {
+			$log->logError('[EXECUTE QUERY] ' . $query);
+		}
+	}
+
+	public static function logMkDir(&$log, $path) {
+		global $REX;
+
+		if (mkdir($path, $REX['DIRPERM'])) {
+			$log->logInfo('[CREATE DIR] ' . $path);
+		} else {
+			$log->logError('[CREATE DIR] ' . $path);
+		}
+	}
 }

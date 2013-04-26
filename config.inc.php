@@ -15,6 +15,7 @@ require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_w
 
 if ($REX['REDAXO']) {
 	// backend includes
+	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.klogger.inc.php');
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/settings.inc.php');
 	
 	// add lang file
