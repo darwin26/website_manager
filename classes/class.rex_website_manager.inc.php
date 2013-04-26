@@ -431,7 +431,7 @@ class rex_website_manager {
 			if (OOPlugin::isInstalled($reinstallPlugins[$curPluginCount][0], $reinstallPlugins[$curPluginCount][1])) {
 				require_once($REX['INCLUDE_PATH'] . '/addons/' . $reinstallPlugins[$curPluginCount][0] . '/plugins/' . $reinstallPlugins[$curPluginCount][1] . '/install.inc.php');
 
-				$log->logInfo('[REINSTALL PLUGIN] ' . $reinstallAddons[$curAddonCount]);
+				$log->logInfo('[REINSTALL PLUGIN] ' . $reinstallPlugins[$curPluginCount][1]);
 
 				$sqlFile = $REX['INCLUDE_PATH'] . '/addons/' . $reinstallPlugins[$curPluginCount][0] . '/plugins/' . $reinstallPlugins[$curPluginCount][1] . '/install.sql';
 	
