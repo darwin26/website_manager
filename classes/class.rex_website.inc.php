@@ -29,7 +29,6 @@ class rex_website {
 		$this->color = $color;
 		$this->tablePrefix = $tablePrefix;
 		$this->protocol = $protocol;
-
 		$this->permission = self::permissionPrefix . '[' . $domain . ']';
 	}
 
@@ -124,7 +123,9 @@ class rex_website {
 	}
 
 	public static function constructMediaDir($websiteId) {
-		if ($websiteId == self::firstId) {
+		global $REX;
+
+		if ($websiteId == self::firstId || $REX['WEBSITE_MANAGER_SETTINGS']['identical_media']) {
 			return self::mediaDir;
 		} else {
 			return self::mediaDir . $websiteId;
@@ -132,7 +133,9 @@ class rex_website {
 	}
 
 	public static function constructClangFile($websiteId) {
-		if ($websiteId == self::firstId) {
+		global $REX;
+
+		if ($websiteId == self::firstId || $REX['WEBSITE_MANAGER_SETTINGS']['identical_clangs']) {
 			return 'init.clang.inc.php';
 		} else {
 			return 'init.clang' . $websiteId . '.inc.php';

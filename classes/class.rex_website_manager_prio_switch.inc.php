@@ -1,7 +1,7 @@
 <?php
 
 class rex_website_manager_prio_switch extends rex_prio_switch {
-	// overwrote to also update init file of website manager
+	// overwritten to also update init file of website manager
 	public static function handleAjaxCall($func, $table, $idField, $useLike) {
 		global $REX;
 

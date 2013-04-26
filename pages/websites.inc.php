@@ -20,13 +20,15 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 		rex_website_manager::createWebsite($websiteId);
 
 		// create clang file for clang fix
-		rex_website_manager::createClangFile($websiteId);
+		if (!$REX['WEBSITE_MANAGER_SETTINGS']['identical_clangs']) {
+			rex_website_manager::createClangFile($websiteId);
+		}
 	} else {
 		// do nothing
 	}
 
 	// favicon create/update
-	if ($REX['ADDON']['website_manager']['settings']['colorize_favicon'] && $formValues['color'] != '') {
+	if ($REX['WEBSITE_MANAGER_SETTINGS']['colorize_favicon'] && $formValues['color'] != '') {
 		rex_website_manager::createIcon($formValues['color']);
 	}
 
@@ -47,7 +49,9 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 	rex_website_manager::destroyWebsite($websiteId);
 
 	// delete clang file for clang fix
-	rex_website_manager::deleteClangFile($websiteId);
+	if (!$REX['WEBSITE_MANAGER_SETTINGS']['identical_clangs']) {
+		rex_website_manager::deleteClangFile($websiteId);
+	}
 
 	// update init file to reflect changes
 	rex_website_manager::updateInitFile();
@@ -165,7 +169,7 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	if ($func == 'edit') {
 		$key = $I18N->msg('website_manager_edit_button_key');
 
-		if ($REX['ADDON']['website_manager']['settings']['allow_website_delete']) {
+		if ($REX['WEBSITE_MANAGER_SETTINGS']['allow_website_delete']) {
 			if ($website_id == 1) {
 				$form->elements[$key][0]->deleteElement->setAttribute('onclick', "alert('" . $I18N->msg('website_manager_website_master_website_disallow_delete') . "'); return false;");
 			} else {

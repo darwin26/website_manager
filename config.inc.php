@@ -53,7 +53,7 @@ if ($REX['REDAXO']) {
 		}
 
 		// frontend link in meta menu 
-		if ($REX['ADDON']['website_manager']['settings']['show_metamenu_frontend_link']) {
+		if ($REX['WEBSITE_MANAGER_SETTINGS']['show_metamenu_frontend_link']) {
 			rex_register_extension('META_NAVI', 'rex_website_manager_utils::addFrontendLinkToMetaMenu');
 		}
 

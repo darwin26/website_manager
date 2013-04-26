@@ -18,29 +18,34 @@ class rex_website_manager_utils {
 		}
 
 		// website name frontend link
-		if ($REX['ADDON']['website_manager']['settings']['show_website_name_frontend_link']) {
-			$params['subject']  = str_replace('<div id="rex-website">', '<div id="rex-website">' . self::getWebsiteNameFrontendLink(), $params['subject']);
+		if ($REX['WEBSITE_MANAGER_SETTINGS']['show_website_name_frontend_link']) {
+			// don't show if there is only one mediapool
+			if (!(rex_request('page') == 'mediapool' && $REX['WEBSITE_MANAGER_SETTINGS']['identical_media'])) {
+				$params['subject']  = str_replace('<div id="rex-website">', '<div id="rex-website">' . self::getWebsiteNameFrontendLink(), $params['subject']);
+			}
 		}
 
 		// colorpicker
 		if (rex_request('page') == 'website_manager') {
 			if (rex_request('func') == 'add') {
 				$color = 'color: "' . rex_website::defaultColor . '", ';
+				$colorInit = 'jQuery("#color-picker").attr("value", "' . rex_website::defaultColor . '"); ';
 			} else {
 				$color = '';
+				$colorInit = '';
 			}
 
 			$replace = PHP_EOL . '<!-- BEGIN website_manager -->' . PHP_EOL;
 			$replace .= '<link rel="stylesheet" type="text/css" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/spectrum.css" />' . PHP_EOL;
 			$replace .= '<script type="text/javascript" src="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/spectrum.js"></script>' . PHP_EOL;
-			$replace .= '<script type="text/javascript">jQuery("#color-picker").spectrum({ ' . $color . ' showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: true, palette: [ ["' . rex_website::defaultColor . '", "#8eb659", "#d1513c", "#cb41d2", "#dfaa3c"] ],  chooseText: "' . $I18N->msg('website_manager_website_colorpicker_choose') . '", cancelText: "' . $I18N->msg('website_manager_website_colorpicker_cancel') . '" });</script>' . PHP_EOL;
+			$replace .= '<script type="text/javascript">' . $colorInit . 'jQuery("#color-picker").spectrum({ ' . $color . ' showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: true, palette: [ ["' . rex_website::defaultColor . '", "#8eb659", "#d1513c", "#cb41d2", "#dfaa3c"] ],  chooseText: "' . $I18N->msg('website_manager_website_colorpicker_choose') . '", cancelText: "' . $I18N->msg('website_manager_website_colorpicker_cancel') . '" });</script>' . PHP_EOL;
 			$replace .= '<!-- END website_manager -->';
 
 			$params['subject']  = str_replace('</body>', $replace . '</body>', $params['subject']);
 		}
 
 		// website specific favicon
-		if ($REX['ADDON']['website_manager']['settings']['colorize_favicon'] && $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getColor() != '') {
+		if ($REX['WEBSITE_MANAGER_SETTINGS']['colorize_favicon'] && $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getColor() != '') {
 			$replace = '<link rel="shortcut icon" href="../' . $REX['MEDIA_ADDON_DIR'] . '/website_manager/' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getIcon() . '" />' . PHP_EOL;
 
 			$params['subject']  = str_replace('<link rel="shortcut icon" href="media/favicon.ico" />', $replace, $params['subject']);
@@ -136,8 +141,11 @@ class rex_website_manager_utils {
 		$insert = '<!-- BEGIN website_manager -->' . PHP_EOL;
 
 		// color bar
-		if ($REX['ADDON']['website_manager']['settings']['show_color_bar']) { 
-			$insert .= '<style>#rex-navi-logout { border-bottom: 10px solid ' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getColor() . '; }</style>' . PHP_EOL;
+		if ($REX['WEBSITE_MANAGER_SETTINGS']['show_color_bar']) {
+			// don't show if there is only one mediapool
+			if (!(rex_request('page') == 'mediapool' && $REX['WEBSITE_MANAGER_SETTINGS']['identical_media'])) {
+				$insert .= '<style>#rex-navi-logout { border-bottom: 10px solid ' . $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getColor() . '; }</style>' . PHP_EOL;
+			}
 		}
 
 		// color of links in website select box
