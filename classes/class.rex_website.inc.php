@@ -60,8 +60,20 @@ class rex_website {
 		return self::constructGeneratedDir($this->id);
 	}
 
+	public function getGeneratedPath() {
+		global $REX;
+
+		return realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $this->getGeneratedDir()); // path needs to exist, otherwise realpath won't return anything
+	}
+
 	public function getMediaDir() {
 		return self::constructMediaDir($this->id);
+	}
+
+	public function getMediaPath() {
+		global $REX;
+
+		return realpath($REX['HTDOCS_PATH'] . $this->getMediaDir());
 	}
 
 	public function getClangFile() {
@@ -105,7 +117,7 @@ class rex_website {
 		$tempGeneratedPath = $REX['GENERATED_PATH'];
 
 		// set path for current website
-		$REX['GENERATED_PATH'] = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $this->getGeneratedDir());
+		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
 
 		// generate all
 		rex_generateAll();

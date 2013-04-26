@@ -120,8 +120,8 @@ class rex_website_manager {
 		$REX['NOTFOUND_ARTICLE_ID'] = $curWebsite->getNotFoundArticleId();
 		$REX['DEFAULT_TEMPLATE_ID'] = $curWebsite->getDefaultTemplateId();
 		$REX['MEDIA_DIR'] = $curWebsite->getMediaDir();
-		$REX['GENERATED_PATH'] = realpath($REX['HTDOCS_PATH'] . 'redaxo/include/' . $curWebsite->getGeneratedDir()); // path needs to exist, otherwise realpath won't return correct path
-		$REX['MEDIAFOLDER'] = realpath($REX['HTDOCS_PATH'] . $curWebsite->getMediaDir());
+		$REX['MEDIAFOLDER'] = $curWebsite->getMediaPath();
+		$REX['GENERATED_PATH'] = $curWebsite->getGeneratedPath();
 		$REX['TABLE_PREFIX'] = $curWebsite->getTablePrefix();
 	}
 

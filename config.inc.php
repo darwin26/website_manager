@@ -27,8 +27,8 @@ if ($REX['REDAXO']) {
 			array('', $I18N->msg('website_manager_websites')),
 			array('tools', $I18N->msg('website_manager_tools')),
 			array('options', $I18N->msg('website_manager_options')),
-			array('setup', $I18N->msg('website_manager_setup'))
-			//array('help', $I18N->msg('website_manager_help'))
+			array('setup', $I18N->msg('website_manager_setup')),
+			array('help', $I18N->msg('website_manager_help'))
 		);
 	} else {
 		// this is only neccesary until user has put this code line in master.inc.php

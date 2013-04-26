@@ -56,4 +56,6 @@ website_manager_setup_step2_msg2 = Müssen Sie irgendwann mal nachträglich ein 
 website_manager_setup_step3 = Schritt 3: Websites hinzufügen
 website_manager_setup_step3_msg1 = Das war's schon. Sie können nun neue <a href="index.php?page=website_manager">Websites hinzufügen</a> und haben hoffentlich Spaß mit dem AddOn... ;)
 
+website_manager_debug = Debug
+
 
