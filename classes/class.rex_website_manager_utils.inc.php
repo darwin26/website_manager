@@ -251,4 +251,44 @@ class rex_website_manager_utils {
 
 	   return $hex; // returns the hex value including the number sign (#)
 	}
+
+	public static function print_r_pretty($arr, $first = true, $tab = 0) {
+		$output = "";
+		$tabsign = ($tab) ? str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$tab) : '';
+
+		if ($first) $output .= "<pre>";
+
+		foreach($arr as $key => $val)
+		{
+		    switch (gettype($val))
+		    {
+		        case "array":
+		            $output .= $tabsign."[".htmlspecialchars($key)."] => <br>".$tabsign."(<br>";
+		            $tab++;
+		            $output .= self::print_r_pretty($val,false,$tab);
+		            $tab--;
+		            $output .= $tabsign.")<br>";
+		        break;
+		        case "boolean":
+		            $output .= $tabsign."[".htmlspecialchars($key)."] => ".($val?"true":"false")."<br>";
+		        break;
+		        case "integer":
+		            $output .= $tabsign."[".htmlspecialchars($key)."] => ".htmlspecialchars($val)."<br>";
+		        break;
+		        case "double":
+		            $output .= $tabsign."[".htmlspecialchars($key)."] => ".htmlspecialchars($val)."<br>";
+		        break;
+		        case "string":
+		            $output .= $tabsign."[".htmlspecialchars($key)."] => ".((stristr($key,'passw')) ? str_repeat('*', strlen($val)) : htmlspecialchars($val))."<br>";
+		        break;
+		        default:
+		            $output .= $tabsign."[".htmlspecialchars($key)."] => ".htmlspecialchars(gettype($val))."<br>";
+		        break;
+		    }
+		}
+
+		if ($first) $output .= "</pre>";
+
+		return $output;
+	}
 }
