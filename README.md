@@ -13,6 +13,17 @@ Features
 * Jede Website hat Ihren eigenen Medienpool und Ihren eigenen Generated-Ordner
 * Ein zusätzlicher URL-Rewriter kann frei gewählt und eingesetzt werden
 
+API (Auszug)
+------------
+
+```php
+// ausgabe des artikels mit id = 10 von website mit id = 5 
+echo $REX['WEBSITE_MANAGER']->getWebsite(5)->getArticle(10);
+
+// ausgabe des slices mit id = 40 von website mit id = 3
+echo $REX['WEBSITE_MANAGER']->getWebsite(3)->getSlice(40);
+```
+
 Hinweise
 --------
 

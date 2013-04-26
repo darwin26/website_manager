@@ -165,4 +165,48 @@ class rex_website {
 			return str_replace('_', $websiteId . '_', self::tablePrefix);
 		}
 	}
+
+	public function getArticle($articleId, $clangId = null) {
+		global $REX;
+
+		// backup rex vars
+		$tempGeneratedPath = $REX['GENERATED_PATH'];
+		$tempTablePrefix = $REX['TABLE_PREFIX'];
+
+		// set rex vars for current website
+		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
+		$REX['TABLE_PREFIX'] = $this->getTablePrefix();
+
+		// get article content
+		$article = new rex_article($articleId, $clangId);
+		$articleContent = $article->getArticle();
+
+		// restore rex vars
+		$REX['GENERATED_PATH'] = $tempGeneratedPath;
+		$REX['TABLE_PREFIX'] = $tempTablePrefix;
+
+		return $articleContent;
+	}
+
+	public function getSlice($sliceId, $clangId = false) {
+		global $REX;
+
+		// backup rex vars
+		$tempGeneratedPath = $REX['GENERATED_PATH'];
+		$tempTablePrefix = $REX['TABLE_PREFIX'];
+
+		// set rex vars for current website
+		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
+		$REX['TABLE_PREFIX'] = $this->getTablePrefix();
+
+		// get slice content
+		$slice = OOArticleSlice::getArticleSliceById($sliceId, $clangId);
+		$sliceContent = $slice->getSlice();
+
+		// restore rex vars
+		$REX['GENERATED_PATH'] = $tempGeneratedPath;
+		$REX['TABLE_PREFIX'] = $tempTablePrefix;
+
+		return $sliceContent;
+	}
 }
