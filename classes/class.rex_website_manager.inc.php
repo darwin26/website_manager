@@ -168,7 +168,7 @@ class rex_website_manager {
 		}
 
 		// inludes
-		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/settings.inc.php\');';
+		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/settings.inc.php\');' . PHP_EOL;
 		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/classes/class.rex_website.inc.php\');' . PHP_EOL;
 		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/classes/class.rex_website_manager.inc.php\');' . PHP_EOL . PHP_EOL;
 
@@ -493,21 +493,25 @@ class rex_website_manager {
 			rex_website_manager_utils::logQuery($log, $sql, 'DROP VIEW ' . $tablePrefix . 'file_category');
 		}
 		
+		// modules
 		if ($REX['WEBSITE_MANAGER_SETTINGS']['identical_modules']) {
 			rex_website_manager_utils::logQuery($log, $sql, 'DROP VIEW ' . $tablePrefix . 'module');
 			rex_website_manager_utils::logQuery($log, $sql, 'DROP VIEW ' . $tablePrefix . 'module_action');
 			rex_website_manager_utils::logQuery($log, $sql, 'DROP VIEW ' . $tablePrefix . 'action');
 		}
 
+		// templates
 		if ($REX['WEBSITE_MANAGER_SETTINGS']['identical_templates']) {
 			rex_website_manager_utils::logQuery($log, $sql, 'DROP VIEW ' . $tablePrefix . 'template');
 		}
 
+		// meta infos
 		if ($REX['WEBSITE_MANAGER_SETTINGS']['identical_meta_infos']) {
 			rex_website_manager_utils::logQuery($log, $sql, 'DROP VIEW ' . $tablePrefix . '62_type');
 			rex_website_manager_utils::logQuery($log, $sql, 'DROP VIEW ' . $tablePrefix . '62_params');
 		}
 
+		// image types
 		if ($REX['WEBSITE_MANAGER_SETTINGS']['identical_image_types']) {
 			rex_website_manager_utils::logQuery($log, $sql, 'DROP VIEW ' . $tablePrefix . '679_types');
 			rex_website_manager_utils::logQuery($log, $sql, 'DROP VIEW ' . $tablePrefix . '679_type_effects');

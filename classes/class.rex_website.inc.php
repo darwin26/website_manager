@@ -148,9 +148,9 @@ class rex_website {
 		global $REX;
 
 		if ($websiteId == self::firstId || $REX['WEBSITE_MANAGER_SETTINGS']['identical_clangs']) {
-			return 'init.clang.inc.php';
+			return 'fix.clang.inc.php';
 		} else {
-			return 'init.clang' . $websiteId . '.inc.php';
+			return 'fix.clang' . $websiteId . '.inc.php';
 		}
 	}
 
