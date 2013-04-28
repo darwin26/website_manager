@@ -18,6 +18,10 @@ website_manager_tools_cache_deleted = Cache für alle Websites gelöscht.
 website_manager_tools_cache_tool = Cache löschen für alle Websites
 website_manager_tools_cache_tool_desc = Wenn Sie ein Template oder Modul geändert haben, ist es nötig den Cache für alle Websites zu löschen.
 website_manager_tools_cache_tool_button = Globales Cache löschen
+website_manager_tools_metainfo_fixer = Meta Info Fixer (Under Construction)
+website_manager_tools_metainfo_fixer_desc = Benutzen Sie dieses Tool wenn Sie Meta Infos hinzugefügt, geändert oder gelöscht haben um diese auf alle Websites zu synchronisieren. Wichtig: Nutzen Sie immer die Master-Website (ID=1) wenn Sie Ihre Meta Infos bearbeiten wollen.
+website_manager_tools_metainfo_fixer_button =  Meta Infos fixen
+website_manager_metainfo_fixer_success = Meta Infos wurden gefixt.
 
 website_manager_website_master_msg = Bitte wechseln Sie auf die Master-Website (ID = 1) um Ihre Websites zu verwalten.
 website_manager_website_no_websites_available = Keine Websites vorhanden
