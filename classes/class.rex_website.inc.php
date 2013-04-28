@@ -29,7 +29,7 @@ class rex_website {
 		$this->color = $color;
 		$this->tablePrefix = $tablePrefix;
 		$this->protocol = $protocol;
-		$this->permission = self::permissionPrefix . '[' . $domain . ']';
+		$this->permission = self::permissionPrefix . '[' . $id . ']';
 	}
 
 	public function getId() {
