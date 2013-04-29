@@ -9,6 +9,14 @@ $REX['WEBSITE_MANAGER_REXVARS']['MEDIAFOLDER'] = $REX['MEDIAFOLDER'];
 $REX['WEBSITE_MANAGER_REXVARS']['GENERATED_PATH'] = $REX['GENERATED_PATH'];
 $REX['WEBSITE_MANAGER_REXVARS']['TABLE_PREFIX'] = $REX['TABLE_PREFIX'];
 ?>
+
+<div class="rex-addon-output">
+	<h2 class="rex-hl2"><?php echo $I18N->msg('website_manager_help'); ?></h2>
+	<div class="rex-area-content">
+		<p><?php echo $I18N->msg('website_manager_help_readme'); ?></p>
+	</div>
+</div>
+
 <div class="rex-addon-output">
 	<h2 class="rex-hl2"><?php echo $I18N->msg('website_manager_debug'); ?></h2>
 	<div class="rex-area-content">
