@@ -53,11 +53,10 @@ website_manager_website_delete_confirm = Wollen Sie diese Website inkl. aller Ar
 website_manager_website_delete_trunedoff = Das Löschen von Websites wurde aus Sicherheitsgründen unterbunden.
 
 website_manager_setup_step1 = Schritt 1: Einstellungen vornehmen
-website_manager_setup_step1_msg1 = Stellen Sie sicher, dass alle AddOns installiert sind, die Sie für die einzelnen Websites einsetzen wollen. Tragen Sie in der <code>settings.inc.php</code> des Website Mangers die AddOns ein, die bei jedem hinzufügen einer Website reinstalliert werden sollen. Dies betrifft hauptsächlich AddOns die Datenbank-Änderungen vornehmen oder Cache-Dateien in den Generated-Ordner von REDAXO speichern.
-website_manager_setup_step1_msg2 = Müssen Sie irgendwann mal nachträglich ein AddOn installieren, so muss dieses momentan noch von Hand für jede Website reinstalliert werden.
+website_manager_setup_step1_msg1 = Installieren Sie zuerst alle AddOns die Sie für die einzelnen Websites einsetzen wollen.<br />Passen Sie dann alle Einstellungen des Website Manager AddOns in der <code>settings.inc.php</code> entsprechend Ihres Projekts an.
 website_manager_setup_step2 = Schritt 2:  Website Manager Initialisierung
-website_manager_setup_step2_msg1 = Damit der Website Manager korrekt funktionieren kann, muss dieser initialisiert werden noch bevor die ersten AddOns geladen werden. Fügen Sie deshalb diese Zeilen am Ende der master.inc.php von REDAXO hinzu:
-website_manager_setup_step2_msg2 = Sobald Sie diese Code-Zeile eingefügt haben, erhalten Sie vollen Zugriff auf das Website Manager AddOn...
+website_manager_setup_step2_msg1 = Fügen Sie diese Zeilen am Ende der <code>master.inc.php</code> von REDAXO hinzu:
+website_manager_setup_step2_msg2 = Sobald Sie diese Code-Zeile eingefügt haben, erhalten Sie vollen Zugriff auf das Website Manager AddOn.
 website_manager_setup_step3 = Schritt 3: Websites hinzufügen
 website_manager_setup_step3_msg1 = Das war's schon. Sie können nun neue <a href="index.php?page=website_manager">Websites hinzufügen</a> und haben hoffentlich Spaß mit dem AddOn... ;)
 

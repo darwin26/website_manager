@@ -13,7 +13,7 @@ Features
 * Man kann auswählen ob man gleiche oder verschiedene Templates, Module, Medien, Clangs, Meta-Infos und Image-Types für die Websites haben will
 * Ein zusätzlicher URL-Rewriter kann frei gewählt und eingesetzt werden
 * Man kann aus anderen Websites ganze Artikel und Blöcke ausgeben
-* Tools
+* Tools wie "Cache global löschen"
 * Rechtemanagement
 * Theme-Plugin um pro Werte (z.B. Farbwerte) abspeichern zu können, die dann im Frontend für Farbschemas etc. verwendet werden können 
 
@@ -71,6 +71,7 @@ Hinweise
 * Bei gleichen Templates/Modulen muss man den Cache global löschen für alle Websites sobald man Änderungen vorgenommen hat. Siehe dazu das entsprechende Tool.
 * Die `settings.inc.php` sollte, nachdem man die zweite Website angelegt hat, nicht mehr verändert werden!
 * Das Theme-Plugin ist so gedacht, dass man es für das jeweilige Projekt anpasst bevor man es installiert.
+* Müssen Sie irgendwann mal nachträglich ein AddOn installieren (d.h. wenn Sie mehr als 1 Website angelegt haben), so muss dieses momentan noch von Hand für jede Website reinstalliert werden. 
 * Ein Log-File wird unter `/website_manager/generated/log/` angelegt mit Debug-Informationen, wenn man eine Website hinzufügt oder entfernt.
 
 Wichtig: Es wird dringend angeraten eine automatische Backuplösung für alle Tabellen einzurichten, z.B. über das CronJob AddOn und dem MySQLDumper.
