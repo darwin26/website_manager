@@ -1,5 +1,9 @@
 <?php
 
+if (!class_exists('scssc')) {
+	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/plugins/themes/classes/class.scss.inc.php');
+}
+
 $func = rex_request('func', 'string');
 $theme_id = rex_request('theme_id', 'int');
 
@@ -15,21 +19,76 @@ if($func == 'delete' && $theme_id > 0) {
 	} else {
 		echo rex_warning($sql->getErrro());
 	}
+
+	// delete css file
+	$cssFile = rex_website_theme::constructCSSFileWithPathForBackend($theme_id);
+
+	if (file_exists($cssFile)) {
+		unlink($cssFile);
+	}
 	
 	$func = '';
 }
 
 // add or edit theme (after form submit)
 rex_register_extension('REX_FORM_SAVED', function ($params) {
-	// do nothing
+	global $REX;
 
+	// get theme id
+	if (isset($params['form']->params['theme_id'])) {
+		// edit
+		$themeId = $params['form']->params['theme_id'];
+	} else {
+		// add
+		$themeId = rex_website_manager_utils::getLastInsertedId($params['sql']);
+	}
+
+	// vars
+	$scssPhpFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/plugins/themes/css/' . $REX['ADDON']['themes']['settings']['theme_file'];
+	$cssFile = rex_website_theme::constructCSSFileWithPathForBackend($themeId);
+
+	// get sql for scss php file
+	$theme = rex_sql::factory();
+	$theme->setQuery('SELECT * FROM rex_website_theme WHERE id = ' . $themeId);
+
+	// interpret php to scss
+	ob_start();
+	include($scssPhpFile);
+	$interpretedPhp = ob_get_contents();
+	ob_end_clean();
+
+	// compile scss to css
+	try {
+		$scss = new scssc();
+		$scss->setFormatter('scss_formatter');
+		$compiledScss = $scss->compile($interpretedPhp);
+	} catch (Exception $e) {
+		echo "<strong>SCSS Compile Error:</strong> <br/>";
+        echo $e->getMessage();
+		exit;
+    }	
+
+	// write css
+	$fileHandle = fopen($cssFile, 'w');
+	fwrite($fileHandle, $compiledScss);
+	fclose($fileHandle);
+
+	// use exit statement, if you want to debug
 	return true;
 });
 
 // delete theme (after form submit)
 rex_register_extension('REX_FORM_DELETED', function ($params) {
-	// do nothing
+	global $REX;
 
+	$themeId = $params['form']->params['theme_id'];
+	$cssFile = rex_website_theme::constructCSSFileWithPathForBackend($themeId);
+
+	if (file_exists($cssFile)) {
+		unlink($cssFile);
+	}
+
+	// use exit statement, if you want to debug
 	return true;
 });
 
@@ -44,12 +103,12 @@ if ($func == '') {
 	$list->setNoRowsMessage($I18N->msg('website_manager_theme_no_sytles_available'));
 	$list->setCaption($I18N->msg('website_manager_theme_list_of_themes'));
 	$list->addTableAttribute('summary', $I18N->msg('website_manager_theme_list_of_themes'));
-	$list->addTableColumnGroup(array(40, '*', 80, 80));
+	$list->addTableColumnGroup(array(40, 40, '*', 80, 80));
 
-	$list->removeColumn('id');
 	$list->removeColumn('icon');
 	$list->removeColumn('color1');
 
+	$list->setColumnLabel('id', $I18N->msg('website_manager_website_id'));
 	$list->setColumnLabel('name', $I18N->msg('website_manager_theme_name'));
 	$list->setColumnParams('name', array('func' => 'edit', 'theme_id' => '###id###'));
 
@@ -98,6 +157,20 @@ if ($func == '') {
 	} elseif ($func == 'add') {
 		// do nothing
 	}
+
+	// show generated css file
+	$msg = rex_website_theme::constructCSSFileWithPathForFrontend($theme_id);
+
+	if ($func == 'edit') {
+		if (!file_exists(rex_website_theme::constructCSSFileWithPathForBackend($theme_id))) {
+			$msg .= ' ' . $I18N->msg('website_manager_theme_css_not_found');
+		}
+	} elseif ($func == 'add') {
+		$msg = rex_website_theme::constructCSSFileWithPathForFrontend('X');
+	}
+
+	$field =& $form->addReadOnlyField('css_file', $msg);
+	$field->setLabel($I18N->msg('website_manager_theme_css_file'));
 
 	$form->show();
 }

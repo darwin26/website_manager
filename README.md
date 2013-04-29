@@ -15,7 +15,7 @@ Features
 * Man kann von Websites ganze Artikel und Blöcke (Sices) ausgeben auch wenn man sich in einer ganz anderen Website befindet (siehe API)
 * Tools wie "Cache global löschen"
 * Rechtemanagement
-* Theme-Plugin um pro Website bestimmte Werte (z.B. Farbwerte, Logos) abspeichern zu können. Diese können dann im Frontend für websitespezifische Farbschemas etc. verwendet werden
+* Theme-Plugin (inkl. SCSS Unterstützung) um pro Website bestimmte Werte (z.B. Farbwerte, Logos) abspeichern und dann z.B. eine CSS darauss generieren zu können.
 
 Backup
 ------
@@ -95,3 +95,4 @@ Credits
 * Supported by [Peter Bickel](https://github.com/polarpixel) und [Gregor Harlan](https://github.com/gharlan)
 * Danke an das REDAXO-Team für die Erlaubnis die nötigen Core-Änderungen für das AddOn durchführen zu können
 * Website Manager uses KLogger PHP-Class: https://github.com/katzgrau/KLogger
+* Website Manager Themes Plugin uses scssphp PHP-Class: https://github.com/leafo/scssphp/
