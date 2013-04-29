@@ -10,7 +10,7 @@ class rex_website {
 	protected $tablePrefix;
 	protected $protocol;
 	protected $themeId;
-	protected $theme; // gets initialized by setTheme()
+	protected $theme; 
 	protected $permission;
 
 	const firstId = 1;

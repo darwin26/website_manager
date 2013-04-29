@@ -3,7 +3,7 @@
 $func = rex_request('func', 'string');
 $theme_id = rex_request('theme_id', 'int');
 
-// delete issuu pdf
+// delete theme (when link clicked from rex list)
 if($func == 'delete' && $theme_id > 0) {
 	$sql = rex_sql::factory();
 	//  $sql->debugsql = true;
@@ -11,9 +11,6 @@ if($func == 'delete' && $theme_id > 0) {
 	$sql->setWhere('id='. $theme_id . ' LIMIT 1');
 
 	if ($sql->delete()) {
-		// update init file to reflect changes
-		$REX['WEBSITE_MANAGER']->updateInitFile();
-
 		echo rex_info($I18N->msg('website_manager_theme_deleted'));
 	} else {
 		echo rex_warning($sql->getErrro());
@@ -22,22 +19,16 @@ if($func == 'delete' && $theme_id > 0) {
 	$func = '';
 }
 
-// add or edit theme
+// add or edit theme (after form submit)
 rex_register_extension('REX_FORM_SAVED', function ($params) {
-	global $REX;
-
-	// update init file to reflect changes
-	$REX['WEBSITE_MANAGER']->updateInitFile();
+	// do nothing
 
 	return true;
 });
 
-// delete theme
+// delete theme (after form submit)
 rex_register_extension('REX_FORM_DELETED', function ($params) {
-	global $REX;
-
-	// update init file to reflect changes
-	$REX['WEBSITE_MANAGER']->updateInitFile();
+	// do nothing
 
 	return true;
 });
@@ -46,6 +37,7 @@ rex_register_extension('REX_FORM_DELETED', function ($params) {
 echo '<div class="rex-addon-output-v2">';
 
 if ($func == '') {
+	// rex list
 	$query = 'SELECT * FROM rex_website_theme ORDER BY id';
 
 	$list = rex_list::factory($query);
@@ -79,6 +71,7 @@ if ($func == '') {
 
 	$list->show();
 } elseif ($func == 'add' || $func == 'edit' && $theme_id > 0) {
+	// rex form
 	if ($func == 'edit') {
 		$formLabel = $I18N->msg('website_manager_theme_theme_edit');
 	} elseif ($func == 'add') {
@@ -86,16 +79,19 @@ if ($func == '') {
 	}
 
 	$form = rex_form::factory('rex_website_theme', $formLabel, 'id=' . $theme_id);
-
 	$form->addErrorMessage(REX_FORM_ERROR_VIOLATE_UNIQUE_KEY, $I18N->msg('website_manager_theme_theme_exists'));
 
+	// name
 	$field =& $form->addTextField('name'); 
 	$field->setLabel($I18N->msg('website_manager_theme_name')); 
 
+	// color1
 	$field =& $form->addTextField('color1'); 
 	$field->setLabel($I18N->msg('website_manager_theme_color1'));
 	$field->setAttribute('class', 'colorpicker');
 	$field->setAttribute('style', 'visibility: hidden; height: 20px;');
+
+	// add here more stuff
 
 	if ($func == 'edit') {
 		$form->addParam('theme_id', $theme_id);
@@ -111,8 +107,5 @@ echo '</div>';
 
 <link rel="stylesheet" type="text/css" href="../<?php echo $REX['MEDIA_ADDON_DIR']; ?>/website_manager/spectrum.css" />
 <script type="text/javascript" src="../<?php echo $REX['MEDIA_ADDON_DIR']; ?>/website_manager/spectrum.js"></script>
-<script type="text/javascript">jQuery(".colorpicker").spectrum({ showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: false, chooseText: "<?php echo $I18N->msg('website_manager_website_colorpicker_choose'); ?>", cancelText: "<?php echo $I18N->msg('website_manager_website_colorpicker_cancel'); ?>" });</script>
-
-<!-- showPalette: true, palette: [ ["#d1513c", "#8eb659", "#dfaa3c", "#cb41d2"] ] -->
-
+<script type="text/javascript">jQuery(".colorpicker").spectrum({ showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: false, /* palette: [ ["#d1513c", "#8eb659", "#dfaa3c", "#cb41d2"] ], */ chooseText: "<?php echo $I18N->msg('website_manager_website_colorpicker_choose'); ?>", cancelText: "<?php echo $I18N->msg('website_manager_website_colorpicker_cancel'); ?>" });</script>
 
