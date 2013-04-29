@@ -12,10 +12,10 @@ Features
 * Der Style des Backend wird je nach ausgewählter Website angepasst (inkl. autom. generierter farbiger Favicons)
 * Man kann auswählen ob man gleiche oder verschiedene Templates, Module, Medien, Clangs, Meta-Infos und Image-Types für die Websites haben will
 * Ein zusätzlicher URL-Rewriter kann frei gewählt und eingesetzt werden
-* Man kann aus anderen Websites ganze Artikel und Blöcke ausgeben
+* Man kann von Websites ganze Artikel und Blöcke (Sices) ausgeben auch wenn man sich in einer ganz anderen Website befindet (siehe API)
 * Tools wie "Cache global löschen"
 * Rechtemanagement
-* Theme-Plugin um pro Werte (z.B. Farbwerte) abspeichern zu können, die dann im Frontend für Farbschemas etc. verwendet werden können 
+* Theme-Plugin um pro Website bestimmte Werte (z.B. Farbwerte, Logos) abspeichern zu können. Diese können dann im Frontend für websitespezifische Farbschemas etc. verwendet werden
 
 Backup
 ------
