@@ -48,14 +48,14 @@ AddOns fitmachen für den Website Manager
 Damit andere AddOns auch problemlos mit dem Website Manager zusammentun, muss man hauptsächlich folgende REDAXO Variablen einsetzen, anstelle der sonst üblichen hartcodierten Strings:
 
 ```php
+$REX['TABLE_PREFIX']
 $REX['MEDIA_DIR']
 $REX['MEDIA_ADDON_DIR']
-$REX['GENERATED_PATH']
 $REX['MEDIAFOLDER']
-$REX['TABLE_PREFIX']
+$REX['GENERATED_PATH']
 ```
 
-Wichtig: Um abwärtskompatibilität der AddOns mit älteren REDAXO Versionen zu gewährleisten, sollten immer über `isset()` geprüft werden ob die Variablen überhaupt exisitieren. Hier mal ein Beispiel: 
+Wichtig: Um Abwärtskompatibilität der AddOns mit älteren REDAXO Versionen zu gewährleisten, sollten immer über `isset()` geprüft werden ob die Variablen überhaupt exisitieren. Hier mal ein Beispiel: 
 
 ```php
 if (isset($REX['MEDIA_ADDON_DIR'])) {
