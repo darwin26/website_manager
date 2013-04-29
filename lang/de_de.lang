@@ -1,6 +1,7 @@
 website_manager_help_file_msg = Ein Multidomain AddOn für REDAXO 4.5+
 website_manager_frontend_link = zur Website
 website_manager_websites = Websites
+website_manager_themes = Themes
 website_manager_tools = Tools
 website_manager_options = Einstellungen
 website_manager_setup = Setup
@@ -30,7 +31,7 @@ website_manager_website_id = ID
 website_manager_website_domain = Domain
 website_manager_website_title = Titel
 website_manager_website_add_website = Website erstellen
-website_manager_website_color = Backend Erkennungsfarbe
+website_manager_website_color = Erkennungsfarbe
 website_manager_website_colorpicker_choose = Wählen
 website_manager_website_colorpicker_cancel = Abbrechen
 website_manager_website_functions = Funktionen

@@ -17,6 +17,7 @@ if (version_compare($REX['VERSION'] . '.' . $REX['SUBVERSION'] . '.' . $REX['MIN
 	$firstWebsiteColor = rex_website::defaultColor;
 	$firstTablePrefix = rex_website::tablePrefix;
 	$firstWebsiteProtocol = rex_website::defaultProtocol;
+	$defaultThemeId = rex_website::defaultThemeId;
 
 	$sql = new rex_sql();
 	//$sql->debugsql = true;
@@ -32,10 +33,11 @@ if (version_compare($REX['VERSION'] . '.' . $REX['SUBVERSION'] . '.' . $REX['MIN
 		`protocol` varchar(255) NOT NULL,
 		`color` varchar(255) NOT NULL,
 		`priority` INT(11) NOT NULL,
+		`theme_id` int(11) default 0,
 		PRIMARY KEY (`id`)
 	) ENGINE=MyISAM;');
 
-	$sql->setQuery('INSERT INTO `rex_website` VALUES (1, "' . rex_website_manager_utils::sanitizeUrl($REX['SERVER']) . '", "' . $REX['SERVERNAME'] . '", ' . $REX['START_ARTICLE_ID'] . ', ' . $REX['NOTFOUND_ARTICLE_ID'] . ', ' . $REX['DEFAULT_TEMPLATE_ID'] . ', "' . $firstTablePrefix . '", "' . $firstWebsiteProtocol  . '", "' . $firstWebsiteColor . '", 1)');                                                                                
+	$sql->setQuery('INSERT INTO `rex_website` VALUES (1, "' . rex_website_manager_utils::sanitizeUrl($REX['SERVER']) . '", "' . $REX['SERVERNAME'] . '", ' . $REX['START_ARTICLE_ID'] . ', ' . $REX['NOTFOUND_ARTICLE_ID'] . ', ' . $REX['DEFAULT_TEMPLATE_ID'] . ', "' . $firstTablePrefix . '", "' . $firstWebsiteProtocol  . '", "' . $firstWebsiteColor . '", 1, ' . $defaultThemeId . ')');                                                                                
 
 	$error = $sql->getError();
 

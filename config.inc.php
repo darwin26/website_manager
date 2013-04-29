@@ -25,7 +25,14 @@ if ($REX['REDAXO']) {
 	if (isset($REX['WEBSITE_MANAGER'])) {
 		// add subpages
 		$REX['ADDON']['website_manager']['SUBPAGES'] = array(
-			array('', $I18N->msg('website_manager_websites')),
+			array('', $I18N->msg('website_manager_websites'))
+		);
+
+		if (OOPlugin::isAvailable('website_manager', 'themes')) {
+			array_push($REX['ADDON']['website_manager']['SUBPAGES'], array('themes', $I18N->msg('website_manager_themes')));
+		}
+
+		array_push($REX['ADDON']['website_manager']['SUBPAGES'], 
 			array('tools', $I18N->msg('website_manager_tools')),
 			array('options', $I18N->msg('website_manager_options')),
 			array('setup', $I18N->msg('website_manager_setup')),

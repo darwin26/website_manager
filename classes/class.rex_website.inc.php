@@ -9,6 +9,8 @@ class rex_website {
 	protected $color;
 	protected $tablePrefix;
 	protected $protocol;
+	protected $themeId;
+	protected $theme; // gets initialized by setTheme()
 	protected $permission;
 
 	const firstId = 1;
@@ -18,8 +20,9 @@ class rex_website {
 	const permissionPrefix = 'website';
 	const defaultColor = '#47a0ce';
 	const defaultProtocol = 'http';
+	const defaultThemeId = 0; // no theme specified
 
-	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $color, $tablePrefix = self::tablePrefix, $protocol = self::defaultProtocol) {
+	public function __construct($id, $domain, $title, $startArticleId, $notFoundArticleId, $defaultTemplateId, $color, $tablePrefix = self::tablePrefix, $protocol = self::defaultProtocol, $themeId = self::defaultThemeId) {
 		$this->id = $id;
 		$this->domain = $domain;
 		$this->title = $title;
@@ -29,6 +32,8 @@ class rex_website {
 		$this->color = $color;
 		$this->tablePrefix = $tablePrefix;
 		$this->protocol = $protocol;
+		$this->themeId = $themeId;
+		$this->theme = new rex_website_theme($themeId);
 		$this->permission = self::permissionPrefix . '[' . $id . ']';
 	}
 
@@ -209,4 +214,9 @@ class rex_website {
 
 		return $sliceContent;
 	}
+
+	public function getTheme() {
+		return $this->theme;
+	}
 }
+

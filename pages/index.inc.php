@@ -19,7 +19,14 @@ require($REX['INCLUDE_PATH'] . '/layout/top.php');
 rex_title($REX['ADDON']['name']['website_manager'] . ' <span style="font-size:14px; color:silver;">' . $REX['ADDON']['version']['website_manager'] . '</span>', $REX['ADDON']['website_manager']['SUBPAGES']);
 
 // include subpage
-include($REX['INCLUDE_PATH'] . '/addons/website_manager/pages/' . $subpage . '.inc.php');
+$addonSubpageFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/pages/' . $subpage . '.inc.php';
+$pluginSubpageFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/plugins/' . $subpage . '/pages/' . $subpage . '.inc.php';
+
+if (file_exists($addonSubpageFile)) {
+	include($addonSubpageFile);
+} else {
+	include($pluginSubpageFile);
+}
 ?>
 
 <style type="text/css">

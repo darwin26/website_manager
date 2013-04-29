@@ -82,6 +82,7 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$list->removeColumn('color');
 	$list->removeColumn('protocol');
 	$list->removeColumn('priority');
+	$list->removeColumn('theme_id');
 
 	$list->setColumnLabel('id', $I18N->msg('website_manager_website_id'));
 	$list->setColumnLabel('domain', $I18N->msg('website_manager_website_domain'));
@@ -121,6 +122,12 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 
 	$form->addErrorMessage(REX_FORM_ERROR_VIOLATE_UNIQUE_KEY, $I18N->msg('website_manager_website_id_exists'));
 
+	// color
+	$field =& $form->addTextField('color'); 
+	$field->setLabel($I18N->msg('website_manager_website_color'));
+	$field->setAttribute('id', 'color-picker');
+	$field->setAttribute('style', 'visibility: hidden; height: 20px;');
+
 	// domain
 	$field =& $form->addTextField('domain'); 
 	$field->setLabel($I18N->msg('website_manager_website_domain'));
@@ -159,12 +166,16 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$select->addOption($I18N->msg('website_manager_website_http'), 'http');
 	$select->addOption($I18N->msg('website_manager_website_https'), 'https');
 
-	// color
-	$field =& $form->addTextField('color'); 
-	$field->setLabel($I18N->msg('website_manager_website_color'));
-	$field->setAttribute('id', 'color-picker');
-	$field->setAttribute('style', 'visibility: hidden; height: 20px;');
-
+	// theme
+	if (OOPlugin::isAvailable('website_manager', 'themes')) {
+		$field =& $form->addSelectField('theme_id'); 
+		$field->setLabel($I18N->msg('website_manager_website_theme'));
+		$select =& $field->getSelect();
+		$select->setSize(1);
+		$select->addOption($I18N->msg('website_manager_theme_none'), 0);
+		$query = 'SELECT name as label, id FROM rex_website_theme';
+		$select->addSqlOptions($query);
+	} 
 
 	if ($func == 'edit') {
 		$key = $I18N->msg('website_manager_edit_button_key');

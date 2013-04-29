@@ -59,6 +59,8 @@ class rex_website_manager {
 		$this->setRexVars();
 		$this->includeClangFile();
 		$this->addPermissions();
+
+		$this->getCurrentWebsite()->getTheme()->init();
 	}
 
 	protected function addPermissions() {
@@ -170,6 +172,7 @@ class rex_website_manager {
 		// inludes
 		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/settings.inc.php\');' . PHP_EOL;
 		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/classes/class.rex_website.inc.php\');' . PHP_EOL;
+		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/classes/class.rex_website_theme.inc.php\');' . PHP_EOL;
 		$initContent .= 'require_once($REX[\'INCLUDE_PATH\'] . \'/addons/website_manager/classes/class.rex_website_manager.inc.php\');' . PHP_EOL . PHP_EOL;
 
 		// create website manager
@@ -181,7 +184,7 @@ class rex_website_manager {
 		$sql->setQuery('SELECT * FROM rex_website ORDER BY priority');
 
 		for ($i = 0; $i < $sql->getRows(); $i++) {
-			$initContent .= '$REX[\'WEBSITE_MANAGER\']->addWebsite(new rex_website(' . $sql->getValue('id') . ', \'' . $sql->getValue('domain') . '\', \'' . $sql->getValue('title') . '\', ' . $sql->getValue('start_article_id') . ', ' . $sql->getValue('notfound_article_id') . ', ' . $sql->getValue('default_template_id') . ', \'' . $sql->getValue('color') . '\', \'' . $sql->getValue('table_prefix') . '\', \'' . $sql->getValue('protocol') . '\'));' . PHP_EOL;
+			$initContent .= '$REX[\'WEBSITE_MANAGER\']->addWebsite(new rex_website(' . $sql->getValue('id') . ', \'' . $sql->getValue('domain') . '\', \'' . $sql->getValue('title') . '\', ' . $sql->getValue('start_article_id') . ', ' . $sql->getValue('notfound_article_id') . ', ' . $sql->getValue('default_template_id') . ', \'' . $sql->getValue('color') . '\', \'' . $sql->getValue('table_prefix') . '\', \'' . $sql->getValue('protocol') . '\', ' . $sql->getValue('theme_id') . '));' . PHP_EOL;
 			$sql->next();	
 		}
 		
@@ -259,6 +262,7 @@ class rex_website_manager {
 
 		$path =  realpath($REX['HTDOCS_PATH'] . $REX['MEDIA_ADDON_DIR']) . DIRECTORY_SEPARATOR . 'website_manager/';
 		$rgbColor = rex_website_manager_utils::hex2rgb($hexColor);
+
 		$favIconOriginal = $path . 'favicon.png';
 		$favIconNew = $path . rex_website::constructIconFile($hexColor);
 
