@@ -1,7 +1,7 @@
 Website Manager - Changelog
 ===========================
 
-### Version 1.0.1
+### Version 1.1.0
 
 * Theme-Plugin erweitert: Dynamische CSS Generierung mittels PHP und SCSS
 
