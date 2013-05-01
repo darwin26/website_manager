@@ -34,11 +34,7 @@ if($func == 'delete' && $theme_id > 0) {
 	}
 
 	// delete css file
-	$cssFile = rex_website_theme::constructCSSFileWithPathForBackend($theme_id);
-
-	if (file_exists($cssFile)) {
-		unlink($cssFile);
-	}
+	rex_website_theme::deleteCSSFile($theme_id);
 	
 	$func = '';
 }
