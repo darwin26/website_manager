@@ -17,3 +17,5 @@ website_manager_theme_none = <keins>
 website_manager_theme_help = Themes Plugin for Website Manager
 website_manager_theme_css_file = Generierte CSS-Datei
 website_manager_theme_css_not_found = nicht gefunden!!!
+website_manager_theme_dir_not_found = Verzeichnis nicht gefunden: {0}
+website_manager_theme_file_not_found = Datei nicht gefunden: {0}

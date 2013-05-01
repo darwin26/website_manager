@@ -27,6 +27,7 @@ Under Construction
 
 * Gleiche Meta-Infos für alle Websites ist noch nicht vollständig implementiert. Hier hilft aktuell nur die Meta Infos von Hand zu duplizieren pro Website.
 * Gleiche Clangs sind noch nicht ausreichend getestet und damit unsupported.
+* Ctypes sind aktuell noch nicht berücksichtigt. D.h. es kann schon Out of the Box gehen oder eben nicht ;)
 
 API (Auszug)
 ------------

@@ -1,7 +1,20 @@
 <?php
 
-if (!class_exists('scssc')) {
-	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/plugins/themes/classes/class.scss.inc.php');
+// check if necessary dirs/files exists
+$scssPhpFile = rex_website_theme::getScssPhpSourceFile();
+$scssPhpFilePath = dirname(rex_website_theme::getScssPhpSourceFile());
+$cssPath = dirname(rex_website_theme::constructCSSFileWithPathForBackend(1));
+
+if (!is_dir($scssPhpFilePath)) {
+	echo rex_warning($I18N->msg('website_manager_theme_dir_not_found', $scssPhpFilePath));
+}
+
+if (!file_exists($scssPhpFile)) {
+	echo rex_warning($I18N->msg('website_manager_theme_file_not_found', $scssPhpFile));
+}
+
+if (!is_dir($cssPath)) {
+	echo rex_warning($I18N->msg('website_manager_theme_dir_not_found', $cssPath));
 }
 
 $func = rex_request('func', 'string');
@@ -43,35 +56,8 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 		$themeId = rex_website_manager_utils::getLastInsertedId($params['sql']);
 	}
 
-	// vars
-	$scssPhpFile = $REX['INCLUDE_PATH'] . '/addons/website_manager/plugins/themes/css/' . $REX['ADDON']['themes']['settings']['theme_file'];
-	$cssFile = rex_website_theme::constructCSSFileWithPathForBackend($themeId);
-
-	// get sql for scss php file
-	$theme = rex_sql::factory();
-	$theme->setQuery('SELECT * FROM rex_website_theme WHERE id = ' . $themeId);
-
-	// interpret php to scss
-	ob_start();
-	include($scssPhpFile);
-	$interpretedPhp = ob_get_contents();
-	ob_end_clean();
-
-	// compile scss to css
-	try {
-		$scss = new scssc();
-		$scss->setFormatter('scss_formatter');
-		$compiledScss = $scss->compile($interpretedPhp);
-	} catch (Exception $e) {
-		echo "<strong>SCSS Compile Error:</strong> <br/>";
-        echo $e->getMessage();
-		exit;
-    }	
-
-	// write css
-	$fileHandle = fopen($cssFile, 'w');
-	fwrite($fileHandle, $compiledScss);
-	fclose($fileHandle);
+	// generated css file
+	rex_website_theme::generateCSSFile($themeId);
 
 	// use exit statement, if you want to debug
 	return true;
@@ -81,12 +67,11 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 rex_register_extension('REX_FORM_DELETED', function ($params) {
 	global $REX;
 
+	// get theme id
 	$themeId = $params['form']->params['theme_id'];
-	$cssFile = rex_website_theme::constructCSSFileWithPathForBackend($themeId);
-
-	if (file_exists($cssFile)) {
-		unlink($cssFile);
-	}
+	
+	// delete css file
+	rex_website_theme::deleteCSSFile($themeId);
 
 	// use exit statement, if you want to debug
 	return true;
@@ -180,5 +165,5 @@ echo '</div>';
 
 <link rel="stylesheet" type="text/css" href="../<?php echo $REX['MEDIA_ADDON_DIR']; ?>/website_manager/spectrum.css" />
 <script type="text/javascript" src="../<?php echo $REX['MEDIA_ADDON_DIR']; ?>/website_manager/spectrum.js"></script>
-<script type="text/javascript">jQuery(".colorpicker").spectrum({ showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: false, /* palette: [ ["#d1513c", "#8eb659", "#dfaa3c", "#cb41d2"] ], */ chooseText: "<?php echo $I18N->msg('website_manager_website_colorpicker_choose'); ?>", cancelText: "<?php echo $I18N->msg('website_manager_website_colorpicker_cancel'); ?>" });</script>
+<script type="text/javascript">jQuery(".colorpicker input").spectrum({ showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: false, /* palette: [ ["#d1513c", "#8eb659", "#dfaa3c", "#cb41d2"] ], */ chooseText: "<?php echo $I18N->msg('website_manager_website_colorpicker_choose'); ?>", cancelText: "<?php echo $I18N->msg('website_manager_website_colorpicker_cancel'); ?>" });</script>
 
