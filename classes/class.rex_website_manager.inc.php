@@ -16,6 +16,10 @@ class rex_website_manager {
 		return $this->currentWebsiteId;
 	}
 
+	public function getMasterWebsiteId() {
+		return rex_website::firstId;
+	}
+
 	public function getWebsiteCount() {
 		return count($this->websites);
 	}
@@ -34,6 +38,10 @@ class rex_website_manager {
 
 	public function getCurrentWebsite() {
 		return $this->websites[$this->currentWebsiteId];
+	}
+
+	public function getMasterWebsite() {
+		return $this->websites[$this->getMasterWebsiteId()];
 	}
 
 	public function init($websiteId = 0) {
