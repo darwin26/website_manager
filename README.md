@@ -43,6 +43,20 @@ echo $REX['WEBSITE_MANAGER']->getWebsite(3)->getSlice(40);
 echo $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getTheme()->getValue('color1');
 ```
 
+```php
+// callback methode um on the fly websites zu switchen
+$REX['WEBSITE_MANAGER']->websiteSwitch(2, function () {
+	// hier gilt jetzt website id = 2
+	$article = new rex_article(7);
+	echo $article->getArticle();
+});
+
+// callback methode direkt für die master website
+$REX['WEBSITE_MANAGER']->masterWebsiteSwitch(function () {
+	// hier drin gilt jetzt website id = 1 (master)
+});
+```
+
 AddOns fitmachen für den Website Manager
 ----------------------------------------
 

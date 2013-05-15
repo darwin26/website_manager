@@ -564,6 +564,21 @@ class rex_website_manager {
 			}
 		}
 	}
+
+	public function websiteSwitch($switchedWebsiteId, $func) {
+		// switch rex vars to new website
+		$this->getWebsite($switchedWebsiteId)->switchRexVars();
+
+		// do user stuff
+		$func();
+
+		// restore rex vars for original website
+		$this->getCurrentWebsite()->switchRexVars();
+	}
+
+	public function masterWebsiteSwitch($func) {
+		 $this->websiteSwitch($this->getMasterWebsiteId(), $func);
+	}
 }
 
 

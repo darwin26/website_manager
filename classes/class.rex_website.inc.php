@@ -115,22 +115,6 @@ class rex_website {
 		return $this->permission;
 	}
 
-	public function generateAll() {
-		global $REX;
-
-		// backup rex var
-		$tempGeneratedPath = $REX['GENERATED_PATH'];
-
-		// set path for current website
-		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
-
-		// generate all
-		rex_generateAll();
-
-		// restore rex var
-		$REX['GENERATED_PATH'] = $tempGeneratedPath;
-	}
-
 	public static function constructGeneratedDir($websiteId) {
 		if ($websiteId == self::firstId) {
 			return self::generatedDir;
@@ -171,24 +155,31 @@ class rex_website {
 		}
 	}
 
+	public function generateAll() {
+		global $REX;
+
+		// set rex vars for this website
+		$this->switchRexVars();
+
+		// do generate all
+		rex_generateAll();
+
+		// restore rex vars for current website
+		$REX['WEBSITE_MANAGER']->getCurrentWebsite()->switchRexVars();
+	}
+
 	public function getArticle($articleId, $clangId = null) {
 		global $REX;
 
-		// backup rex vars
-		$tempGeneratedPath = $REX['GENERATED_PATH'];
-		$tempTablePrefix = $REX['TABLE_PREFIX'];
-
-		// set rex vars for current website
-		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
-		$REX['TABLE_PREFIX'] = $this->getTablePrefix();
+		// set rex vars for this website
+		$this->switchRexVars();
 
 		// get article content
 		$article = new rex_article($articleId, $clangId);
 		$articleContent = $article->getArticle();
 
-		// restore rex vars
-		$REX['GENERATED_PATH'] = $tempGeneratedPath;
-		$REX['TABLE_PREFIX'] = $tempTablePrefix;
+		// restore rex vars for current website
+		$REX['WEBSITE_MANAGER']->getCurrentWebsite()->switchRexVars();
 
 		return $articleContent;
 	}
@@ -196,23 +187,26 @@ class rex_website {
 	public function getSlice($sliceId, $clangId = false) {
 		global $REX;
 
-		// backup rex vars
-		$tempGeneratedPath = $REX['GENERATED_PATH'];
-		$tempTablePrefix = $REX['TABLE_PREFIX'];
+		// set rex vars for this website
+		$this->switchRexVars();
 
-		// set rex vars for current website
-		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
-		$REX['TABLE_PREFIX'] = $this->getTablePrefix();
-
-		// get slice content
+		// get article content
 		$slice = OOArticleSlice::getArticleSliceById($sliceId, $clangId);
 		$sliceContent = $slice->getSlice();
 
-		// restore rex vars
-		$REX['GENERATED_PATH'] = $tempGeneratedPath;
-		$REX['TABLE_PREFIX'] = $tempTablePrefix;
+		// restore rex vars for current website
+		$REX['WEBSITE_MANAGER']->getCurrentWebsite()->switchRexVars();
 
 		return $sliceContent;
+	}
+
+	public function switchRexVars() {
+		global $REX;
+
+		$REX['MEDIA_DIR'] = $this->getMediaDir();
+		$REX['MEDIAFOLDER'] = $this->getMediaPath();
+		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
+		$REX['TABLE_PREFIX'] = $this->getTablePrefix();
 	}
 
 	public function getTheme() {
