@@ -234,7 +234,7 @@ class rex_website_manager_utils {
 		include($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_website_manager_prio_switch.inc.php');
 
 		// for ajax call: update prio in db if necessary
-		rex_website_manager_prio_switch::handleAjaxCall('update_websites_prio', 'rex_website', 'id', false);
+		rex_website_manager_prio_switch::handleAjaxCall('website_manager', 'update_websites_prio', 'rex_website', 'id', false);
 	}
 
 	public static function hex2rgb($hex) {
