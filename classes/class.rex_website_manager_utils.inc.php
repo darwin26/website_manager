@@ -70,22 +70,24 @@ class rex_website_manager_utils {
 				$websiteSelectOptions .= '<option value="' . $website->getId() . '" ' . $selected . ' data-imagesrc="' . $website->getIconUrl() . '" data-description="' . $website->getTitle() . '">' . $website->getDomain() . '</option>';
 			}
 		}
+
+		// https://github.com/RexDude/website_manager/issues/30
 		if (rex_request('page') != 'content') {
-			$select_page = rex_request('page');
-			$select_subpage = rex_request('subpage');
-			$select_chapter = rex_request('chapter');
-			} else {
-			$select_page = '';
-			$select_subpage = '';
-			$select_chapter = '';
-			}
+			$inputValuePage = rex_request('page');
+			$inputValueSubpage = rex_request('subpage');
+			$inputValueChapter = rex_request('chapter');
+		} else {
+			$inputValuePage = '';
+			$inputValueSubpage = '';
+			$inputValueChapter = '';
+		}
 
 		$websiteSelect = '
 			<div id="website-select">
 				<form method="post" action="index.php">
-					<input type="hidden" name="page" value="' . $select_page. '" />
-					<input type="hidden" name="subpage" value="' . $select_subpage . '" />
-					<input type="hidden" name="chapter" value="' . $select_chapter . '" />
+					<input type="hidden" name="page" value="' . $inputValuePage . '" />
+					<input type="hidden" name="subpage" value="' . $inputValueSubpage . '" />
+					<input type="hidden" name="chapter" value="' . $inputValueChapter . '" />
 					<input type="hidden" name="new_website_id" id="new_website_id" value="" />
 					<fieldset>
 						<select id="website-selector" size="1" name="website-selector">' . $websiteSelectOptions . '</select>			
