@@ -11,7 +11,7 @@ Features
 * Drag und Drop Sortierung der Websites
 * Der Style des Backend wird je nach ausgewählter Website angepasst (inkl. autom. generierter farbiger Favicons)
 * Man kann auswählen ob man gleiche oder verschiedene Templates, Module, Medien, Clangs, Meta-Infos und Image-Types für die Websites haben will
-* Ein zusätzlicher URL-Rewriter kann frei gewählt und eingesetzt werden
+* Ein zusätzlicher URL-Rewriter kann frei gewählt und eingesetzt werden (sofern dieser die aktuellen REDAXO Variablen unterstützt)
 * Man kann von Websites ganze Artikel und Blöcke (Sices) ausgeben auch wenn man sich in einer ganz anderen Website befindet (siehe API)
 * Tools wie "Cache global löschen"
 * Rechtemanagement
@@ -41,17 +41,15 @@ echo $REX['WEBSITE_MANAGER']->getWebsite(3)->getSlice(40);
 
 // ausgabe des feldes "color1" des aktuellen themes (nur wenn "themes" plugin installiert)
 echo $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getTheme()->getValue('color1');
-```
 
-```php
-// callback methode um on the fly websites zu switchen
+// callback methode um on the fly websites zu switchen (z.B. in modulen einsetzbar)
 $REX['WEBSITE_MANAGER']->websiteSwitch(2, function () {
 	// hier gilt jetzt website id = 2
 	$article = new rex_article(7);
 	echo $article->getArticle();
 });
 
-// callback methode direkt für die master website
+// ...direkter aufruf für die master website
 $REX['WEBSITE_MANAGER']->masterWebsiteSwitch(function () {
 	// hier drin gilt jetzt website id = 1 (master)
 });
@@ -64,9 +62,11 @@ Damit andere AddOns auch problemlos mit dem Website Manager zusammentun, muss ma
 
 ```php
 $REX['TABLE_PREFIX']
+$REX['MEDIAFOLDER']
+
+// neu ab REDAXO 4.5
 $REX['MEDIA_DIR']
 $REX['MEDIA_ADDON_DIR']
-$REX['MEDIAFOLDER']
 $REX['GENERATED_PATH']
 ```
 
@@ -88,10 +88,10 @@ Hinweise
 * Import/Export AddOn läuft aktuell nur für die Master-Website. Evtl. sollte man es deshalb vorerst deinstallieren.
 * Meta-Infos und Image-Types werden von Haus aus unterstützt. Zusätzliche AddOns/PlugIns kann man über die entsprechenden Arrays in der `settings.inc.php` hinzufügen.
 * Das Meta Info Fixer Tool erscheint nur wenn in der `settings.inc.php` die Option `identical_meta_infos` auf `true` steht
-* Bei gleichen Templates/Modulen muss man den Cache global löschen für alle Websites sobald man Änderungen vorgenommen hat. Siehe dazu das entsprechende Tool.
+* Bei gleichen Templates/Modulen muss man den Cache global löschen für alle Websites sobald man Änderungen an diesen vorgenommen hat. Siehe dazu das entsprechende Tool.
 * Die `settings.inc.php` sollte, nachdem man die zweite Website angelegt hat, nicht mehr verändert werden!
 * Das Theme-Plugin ist so gedacht, dass man es für das jeweilige Projekt anpasst bevor man es installiert bzw. verwendet.
-* Müssen Sie irgendwann mal nachträglich ein AddOn installieren (d.h. wenn Sie mehr als 1 Website angelegt haben), so muss dieses momentan noch von Hand für jede Website reinstalliert werden. 
+* Muss man irgendwann mal nachträglich ein AddOn installieren (d.h. wenn mehr als 1 Website angelegt wurde), so muss dieses momentan noch von Hand für jede Website reinstalliert werden. 
 * Ein Log-File wird unter `/website_manager/generated/log/` angelegt mit Debug-Informationen, wenn man eine Website hinzufügt oder entfernt.
 
 Changelog
@@ -109,6 +109,7 @@ Credits
 
 * Supported by [Peter Bickel](https://github.com/polarpixel) und [Gregor Harlan](https://github.com/gharlan)
 * Danke an das REDAXO-Team für die Erlaubnis die nötigen Core-Änderungen für das AddOn durchführen zu können
+* Danke an [Jan Kristinus](https://github.com/dergel) für die Customizer Idee die hier direkt ins AddOn integriert wurde
 * Danke an die Tester und Contributors: [olien](https://github.com/olien), [riotweb](https://github.com/riotweb), [skerbis](https://github.com/skerbis)
 * Website Manager uses KLogger PHP-Class: https://github.com/katzgrau/KLogger
 * Website Manager uses Spectrum Colorpicker: https://github.com/bgrins/spectrum
