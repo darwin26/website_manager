@@ -13,7 +13,7 @@ class rex_website_manager_utils {
 		global $REX, $I18N;
 
 		// website select
-		if (rex_request('page') != 'mediapool' && rex_request('page') != 'content' && rex_request('page') != 'linkmap') {
+		if (rex_request('page') != 'mediapool' && rex_request('page') != 'linkmap') {
 			$params['subject']  = str_replace('<div id="rex-website">', '<div id="rex-website">' . self::getWebsiteSelect(), $params['subject']);
 		}
 
@@ -71,9 +71,27 @@ class rex_website_manager_utils {
 			}
 		}
 
+ if (rex_request('page') == 'content') {
+$websiteSelect = '
+			<div id="website-select">
+				<form method="post" action="index.php">	
+                      
+					<input type="hidden" name="page" value="structure" />
+					<input type="hidden" name="subpage" value="" />
+					<input type="hidden" name="chapter" value="" />
+					<input type="hidden" name="new_website_id" id="new_website_id" value="" />
+					<fieldset>
+						<select id="website-selector" size="1" name="website-selector">' . $websiteSelectOptions . '</select>			
+					</fieldset>
+				</form>
+			</div>';
+}
+
+else {
 		$websiteSelect = '
 			<div id="website-select">
-				<form method="post" action="index.php">
+				<form method="post" action="index.php">	
+                      
 					<input type="hidden" name="page" value="' . rex_request('page') . '" />
 					<input type="hidden" name="subpage" value="' . rex_request('subpage') . '" />
 					<input type="hidden" name="chapter" value="' . rex_request('chapter') . '" />
@@ -82,7 +100,7 @@ class rex_website_manager_utils {
 						<select id="website-selector" size="1" name="website-selector">' . $websiteSelectOptions . '</select>			
 					</fieldset>
 				</form>
-			</div>';
+			</div>';}
 
 		return $websiteSelect;
 	}
