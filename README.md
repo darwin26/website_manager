@@ -95,5 +95,7 @@ Credits
 
 * Supported by [Peter Bickel](https://github.com/polarpixel) und [Gregor Harlan](https://github.com/gharlan)
 * Danke an das REDAXO-Team für die Erlaubnis die nötigen Core-Änderungen für das AddOn durchführen zu können
+* Danke an die Tester und Contributors: [olien](https://github.com/olien), [riotweb](https://github.com/riotweb), [skerbis](https://github.com/skerbis)
 * Website Manager uses KLogger PHP-Class: https://github.com/katzgrau/KLogger
+* Website Manager uses Spectrum Colorpicker: https://github.com/bgrins/spectrum
 * Website Manager Themes Plugin uses scssphp PHP-Class: https://github.com/leafo/scssphp/
