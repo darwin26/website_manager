@@ -70,37 +70,28 @@ class rex_website_manager_utils {
 				$websiteSelectOptions .= '<option value="' . $website->getId() . '" ' . $selected . ' data-imagesrc="' . $website->getIconUrl() . '" data-description="' . $website->getTitle() . '">' . $website->getDomain() . '</option>';
 			}
 		}
+		if (rex_request('page') != 'content') {
+			$select_page = rex_request('page');
+			$select_subpage = rex_request('subpage');
+			$select_chapter = rex_request('chapter');
+			} else {
+			$select_page = '';
+			$select_subpage = '';
+			$select_chapter = '';
+			}
 
- if (rex_request('page') == 'content') {
-$websiteSelect = '
+		$websiteSelect = '
 			<div id="website-select">
-				<form method="post" action="index.php">	
-                      
-					<input type="hidden" name="page" value="structure" />
-					<input type="hidden" name="subpage" value="" />
-					<input type="hidden" name="chapter" value="" />
+				<form method="post" action="index.php">
+					<input type="hidden" name="page" value="' . $select_page. '" />
+					<input type="hidden" name="subpage" value="' . $select_subpage . '" />
+					<input type="hidden" name="chapter" value="' . $select_chapter . '" />
 					<input type="hidden" name="new_website_id" id="new_website_id" value="" />
 					<fieldset>
 						<select id="website-selector" size="1" name="website-selector">' . $websiteSelectOptions . '</select>			
 					</fieldset>
 				</form>
 			</div>';
-}
-
-else {
-		$websiteSelect = '
-			<div id="website-select">
-				<form method="post" action="index.php">	
-                      
-					<input type="hidden" name="page" value="' . rex_request('page') . '" />
-					<input type="hidden" name="subpage" value="' . rex_request('subpage') . '" />
-					<input type="hidden" name="chapter" value="' . rex_request('chapter') . '" />
-					<input type="hidden" name="new_website_id" id="new_website_id" value="" />
-					<fieldset>
-						<select id="website-selector" size="1" name="website-selector">' . $websiteSelectOptions . '</select>			
-					</fieldset>
-				</form>
-			</div>';}
 
 		return $websiteSelect;
 	}
