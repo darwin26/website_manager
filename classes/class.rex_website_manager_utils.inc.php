@@ -13,7 +13,7 @@ class rex_website_manager_utils {
 		global $REX, $I18N;
 
 		// website select
-		if (rex_request('page') != 'mediapool' && rex_request('page') != 'linkmap') {
+		if (rex_request('page') != 'mediapool' && rex_request('page') != 'content' && rex_request('page') != 'linkmap') {
 			$params['subject']  = str_replace('<div id="rex-website">', '<div id="rex-website">' . self::getWebsiteSelect(), $params['subject']);
 		}
 
