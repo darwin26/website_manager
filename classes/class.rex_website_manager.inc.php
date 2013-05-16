@@ -49,17 +49,12 @@ class rex_website_manager {
 
 		if ($websiteId == 0) {
 			// auto detect website id
-			if (rex_request('rex_img_file') != '') {
-				// at the moment: all image manager files will be in first dir if backend
-				$websiteId = $this->getWebsiteIdForFrontend();
+			if ($REX['REDAXO']) {
+				// backend
+				$websiteId = $this->getWebsiteIdForBackend();
 			} else {
-				if ($REX['REDAXO']) {
-					// backend
-					$websiteId = $this->getWebsiteIdForBackend();
-				} else {
-					// frontend
-					$websiteId = $this->getWebsiteIdForFrontend();
-				}
+				// frontend
+				$websiteId = $this->getWebsiteIdForFrontend();
 			}
 		}
 
