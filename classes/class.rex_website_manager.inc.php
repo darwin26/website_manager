@@ -83,13 +83,17 @@ class rex_website_manager {
 	protected function getWebsiteIdForFrontend() {
 		foreach ($this->websites as $website) {
 			if ($website->getDomain() == $_SERVER['SERVER_NAME']) {
-				// found!				
+				// website found :)
 				return $website->getId();
 			}
 		}
 
-		// not found. return id of first website
-		$websiteId = rex_website::firstId;
+		// website not found :(
+		header('HTTP/1.0 404 Not Found');
+		echo "Website not found!";
+		exit;
+
+		//return rex_website::firstId;
 	}
 
 	protected function getWebsiteIdForBackend() {
