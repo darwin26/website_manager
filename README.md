@@ -29,6 +29,11 @@ Under Construction
 * Gleiche Clangs sind noch nicht ausreichend getestet und damit unsupported.
 * Ctypes sind aktuell noch nicht berücksichtigt. D.h. es kann schon Out of the Box gehen oder eben nicht ;)
 
+Patches
+-------
+
+* Damit der Image Manager auch sauber im Backend funktioniert (nur wenn `identical_media` auf `false`) wird aktuell dieser Patch benötigt: https://github.com/RexDude/redaxo4/tree/wm_patch1
+
 API (Auszug)
 ------------
 
