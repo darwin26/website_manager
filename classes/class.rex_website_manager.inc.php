@@ -104,7 +104,7 @@ class rex_website_manager {
 
 	protected function initSessionVar() {
 		if (session_id() == '') {
-	    	session_start();
+			session_start();
 		}
 
 		if (rex_request('new_website_id') >= rex_website::firstId) {

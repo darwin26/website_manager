@@ -15,10 +15,10 @@ $REX['WEBSITE_MANAGER_SETTINGS']['identical_templates'] = true;
 // if true all websites will have the same modules and same actions
 $REX['WEBSITE_MANAGER_SETTINGS']['identical_modules'] = true;
 
-// >>>>> "true" is UNSUPPORTED IN v1.0.0 <<<<< if true all websites will have the same clangs
+// >>>>> "true" is CURRENTLY UNSUPPORTED <<<<< if true all websites will have the same clangs
 $REX['WEBSITE_MANAGER_SETTINGS']['identical_clangs'] = false;
 
-// >>>>> "true" is UNSUPPORTED IN v1.0.0 <<<<< if true all websites will have the same meta infos. if false meta info addon will be reinstalled automatically if available.
+// >>>>> "true" is CURRENTLY UNSUPPORTED <<<<< if true all websites will have the same meta infos. if false meta info addon will be reinstalled automatically if available.
 $REX['WEBSITE_MANAGER_SETTINGS']['identical_meta_infos'] = false;
 
 // if true all websites will have the same image types. if false image manager addon will be reinstalled automatically if available.

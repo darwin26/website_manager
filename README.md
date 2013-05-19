@@ -25,7 +25,7 @@ Wenn man das AddOn live einsetzt, wird dringend angeraten eine automatische Back
 Under Construction
 ------------------
 
-* Gleiche Meta-Infos für alle Websites ist noch nicht vollständig implementiert. Hier hilft aktuell nur die Meta Infos von Hand zu duplizieren pro Website.
+* Gleiche Meta-Infos für alle Websites ist noch nicht vollständig implementiert. Hier hilft aktuell nur die Meta Infos von Hand zu duplizieren pro Website. Neu: Man passt die Stelle im Code des MetaInfo AddOns für das eigene Projekt an: https://github.com/redaxo/redaxo4/blob/master/redaxo/include/addons/metainfo/_install.sql#L45-L53 Bei jeder Reinstallation werden so schonmal immer die gleichen MetaInfos angelegt.
 * Gleiche Clangs sind noch nicht ausreichend getestet und damit unsupported.
 * Ctypes sind aktuell noch nicht berücksichtigt. D.h. es kann schon Out of the Box gehen oder eben nicht ;)
 
@@ -47,15 +47,15 @@ echo $REX['WEBSITE_MANAGER']->getWebsite(3)->getSlice(40);
 // ausgabe des feldes "color1" des aktuellen themes (nur wenn "themes" plugin installiert)
 echo $REX['WEBSITE_MANAGER']->getCurrentWebsite()->getTheme()->getValue('color1');
 
-// callback methode um on the fly websites zu switchen (z.B. in modulen einsetzbar)
-$REX['WEBSITE_MANAGER']->websiteSwitch(2, function () {
+// php methode um on the fly websites zu switchen (z.B. in modulen einsetzbar)
+$REX['WEBSITE_MANAGER']->websiteSwitch(2, function() {
 	// hier gilt jetzt website id = 2
 	$article = new rex_article(7);
 	echo $article->getArticle();
 });
 
-// ...direkter aufruf für die master website
-$REX['WEBSITE_MANAGER']->masterWebsiteSwitch(function () {
+// ...und hier direkter aufruf für die master website
+$REX['WEBSITE_MANAGER']->masterWebsiteSwitch(function() {
 	// hier drin gilt jetzt website id = 1 (master)
 });
 ```
@@ -78,10 +78,10 @@ $REX['GENERATED_PATH']
 Wichtig: Um Abwärtskompatibilität der AddOns mit älteren REDAXO Versionen zu gewährleisten, sollten immer über `isset()` geprüft werden ob die Variablen überhaupt exisitieren. Hier mal ein Beispiel: 
 
 ```php
-if (isset($REX['MEDIA_ADDON_DIR'])) {
-	return $REX['MEDIA_ADDON_DIR'];
+if (isset($REX['MEDIA_DIR'])) {
+	return $REX['MEDIA_DIR'];
 } else {
-	return 'files/addons';
+	return 'files';
 }
 ```
 
@@ -92,7 +92,7 @@ Hinweise
 * AddOn-Ordner lautet: `website_manager`
 * Import/Export AddOn läuft aktuell nur für die Master-Website. Evtl. sollte man es deshalb vorerst deinstallieren.
 * Meta-Infos und Image-Types werden von Haus aus unterstützt. Zusätzliche AddOns/PlugIns kann man über die entsprechenden Arrays in der `settings.inc.php` hinzufügen.
-* Das Meta Info Fixer Tool erscheint nur wenn in der `settings.inc.php` die Option `identical_meta_infos` auf `true` steht
+* Das Meta Info Fixer Tool erscheint nur wenn in der `settings.inc.php` die Option `identical_meta_infos` auf `true` steht.
 * Bei gleichen Templates/Modulen muss man den Cache global löschen für alle Websites sobald man Änderungen an diesen vorgenommen hat. Siehe dazu das entsprechende Tool.
 * Die `settings.inc.php` sollte, nachdem man die zweite Website angelegt hat, nicht mehr verändert werden!
 * Das Theme-Plugin ist so gedacht, dass man es für das jeweilige Projekt anpasst bevor man es installiert bzw. verwendet.
