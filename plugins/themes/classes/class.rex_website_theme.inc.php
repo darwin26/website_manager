@@ -23,13 +23,17 @@ class rex_website_theme {
 	}
 
 	public function init() {
-		if ($this->id > 0) {
-			$sql = rex_sql::factory();
-			//$sql->debugsql = true;
-			$sql->setQuery('SELECT * FROM rex_website_theme WHERE id = ' . $this->id);
+		global $REX;
 
-			if ($sql->getRows() > 0) {
-				$this->themeSql = $sql;
+		if (!$REX['SETUP']) {
+			if ($this->id > 0) {
+				$sql = rex_sql::factory();
+				//$sql->debugsql = true;
+				$sql->setQuery('SELECT * FROM rex_website_theme WHERE id = ' . $this->id);
+
+				if ($sql->getRows() > 0) {
+					$this->themeSql = $sql;
+				}
 			}
 		}
 	}

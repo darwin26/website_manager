@@ -13,7 +13,7 @@ $REX['PERM'][] = 'website_manager[]';
 // front and backend includes
 require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_website_manager_utils.inc.php');
 
-if ($REX['REDAXO']) {
+if ($REX['REDAXO'] && !$REX['SETUP']) {
 	// backend includes
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.klogger.inc.php');
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/settings.inc.php');
