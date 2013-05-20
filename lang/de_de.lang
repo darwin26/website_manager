@@ -51,7 +51,7 @@ website_manager_website_https = https
 website_manager_edit_button_key = Website bearbeiten
 website_manager_website_master_website_disallow_delete = Sie können die Master-Website (ID = 1) nicht löschen!
 website_manager_website_delete_confirm = Wollen Sie diese Website inkl. aller Artikel und Medienpool-Dateien wirklich unwiderruflich löschen?
-website_manager_website_delete_trunedoff = Das Löschen von Websites wurde aus Sicherheitsgründen unterbunden.
+website_manager_website_delete_trunedoff = Das Löschen von Websites wurde aus Sicherheitsgründen unterbunden.\r\nBitte kontaktieren Sie Ihren Webmaster.
 
 website_manager_setup_step1 = Schritt 1: Einstellungen vornehmen
 website_manager_setup_step1_msg1 = Installieren Sie zuerst alle AddOns die Sie für die einzelnen Websites einsetzen wollen.<br />Passen Sie dann alle Einstellungen des Website Manager AddOns in der <code>settings.inc.php</code> entsprechend Ihres Projekts an.
