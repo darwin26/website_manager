@@ -66,7 +66,7 @@ class rex_website_manager_utils {
 				$selected = 'selected="selected"';
 			}
 
-			if (isset($REX['USER']) && $REX['USER']->isAdmin() || isset($REX['USER']) && $REX['USER']->hasPerm($website->getPermission())) {
+			if ($REX['WEBSITE_MANAGER_SETTINGS']['ignore_permissions'] || (isset($REX['USER']) && $REX['USER']->isAdmin()) || (isset($REX['USER']) && $REX['USER']->hasPerm($website->getPermission()))) {
 				$websiteSelectOptions .= '<option value="' . $website->getId() . '" ' . $selected . ' data-imagesrc="' . $website->getIconUrl() . '" data-description="' . $website->getTitle() . '">' . $website->getDomain() . '</option>';
 			}
 		}

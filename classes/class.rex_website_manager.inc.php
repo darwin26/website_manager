@@ -143,7 +143,7 @@ class rex_website_manager {
 	public function checkPermissions() {
 		global $REX;
 
-		if (isset($REX['USER']) && $REX['USER']->isAdmin() || isset($REX['USER']) && $REX['USER']->hasPerm($this->getCurrentWebsite()->getPermission())) {
+		if ($REX['WEBSITE_MANAGER_SETTINGS']['ignore_permissions'] || (isset($REX['USER']) && $REX['USER']->isAdmin()) || (isset($REX['USER']) && $REX['USER']->hasPerm($this->getCurrentWebsite()->getPermission()))) {
 			// do nothing, everything is already set properly
 		} else {
 			$websiteId = 0;

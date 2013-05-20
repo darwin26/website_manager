@@ -98,6 +98,7 @@ Hinweise
 * Das Theme-Plugin ist so gedacht, dass man es für das jeweilige Projekt anpasst bevor man es installiert bzw. verwendet.
 * Muss man irgendwann mal nachträglich ein AddOn installieren (d.h. wenn mehr als 1 Website angelegt wurde), so muss dieses momentan noch von Hand für jede Website reinstalliert werden. 
 * Ein Log-File wird unter `/website_manager/generated/log/` angelegt mit Debug-Informationen, wenn man eine Website hinzufügt oder entfernt.
+* Die Option `ignore_permissions` ist dafür da allen User Zugriff auf alle Websites zu geben. Evtl. nützlich wenn man viele User hat und der Kunde ohne Admin Websites hinzufügen kann/soll.
 
 Changelog
 ---------
