@@ -17,10 +17,11 @@ Features
 * Rechtemanagement
 * Theme-Plugin (inkl. SCSS Unterstützung) um pro Website bestimmte Werte (z.B. Farbwerte, Logos) abspeichern und dann z.B. eine CSS darauss generieren zu können.
 
-Backup
-------
+Sicherheit
+----------
 
-Wenn man das AddOn live einsetzt, wird dringend angeraten eine automatische Backuplösung für die gesamte Datenbank einzurichten, z.B. über das CronJob AddOn und den MySQLDumper.
+* Backup! Wenn man das AddOn live einsetzt, wird dringend angeraten eine automatische Backuplösung für die gesamte Datenbank einzurichten, z.B. über das CronJob AddOn und den MySQLDumper.
+* Man sollte sich überlegen, ob man nicht grundsätzlich das Löschen von Websites für alle User unterbindet. Dafür ist die Option `allow_website_delete` da.
 
 Under Construction
 ------------------
