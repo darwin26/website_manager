@@ -148,17 +148,24 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$field->setLabel($I18N->msg('website_manager_website_notfound_article_id'));
 
 	// templates
-	$field =& $form->addSelectField('default_template_id'); 
-	$field->setLabel($I18N->msg('website_manager_website_default_template'));
-	$select =& $field->getSelect();
-	$select->setSize(1);
+	if ($REX['WEBSITE_MANAGER_SETTINGS']['identical_templates']) {
+		// select field
+		$field =& $form->addSelectField('default_template_id'); 
+		$field->setLabel($I18N->msg('website_manager_website_default_template'));
+		$select =& $field->getSelect();
+		$select->setSize(1);
 
-	$sql = rex_sql::factory();
-	$sql->setQuery('select id, name from ' . $REX['TABLE_PREFIX'] . 'template where active = 1 order by name');
-	$templates = $sql->getArray();
+		$sql = rex_sql::factory();
+		$sql->setQuery('select id, name from ' . $REX['TABLE_PREFIX'] . 'template where active = 1 order by name');
+		$templates = $sql->getArray();
 
-	foreach ($templates as $template) {
-		$select->addOption($template['name'], $template['id']);
+		foreach ($templates as $template) {
+			$select->addOption($template['name'], $template['id']);
+		}
+	} else {
+		// normal text
+		$field =& $form->addTextField('default_template_id', $defaultId);
+		$field->setLabel($I18N->msg('website_manager_website_default_template_id'));
 	}
 
 	// protocol

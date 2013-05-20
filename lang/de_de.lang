@@ -44,6 +44,7 @@ website_manager_website_id_exists = Eine Website mit dieser ID existiert bereits
 website_manager_website_start_article_id = Startartikel ID
 website_manager_website_notfound_article_id = Fehlerartikel ID
 website_manager_website_default_template = Standardtemplate
+website_manager_website_default_template_id = Standardtemplate ID
 website_manager_website_protocol = Protokoll
 website_manager_website_http = http
 website_manager_website_https = https
