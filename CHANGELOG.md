@@ -1,11 +1,24 @@
 Website Manager - Changelog
 ===========================
 
-### Version 1.1.0+
+### Version 1.2.0 - 20. Mai 2013
+
+* Neue Option: `ignore_permissions`. Siehe Hinweise in der README.md
+* Fixed: Wenn Website Manager installiert und aktiviert gab es eine Endlosschleife wenn Setup erneut durchlaufen wurde
+* Theme Plugin Update
+* Wenn `identical_templates` auf `false` wird ein Textfeld bei Website anlegen/bearbeiten angezeigt, anstelle eines Select-Feldes
+* Position des Init-Includes in der `master.inc.php` geändert. Siehe Setup im AddOn
+* Wenn Domain nicht existiert wird jetzt eine 404 Page erzeugt
+* Init-Methode wegen Image Manager gesäubert. Sattdessen darf man jetzt aktuell den Core patchen ;) siehe README.md
+* Fixed #30: Website Select funktioniert jetzt auch wenn man sich in der Struktur und Content Ansicht befindet (thx@serbis)
+* Fixed: REXSEO/42 Pathlist war leer (404 Erros) wenn neue Website hinzugefügt wurde
+* PHP-Methoden `websiteSwitch()` und `masterWebsiteSwitch()` zu Klasse `rex_website_manager` hinzugefügt um Websites on the fly zu switchen
+* PHP-Methoden `getMasterWebsite()` und `getMasterWebsiteId()` zu Klasse `rex_website_manager` hinzugefügt
 
 ### Version 1.1.0
 
 * Theme-Plugin erweitert: Dynamische CSS Generierung mittels PHP und SCSS
+* Kleinere Cosmetics ud Fixes
 
 ### Version 1.0.0
 
