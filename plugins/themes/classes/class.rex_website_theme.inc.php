@@ -97,6 +97,9 @@ class rex_website_theme {
 		$interpretedPhp = ob_get_contents();
 		ob_end_clean();
 
+		// strip comments
+		$interpretedPhp = self::stripCSSComments($interpretedPhp);
+
 		// compile scss to css
 		try {
 			$scss = new scssc();
@@ -106,12 +109,16 @@ class rex_website_theme {
 			echo "<strong>SCSS Compile Error:</strong> <br/>";
 		    echo $e->getMessage();
 			exit;
-		}	
+		}
 
 		// write css
 		$fileHandle = fopen($cssFile, 'w');
 		fwrite($fileHandle, $compiledScss);
 		fclose($fileHandle);
+	}
+
+	public static function stripCSSComments($css) {
+		return preg_replace('/\s*(?!<\")\/\*[^\*]+\*\/(?!\")\s*/', '', $css);
 	}
 
 	public static function deleteCSSFile($themeId) {

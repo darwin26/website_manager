@@ -163,3 +163,24 @@ echo '</div>';
 <script type="text/javascript" src="../<?php echo $REX['MEDIA_ADDON_DIR']; ?>/website_manager/spectrum.js"></script>
 <script type="text/javascript">jQuery(".colorpicker input").spectrum({ showInput: true,  preferredFormat: "hex", clickoutFiresChange: true, showPalette: false, /* palette: [ ["#d1513c", "#8eb659", "#dfaa3c", "#cb41d2"] ], */ chooseText: "<?php echo $I18N->msg('website_manager_website_colorpicker_choose'); ?>", cancelText: "<?php echo $I18N->msg('website_manager_website_colorpicker_cancel'); ?>" });</script>
 
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('.rex-form form').submit(function() {
+		doSubmit = true;
+
+		$( "input.colorpicker" ).each(function( index ) {
+			if ($(this).val() === '') {
+				doSubmit = false;
+			}
+		});
+		
+		if (!doSubmit) {
+			alert('Bitte alle Farbfelder ausfüllen!');
+			return false;
+		} else {
+			return true;
+		}
+	});
+});
+</script>
+
