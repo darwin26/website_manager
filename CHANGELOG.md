@@ -1,6 +1,10 @@
 Website Manager - Changelog
 ===========================
 
+### Version 1.2.0+
+
+* Fixed: Generate All funktionierte nicht mehr sauber
+
 ### Version 1.2.0 - 20. Mai 2013
 
 * Neue Option: `ignore_permissions`. Siehe Hinweise in der README.md

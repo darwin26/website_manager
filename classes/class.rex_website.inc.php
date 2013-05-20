@@ -159,13 +159,13 @@ class rex_website {
 		global $REX;
 
 		// set rex vars for this website
-		$this->switchRexVars();
+		$this->switchGeneratedPath();
 
 		// do generate all
 		rex_generateAll();
 
 		// restore rex vars for current website
-		$REX['WEBSITE_MANAGER']->getCurrentWebsite()->switchRexVars();
+		$REX['WEBSITE_MANAGER']->getCurrentWebsite()->switchGeneratedPath();
 	}
 
 	public function getArticle($articleId, $clangId = null) {
@@ -207,6 +207,12 @@ class rex_website {
 		$REX['MEDIAFOLDER'] = $this->getMediaPath();
 		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
 		$REX['TABLE_PREFIX'] = $this->getTablePrefix();
+	}
+
+	public function switchGeneratedPath() {
+		global $REX;
+
+		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
 	}
 
 	public function getTheme() {
