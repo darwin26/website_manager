@@ -69,6 +69,8 @@ Kompatible AddOns
 * String Table ab v1.3.1: https://github.com/RexDude/string_table
 * Tracking Code ab v1.0.0: https://github.com/RexDude/tracking_code
 
+Stand: 21. Mai 2013
+
 AddOns fitmachen für den Website Manager
 ----------------------------------------
 
