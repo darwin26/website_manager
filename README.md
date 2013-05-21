@@ -61,6 +61,14 @@ $REX['WEBSITE_MANAGER']->masterWebsiteSwitch(function() {
 });
 ```
 
+Kompatible AddOns
+-----------------
+
+* REXSEO42 ab v1.2.1: https://github.com/RexDude/rexseo42
+* Slice Status ab v2.0.0: https://github.com/RexDude/slice_status
+* String Table ab v1.3.1: https://github.com/RexDude/string_table
+* Tracking Code ab v1.0.0: https://github.com/RexDude/tracking_code
+
 AddOns fitmachen für den Website Manager
 ----------------------------------------
 
