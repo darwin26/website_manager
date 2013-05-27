@@ -111,7 +111,7 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$list->show();
 
 	// prio switch
-	rex_website_manager_prio_switch::printSwitch(array($I18N->msg('website_manager_prio_mode'), $I18N->msg('website_manager_prio_mode_on'), $I18N->msg('website_manager_prio_mode_off')));
+	rex_website_manager_prio_switch::printSwitch(array($I18N->msg('website_manager_prio_mode'), $I18N->msg('website_manager_prio_mode_on'), $I18N->msg('website_manager_prio_mode_off')), false);
 } elseif ($func == 'add' || $func == 'edit' && $website_id > 0) {
 	if ($func == 'edit') {
 		$formLabel = $I18N->msg('website_manager_website_website_edit');
