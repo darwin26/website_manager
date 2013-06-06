@@ -159,13 +159,16 @@ class rex_website {
 		global $REX;
 
 		// set rex vars for this website
-		$this->switchGeneratedPath();
+		$this->switchRexVars();
 
 		// do generate all
 		rex_generateAll();
 
 		// restore rex vars for current website
-		$REX['WEBSITE_MANAGER']->getCurrentWebsite()->switchGeneratedPath();
+		$REX['WEBSITE_MANAGER']->getCurrentWebsite()->switchRexVars();
+
+		// temporary workaround for rexseo master website empty pathlist problem
+		rex_generateAll();
 	}
 
 	public function getArticle($articleId, $clangId = null) {
@@ -207,12 +210,6 @@ class rex_website {
 		$REX['MEDIAFOLDER'] = $this->getMediaPath();
 		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
 		$REX['TABLE_PREFIX'] = $this->getTablePrefix();
-	}
-
-	public function switchGeneratedPath() {
-		global $REX;
-
-		$REX['GENERATED_PATH'] = $this->getGeneratedPath();
 	}
 
 	public function getTheme() {
