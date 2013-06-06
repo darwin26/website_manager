@@ -1,6 +1,11 @@
 Website Manager - Changelog
 ===========================
 
+### Version 1.2.1+
+
+* Fixed #33: Bug in der "Cache global löschen" Logik führte zu einem Durcheinander in den verschiedenen Generated-Ordnern
+* Drag'n Drop Sortierung der Websites auch für Nicht-Admins aktiviert
+
 ### Version 1.2.1 - 21. Mai 2013
 
 * Fixed: Generate All funktionierte nicht mehr sauber
