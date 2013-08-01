@@ -7,6 +7,12 @@ $I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/website_manager/lang/');
 if (version_compare($REX['VERSION'] . '.' . $REX['SUBVERSION'] . '.' . $REX['MINORVERSION'], '4.4.1', '<=')) {
 	// version incorrect
 	$REX['ADDON']['installmsg']['website_manager'] = $I18N->msg('website_manager_install_rex_version'); 
+} elseif (OOPlugin::isAvailable('be_utilities', 'colorizer')) {
+	// colorizer plugin
+	$REX['ADDON']['installmsg']['website_manager'] = $I18N->msg('website_manager_install_colorizer'); 
+} elseif (OOPlugin::isAvailable('be_style', 'customizer') && (isset($REX['ADDON']['be_style']['plugin_customizer']['labelcolor']) && $REX['ADDON']['be_style']['plugin_customizer']['labelcolor'] != '') || (isset($REX['ADDON']['be_style']['plugin_customizer']['showlink']) && $REX['ADDON']['be_style']['plugin_customizer']['showlink'] == 1)) {
+	// customizer plugin
+	$REX['ADDON']['installmsg']['website_manager'] = $I18N->msg('website_manager_install_customizer'); 
 } else {
 	// version correct. proceed...
 	require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/classes/class.rex_website.inc.php');
