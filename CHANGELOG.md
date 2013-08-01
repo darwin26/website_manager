@@ -1,8 +1,9 @@
 Website Manager - Changelog
 ===========================
 
-### Version 1.2.1+
+### Version 1.2.2 - 01. August 2013
 
+* Bei Installation wird auf das Colorizer/Customizer Plugin geprüft
 * Fixed #33: Bug in der "Cache global löschen" Logik führte zu einem Durcheinander in den verschiedenen Generated-Ordnern
 * Drag'n Drop Sortierung der Websites auch für Nicht-Admins aktiviert
 
