@@ -15,6 +15,7 @@ website_manager_destroy_website_security_msg = Website mit ID = 1 darf nicht gel
 website_manager_settings_msg = Einstellungen lassen sich momentan über diese Datei vornehmen:
 website_manager_install_rex_version = Dieses AddOn benötigt REDAXO Version 4.5.0 oder höher.
 website_manager_install_colorizer = Bitte deinstallieren Sie das Colorizer Plugin des Backend Utilities AddOns.
+website_manager_install_frontend_link = Bitte deinstallieren Sie das Frontend Link Plugin des Backend Utilities AddOns.
 website_manager_install_customizer = Bitte deaktivieren Sie unter System folgende Optionen des Customizer Plugins: "Erkennungsfarbe" (leer lassen) und "Link zur Webseite anzeigen" (nein).
 
 website_manager_tools_cache_deleted = Cache für alle Websites gelöscht.
