@@ -17,6 +17,13 @@ Features
 * Rechtemanagement
 * Theme-Plugin (inkl. SCSS Unterstützung) um pro Website bestimmte Werte (z.B. Farbwerte, Logos) abspeichern und dann z.B. eine CSS darauss generieren zu können.
 
+Hinweis zu REDAXO-Unterordnerinstallationen
+-------------------------------------------
+
+Es ist technisch nicht möglich so wie hier das AddOn als REDAXO-Unterordnerinstallation zu betreiben: `http://localhost/rex45multi`
+Es wird je eine Domain bzw. Subdomain pro Website benötigt. Arbeitet man mit einem lokalen Webserver so werden virtuelle Hosts (Apache) benötigt.
+
+
 Sicherheit
 ----------
 
