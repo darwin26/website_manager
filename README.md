@@ -23,7 +23,6 @@ Hinweis zu REDAXO-Unterordnerinstallationen
 Es ist technisch nicht möglich so wie hier das AddOn als REDAXO-Unterordnerinstallation zu betreiben: `http://localhost/rex45multi`
 Es wird je eine Domain bzw. Subdomain pro Website benötigt. Arbeitet man mit einem lokalen Webserver so werden virtuelle Hosts (Apache) benötigt.
 
-
 Sicherheit
 ----------
 
@@ -108,6 +107,7 @@ Hinweise
 
 * Läuft nur mit REDAXO 4.5+
 * AddOn-Ordner lautet: `website_manager`
+* Der Table-Prefix in der `master.inc.php` sollte nicht verändert werden vor der REDAXO-Installation und auf dem Standardwert `rex_` belassen werden. 
 * Import/Export AddOn läuft aktuell nur für die Master-Website. Evtl. sollte man es deshalb vorerst deinstallieren.
 * Meta-Infos und Image-Types werden von Haus aus unterstützt. Zusätzliche AddOns/PlugIns kann man über die entsprechenden Arrays in der `settings.inc.php` hinzufügen.
 * Das Meta Info Fixer Tool erscheint nur wenn in der `settings.inc.php` die Option `identical_meta_infos` auf `true` steht.
