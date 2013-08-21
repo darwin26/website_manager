@@ -39,7 +39,7 @@ Under Construction
 Patches
 -------
 
-* Damit der Image Manager auch sauber im Backend funktioniert (nur wenn `identical_media` auf `false`) wird aktuell dieser Patch benötigt: https://github.com/RexDude/redaxo4/tree/wm_patch1
+* Dieser Patch ist ab REDAXO 4.5.1 nicht mehr nötig: Damit der Image Manager auch sauber im Backend funktioniert (nur wenn `identical_media` auf `false`) wird aktuell dieser Patch benötigt: https://github.com/RexDude/redaxo4/tree/wm_patch1
 
 API (Auszug)
 ------------
