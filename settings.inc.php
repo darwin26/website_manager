@@ -16,7 +16,7 @@ $REX['WEBSITE_MANAGER_SETTINGS']['identical_templates'] = true;
 $REX['WEBSITE_MANAGER_SETTINGS']['identical_modules'] = true;
 
 // >>>>> "true" is CURRENTLY UNSUPPORTED <<<<< if true all websites will have the same clangs
-$REX['WEBSITE_MANAGER_SETTINGS']['identical_clangs'] = true;
+$REX['WEBSITE_MANAGER_SETTINGS']['identical_clangs'] = false;
 
 // >>>>> "true" is CURRENTLY UNSUPPORTED <<<<< if true all websites will have the same meta infos. if false meta info addon will be reinstalled automatically if available.
 $REX['WEBSITE_MANAGER_SETTINGS']['identical_meta_infos'] = false;
@@ -27,7 +27,7 @@ $REX['WEBSITE_MANAGER_SETTINGS']['identical_image_types'] = true;
 // if true every user will have access to all websites
 $REX['WEBSITE_MANAGER_SETTINGS']['ignore_permissions'] = false;
 
-// if false if admins won't be allowed to delete websites
+// if false admins won't be allowed to delete websites
 $REX['WEBSITE_MANAGER_SETTINGS']['allow_website_delete'] = true;
 
 // if true link to frontend will be shown in meta menu of redaxo backend
