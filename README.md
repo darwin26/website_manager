@@ -20,14 +20,16 @@ Features
 Hinweis zu REDAXO-Unterordnerinstallationen
 -------------------------------------------
 
-Es ist technisch nicht möglich so wie hier das AddOn als REDAXO-Unterordnerinstallation zu betreiben: `http://localhost/rex45multi`
+Es ist technisch nicht möglich so wie hier das AddOn mit einer REDAXO-Unterordnerinstallation zu betreiben: `http://localhost/rex45multi`
 Es wird je eine Domain bzw. Subdomain pro Website benötigt. Arbeitet man mit einem lokalen Webserver so werden virtuelle Hosts (Apache) benötigt.
+
+Bitte auch die weiteren Hinweise (s.u.) beachten...
 
 Sicherheit
 ----------
 
-* Backup! Wenn man das AddOn live einsetzt, wird dringend angeraten eine automatische Backuplösung für die gesamte Datenbank einzurichten, z.B. über das CronJob AddOn und den MySQLDumper.
-* Man sollte sich überlegen, ob man nicht grundsätzlich das Löschen von Websites für alle User unterbindet. Dafür ist die Option `allow_website_delete` da.
+* Backup! Wenn man das AddOn live einsetzt, wird dringend angeraten eine automatische Backuplösung für die gesamte Datenbank einzurichten, z.B. über das CronJob AddOn und den MySQLDumper. Man muss drauf achten, dass die angelegten MySQL Views auch mitgesichert und wieder zurückgeschrieben werden.
+* Man sollte sich überlegen, ob man nicht grundsätzlich das Löschen von Websites für alle User unterbindet (empfohlen). Dafür ist die Option `allow_website_delete` da.
 
 Under Construction
 ------------------
@@ -39,7 +41,9 @@ Under Construction
 Patches
 -------
 
-* Dieser Patch ist ab REDAXO 4.5.1 nicht mehr nötig: Damit der Image Manager auch sauber im Backend funktioniert (nur wenn `identical_media` auf `false`) wird aktuell dieser Patch benötigt: https://github.com/RexDude/redaxo4/tree/wm_patch1
+* Damit der Image Manager auch sauber im Backend funktioniert (nur wenn `identical_media` auf `false`) wird aktuell dieser Patch benötigt: https://github.com/RexDude/redaxo4/commit/a876a7d50d405919a65f56cd6b6950d5a5be9ea6
+
+Hinweis: Ab REDAXO 4.5.1 ist dieser Patch nicht mehr nötig.
 
 API (Auszug)
 ------------
@@ -107,16 +111,16 @@ Hinweise
 
 * Läuft nur mit REDAXO 4.5+
 * AddOn-Ordner lautet: `website_manager`
+* Ein Log-File wird unter `/website_manager/generated/log/` angelegt mit Debug-Informationen, wenn man eine Website hinzufügt oder entfernt.
 * Der Table-Prefix in der `master.inc.php` sollte nicht verändert werden vor der REDAXO-Installation und auf dem Standardwert `rex_` belassen werden. 
 * Das Recht `CREATE VIEW` für die MySQL Datenbank muß vom Provider freigeschaltet sein. In der Log-Datei kann man sonst sehen, dass die MySQL Views nicht angelegt wurden.
 * Import/Export AddOn läuft aktuell nur für die Master-Website. Evtl. sollte man es deshalb vorerst deinstallieren.
-* Meta-Infos und Image-Types werden von Haus aus unterstützt. Zusätzliche AddOns/PlugIns kann man über die entsprechenden Arrays in der `settings.inc.php` hinzufügen.
-* Das Meta Info Fixer Tool erscheint nur wenn in der `settings.inc.php` die Option `identical_meta_infos` auf `true` steht.
+* Meta-Infos und Image-Types werden von Haus aus unterstützt. Zusätzliche AddOns/PlugIns kann man über die entsprechenden Arrays in der `settings.inc.php` hinzufügen sofern man wünscht dass diese pro Website ihren eigenen Datenbestand anlegen. Beispiel-Addons: rexseo42, slice_status, string_table, tracking_code
+* Das Meta Info Fixer Tool (noch nicht implementiert) erscheint nur wenn in der `settings.inc.php` die Option `identical_meta_infos` auf `true` steht.
 * Bei gleichen Templates/Modulen muss man den Cache global löschen für alle Websites sobald man Änderungen an diesen vorgenommen hat. Siehe dazu das entsprechende Tool.
 * Die `settings.inc.php` sollte, nachdem man die zweite Website angelegt hat, nicht mehr verändert werden!
 * Das Theme-Plugin ist so gedacht, dass man es für das jeweilige Projekt anpasst bevor man es installiert bzw. verwendet.
 * Muss man irgendwann mal nachträglich ein AddOn installieren (d.h. wenn mehr als 1 Website angelegt wurde), so muss dieses momentan noch von Hand für jede Website reinstalliert werden. 
-* Ein Log-File wird unter `/website_manager/generated/log/` angelegt mit Debug-Informationen, wenn man eine Website hinzufügt oder entfernt.
 * Die Option `ignore_permissions` ist dafür da allen User Zugriff auf alle Websites zu geben. Evtl. nützlich wenn man viele User hat und der Kunde ohne Admin Websites hinzufügen kann/soll.
 
 Changelog
@@ -135,7 +139,7 @@ Credits
 * Supported by [Peter Bickel](https://github.com/polarpixel) und [Gregor Harlan](https://github.com/gharlan)
 * Danke an das REDAXO-Team für die Erlaubnis die nötigen Core-Änderungen für das AddOn durchführen zu können
 * Danke an [Jan Kristinus](https://github.com/dergel) für die Customizer Idee die hier direkt ins AddOn integriert wurde
-* Danke an die Tester und Contributors: [olien](https://github.com/olien), [riotweb](https://github.com/riotweb), [skerbis](https://github.com/skerbis)
+* Danke an die Tester und Contributors: [olien](https://github.com/olien), [riotweb](https://github.com/riotweb), [skerbis](https://github.com/skerbis), [alexplusde](https://github.com/alexplusde)
 * Website Manager uses KLogger PHP-Class: https://github.com/katzgrau/KLogger
 * Website Manager uses Spectrum Colorpicker: https://github.com/bgrins/spectrum
 * Website Manager Themes Plugin uses scssphp PHP-Class: https://github.com/leafo/scssphp/
