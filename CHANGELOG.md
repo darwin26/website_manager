@@ -18,7 +18,7 @@ Website Manager - Changelog
 * Wenn Domain nicht existiert wird jetzt eine 404 Page erzeugt
 * Init-Methode wegen Image Manager gesäubert. Sattdessen darf man jetzt aktuell den Core patchen ;) siehe README.md
 * Fixed #30: Website Select funktioniert jetzt auch wenn man sich in der Struktur und Content Ansicht befindet (thx@serbis)
-* Fixed: REXSEO/42 Pathlist war leer (404 Erros) wenn neue Website hinzugefügt wurde
+* Fixed: REXSEO/SEO42 Pathlist war leer (404 Erros) wenn neue Website hinzugefügt wurde
 * PHP-Methoden `websiteSwitch()` und `masterWebsiteSwitch()` zu Klasse `rex_website_manager` hinzugefügt um Websites on the fly zu switchen
 * PHP-Methoden `getMasterWebsite()` und `getMasterWebsiteId()` zu Klasse `rex_website_manager` hinzugefügt
 

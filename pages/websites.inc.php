@@ -24,7 +24,7 @@ rex_register_extension('REX_FORM_SAVED', function ($params) {
 			rex_website_manager::createClangFile($websiteId);
 		}
 
-		// important! without this, rexseo/42 pathlist of master website eventually will become completely empty (404 errors guaranteed ;))
+		// important! without this, rexseo/seo42 pathlist of master website eventually will become completely empty (404 errors guaranteed ;))
 		$REX['WEBSITE_MANAGER']->getMasterWebsite()->generateAll();
 	} else {
 		// do nothing

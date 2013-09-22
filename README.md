@@ -38,10 +38,13 @@ Under Construction
 * Gleiche Clangs sind noch nicht ausreichend getestet und damit unsupported.
 * Ctypes sind aktuell noch nicht berücksichtigt. D.h. es kann schon Out of the Box gehen oder eben nicht ;)
 
-Patches
--------
+Benötigter Patch für REDAXO 4.5.0
+---------------------------------
 
-* Damit der Image Manager auch sauber im Backend funktioniert (nur wenn `identical_media` auf `false`) wird aktuell dieser Patch benötigt: https://github.com/RexDude/redaxo4/commit/a876a7d50d405919a65f56cd6b6950d5a5be9ea6
+* Damit der Image Manager auch sauber im Backend funktioniert (nur wenn `identical_media` auf `false`) müssen die Dateien `/redaxo/include/pages/mediapool.media.inc.php` und `/redaxo/media/standard.js` gegen diese hier ausgetauscht werden:
+
+https://raw.github.com/redaxo/redaxo4/master/redaxo/include/pages/mediapool.media.inc.php
+https://raw.github.com/redaxo/redaxo4/master/redaxo/media/standard.js
 
 Hinweis: Ab REDAXO 4.5.1 ist dieser Patch nicht mehr nötig.
 
@@ -74,7 +77,7 @@ $REX['WEBSITE_MANAGER']->masterWebsiteSwitch(function() {
 Kompatible AddOns
 -----------------
 
-* REXSEO42 ab v1.2.1: https://github.com/RexDude/rexseo42
+* SEO42 ab v1.2.1: https://github.com/RexDude/seo42
 * Slice Status ab v2.0.0: https://github.com/RexDude/slice_status
 * String Table ab v1.3.1: https://github.com/RexDude/string_table
 * Tracking Code ab v1.0.0: https://github.com/RexDude/tracking_code
@@ -115,7 +118,7 @@ Hinweise
 * Der Table-Prefix in der `master.inc.php` sollte nicht verändert werden vor der REDAXO-Installation und auf dem Standardwert `rex_` belassen werden. 
 * Das Recht `CREATE VIEW` für die MySQL Datenbank muß vom Provider freigeschaltet sein. In der Log-Datei kann man sonst sehen, dass die MySQL Views nicht angelegt wurden.
 * Import/Export AddOn läuft aktuell nur für die Master-Website. Evtl. sollte man es deshalb vorerst deinstallieren.
-* Meta-Infos und Image-Types werden von Haus aus unterstützt. Zusätzliche AddOns/PlugIns kann man über die entsprechenden Arrays in der `settings.inc.php` hinzufügen sofern man wünscht dass diese pro Website ihren eigenen Datenbestand anlegen. Beispiel-Addons: rexseo42, slice_status, string_table, tracking_code
+* Meta-Infos und Image-Types werden von Haus aus unterstützt. Zusätzliche AddOns/PlugIns kann man über die entsprechenden Arrays in der `settings.inc.php` hinzufügen sofern man wünscht dass diese pro Website ihren eigenen Datenbestand anlegen. Beispiel-Addons: seo42, slice_status, string_table, tracking_code
 * Das Meta Info Fixer Tool (noch nicht implementiert) erscheint nur wenn in der `settings.inc.php` die Option `identical_meta_infos` auf `true` steht.
 * Bei gleichen Templates/Modulen muss man den Cache global löschen für alle Websites sobald man Änderungen an diesen vorgenommen hat. Siehe dazu das entsprechende Tool.
 * Die `settings.inc.php` sollte, nachdem man die zweite Website angelegt hat, nicht mehr verändert werden!
