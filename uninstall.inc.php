@@ -1,6 +1,6 @@
 <?php
 
-if (!isset($REX['WEBSITE_MANAGER_UNINSTALL'])) {
+if (isset($REX['WEBSITE_MANAGER_DO_UNINSTALL']) && !$REX['WEBSITE_MANAGER_DO_UNINSTALL']) {
 	echo rex_warning($I18N->msg('website_manager_uninstall_codeline_hint'));
 	exit;
 }

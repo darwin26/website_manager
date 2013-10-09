@@ -23,6 +23,9 @@ if ($REX['REDAXO'] && !$REX['SETUP']) {
 
 	// check for existence of website manager object
 	if (isset($REX['WEBSITE_MANAGER'])) {
+		// used for addon uninstall to stop user from uninstallig when wm codeline ist still in master.inc.php
+		$REX['WEBSITE_MANAGER_DO_UNINSTALL'] = false;
+
 		// add subpages
 		$REX['ADDON']['website_manager']['SUBPAGES'] = array(
 			array('', $I18N->msg('website_manager_websites'))
@@ -43,7 +46,7 @@ if ($REX['REDAXO'] && !$REX['SETUP']) {
 		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/generated/init.inc.php');
 
 		// used for addon uninstall to stop user from uninstallig when wm codeline ist still in master.inc.php
-		$REX['WEBSITE_MANAGER_UNINSTALL'] = false;
+		$REX['WEBSITE_MANAGER_DO_UNINSTALL'] = true;
 	
 		// add only setup subpage
 		$REX['ADDON']['website_manager']['SUBPAGES'] = array(
