@@ -41,6 +41,9 @@ if ($REX['REDAXO'] && !$REX['SETUP']) {
 	} else {
 		// this is only neccesary until user has put this code line in master.inc.php
 		require_once($REX['INCLUDE_PATH'] . '/addons/website_manager/generated/init.inc.php');
+
+		// used for addon uninstall to stop user from uninstallig when wm codeline ist still in master.inc.php
+		$REX['WEBSITE_MANAGER_UNINSTALL'] = false;
 	
 		// add only setup subpage
 		$REX['ADDON']['website_manager']['SUBPAGES'] = array(

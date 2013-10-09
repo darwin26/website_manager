@@ -1,6 +1,12 @@
 Website Manager - Changelog
 ===========================
 
+### Version 1.3.0
+
+* Bei Deinstallation wird auf die Codezeile in der `master.inc.php` geprüft
+* Bei Installation wird auf das Frontend Link Plugin geprüft
+* Verbesserte Anleitung für Setup Schritt 2
+
 ### Version 1.2.2 - 01. August 2013
 
 * Bei Installation wird auf das Colorizer/Customizer Plugin geprüft
