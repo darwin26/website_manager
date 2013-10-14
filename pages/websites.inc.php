@@ -72,7 +72,7 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	// show website list
 	$query = 'SELECT * FROM rex_website ORDER BY priority';
 
-	$list = rex_list::factory($query);
+	$list = rex_list::factory($query, 10000);
 	$list->setNoRowsMessage($I18N->msg('website_manager_website_no_websites_available'));
 	$list->setCaption($I18N->msg('website_manager_website_list'));
 	$list->addTableAttribute('summary', $I18N->msg('website_manager_website_list'));
