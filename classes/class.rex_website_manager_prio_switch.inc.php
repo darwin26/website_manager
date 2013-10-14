@@ -12,6 +12,9 @@ class rex_website_manager_prio_switch extends rex_prio_switch {
 
 				// update init file to reflect changes
 				rex_website_manager::updateInitFile();
+
+				// stop executing rest of redaxo stuff
+				exit;
 			}
 		}
 	}
