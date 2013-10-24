@@ -2,7 +2,7 @@
 // init addon
 $REX['ADDON']['name']['website_manager'] = 'Website Manager';
 $REX['ADDON']['page']['website_manager'] = 'website_manager';
-$REX['ADDON']['version']['website_manager'] = '1.2.2';
+$REX['ADDON']['version']['website_manager'] = '1.3.0 DEV';
 $REX['ADDON']['author']['website_manager'] = "RexDude";
 $REX['ADDON']['supportpage']['website_manager'] = 'forum.redaxo.de';
 $REX['ADDON']['perm']['website_manager'] = 'website_manager[]';

@@ -1,8 +1,10 @@
 Website Manager - Changelog
 ===========================
 
-### Version 1.3.0
+### Version 1.2.3
 
+* Hinweise in Readme.md aktualisiert
+* Automatische Breitenanpassung des Website Selectors
 * Bei Deinstallation wird auf die Codezeile in der `master.inc.php` geprüft
 * Bei Installation wird auf das Frontend Link Plugin geprüft
 * Verbesserte Anleitung für Setup Schritt 2

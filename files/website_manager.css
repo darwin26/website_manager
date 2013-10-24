@@ -22,7 +22,7 @@ h1.website-name-frontend-link {
     position: absolute;
     top: 32px;
     left: 202px;
-    width: 420px;
+    width: 325px;
     overflow: hidden;
     color: #2C8EC0;
     font-size: 17px;
@@ -34,6 +34,8 @@ h1.website-name-frontend-link {
 
 h1.website-name-frontend-link.small {
     font-size: 13px;
+	text-overflow: ellipsis;
+    width: 320px;
 }
 
 /* --------------------------------------------------- */

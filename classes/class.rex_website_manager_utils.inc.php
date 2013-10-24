@@ -101,7 +101,7 @@ class rex_website_manager_utils {
 	protected static function getWebsiteNameFrontendLink() {
 		global $REX;
 
-		if (strlen($REX['WEBSITE_MANAGER']->getCurrentWebsite()->getTitle()) > 45) {
+		if (strlen($REX['WEBSITE_MANAGER']->getCurrentWebsite()->getTitle()) > 40) {
 			$class = ' small';
 		} else {
 			$class = '';
@@ -111,11 +111,24 @@ class rex_website_manager_utils {
 	}
 
 	protected static function addJS() {
+		global $REX;
+
+		$longestDomainName = '';
+
+		foreach($REX['WEBSITE_MANAGER']->getWebsites() as $website) {
+			if (strlen($website->getDomain()) > strlen($longestDomainName)) {
+				$longestDomainName = $website->getDomain();
+			}
+		}
+
 		// ddslick js
 		return '
 			<script type="text/javascript">
 			jQuery(function($) {
+				$("body").append(\'<span id="longest-domainname" style="font-weight: bold; font-size: 13px; display: none;">' . $longestDomainName . '</span>\');
+
 				$("#website-selector").ddslick({
+					width: Math.max(260, jQuery("#longest-domainname").width() + 60),
 					truncateDescription: true,
 					imagePosition: "left",
 					onSelected: function(data) { 

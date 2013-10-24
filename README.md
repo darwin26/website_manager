@@ -77,7 +77,7 @@ $REX['WEBSITE_MANAGER']->masterWebsiteSwitch(function() {
 Kompatible AddOns
 -----------------
 
-* SEO42 ab v1.2.1: https://github.com/RexDude/seo42
+* SEO42 ab v2.6.0: https://github.com/RexDude/seo42
 * Slice Status ab v2.0.0: https://github.com/RexDude/slice_status
 * String Table ab v1.3.1: https://github.com/RexDude/string_table
 * Tracking Code ab v1.0.0: https://github.com/RexDude/tracking_code
@@ -114,6 +114,7 @@ Hinweise
 
 * Läuft nur mit REDAXO 4.5+
 * AddOn-Ordner lautet: `website_manager`
+* Installieren Sie nur die nötigsten AddOns!
 * Ein Log-File wird unter `/website_manager/generated/log/` angelegt mit Debug-Informationen, wenn man eine Website hinzufügt oder entfernt.
 * Der Table-Prefix in der `master.inc.php` sollte nicht verändert werden vor der REDAXO-Installation und auf dem Standardwert `rex_` belassen werden. 
 * Das Recht `CREATE VIEW` für die MySQL Datenbank muß vom Provider freigeschaltet sein. In der Log-Datei kann man sonst sehen, dass die MySQL Views nicht angelegt wurden.
@@ -123,7 +124,9 @@ Hinweise
 * Bei gleichen Templates/Modulen muss man den Cache global löschen für alle Websites sobald man Änderungen an diesen vorgenommen hat. Siehe dazu das entsprechende Tool.
 * Die `settings.inc.php` sollte, nachdem man die zweite Website angelegt hat, nicht mehr verändert werden!
 * Das Theme-Plugin ist so gedacht, dass man es für das jeweilige Projekt anpasst bevor man es installiert bzw. verwendet.
-* Muss man irgendwann mal nachträglich ein AddOn installieren (d.h. wenn mehr als 1 Website angelegt wurde), so muss dieses momentan noch von Hand für jede Website reinstalliert werden. 
+* Muss man irgendwann mal nachträglich ein AddOn installieren (d.h. wenn mehr als 1 Website angelegt wurde), so muss dieses momentan noch von Hand für jede Website reinstalliert werden (gleiches gilt gerade auch für die MetaInfos). 
+* Der Website Manager wurde aktuell nur in Zusammenspiel mit SEO42 getestet. Für ein optimales Zusammenspiel bitte ALLE Codebeispiele von SEO42 nutzen!
+* Für eine optimale Darstellung sollte als Skin das Standard` agk_skin` Skin von REDAXO genutzt werden.
 * Die Option `ignore_permissions` ist dafür da allen User Zugriff auf alle Websites zu geben. Evtl. nützlich wenn man viele User hat und der Kunde ohne Admin Websites hinzufügen kann/soll.
 
 Changelog
