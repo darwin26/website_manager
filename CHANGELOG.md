@@ -1,7 +1,7 @@
 Website Manager - Changelog
 ===========================
 
-### Version 1.3.0 RC
+### Version 1.3.0 - 24. Oktober 2013
 
 * Hinweise in Readme.md aktualisiert
 * Auf der REDAXO System-Seite werden die Felder deaktiviert die über den Website Manager befüllt werden müssen
