@@ -1,9 +1,10 @@
 Website Manager - Changelog
 ===========================
 
-### Version 1.2.3
+### Version 1.3.0 RC
 
 * Hinweise in Readme.md aktualisiert
+* Auf der REDAXO System-Seite werden die Felder deaktiviert die über den Website Manager befüllt werden müssen
 * Automatische Breitenanpassung des Website Selectors
 * Bei Deinstallation wird auf die Codezeile in der `master.inc.php` geprüft
 * Bei Installation wird auf das Frontend Link Plugin geprüft

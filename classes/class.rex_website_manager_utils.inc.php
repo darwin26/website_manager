@@ -113,6 +113,7 @@ class rex_website_manager_utils {
 	protected static function addJS() {
 		global $REX;
 
+		$out = '';
 		$longestDomainName = '';
 
 		foreach($REX['WEBSITE_MANAGER']->getWebsites() as $website) {
@@ -121,8 +122,20 @@ class rex_website_manager_utils {
 			}
 		}
 
-		// ddslick js
-		return '
+		// disable fields in redaxo system page
+		if (rex_request('page') == 'specials') {
+			$out .= '
+				<script type="text/javascript">
+				jQuery(function($) {
+					$("#rex-form-servername,#rex-form-server,#LINK_1_NAME,#LINK_2_NAME,#rex-form-default-template-id").attr("disabled", true);
+					$(".rex-widget a").attr("onclick", "");
+				});
+				</script>
+			';
+		}
+
+		// ddslick website selector
+		$out .= '
 			<script type="text/javascript">
 			jQuery(function($) {
 				$("body").append(\'<span id="longest-domainname" style="font-weight: bold; font-size: 13px; display: none;">' . $longestDomainName . '</span>\');
@@ -143,6 +156,8 @@ class rex_website_manager_utils {
 			});
 			</script>
 		';
+
+		return $out;
 	}
 
 	public static function fixArticlePreviewLink($params) {
