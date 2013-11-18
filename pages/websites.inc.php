@@ -140,11 +140,11 @@ if ($REX['WEBSITE_MANAGER']->getCurrentWebsiteId() > 1) {
 	$field->setLabel($I18N->msg('website_manager_website_title'));
 
 	// start article id
-	$field =& $form->addTextField('start_article_id', $defaultId); // addLinkmapField
+	$field = &$form->addLinkmapField('start_article_id', $defaultId);
 	$field->setLabel($I18N->msg('website_manager_website_start_article_id'));
 
 	// not found article id
-	$field =& $form->addTextField('notfound_article_id', $defaultId);
+	$field = &$form->addLinkmapField('notfound_article_id', $defaultId);
 	$field->setLabel($I18N->msg('website_manager_website_notfound_article_id'));
 
 	// templates
